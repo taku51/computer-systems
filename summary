@@ -40,9 +40,9 @@ Open Systems Interconnection -> is not used these days but good to learn
 OSI (7 layers):
 Application -> users provide network services (make emails written by users network processable by lower layers)
 
-Presentation -> 
+Presentation -> format information so that every device on the network can see the same messsages.
 
-Session
+Session -> 
 
 Transport
 
