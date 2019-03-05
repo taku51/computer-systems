@@ -38,9 +38,9 @@ Disadvantage -> could be delay between layers, errors, overheads
 
 Open Systems Interconnection -> is not used these days but good to learn
 OSI (7 layers):
-Application
+Application -> users provide network services (make emails written by users network processable by lower layers)
 
-Presentation
+Presentation -> 
 
 Session
 
