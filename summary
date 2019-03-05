@@ -9,5 +9,24 @@ Mobile phones, Computers... -> routers -> modems -> Internet Service Providers (
 
 Modems uses degital subscriber line (ADSL), cable (Television Company), fiber (fastest), dial-up, satellite
 
+Packet switches (routers, link-layer switches)
+
+Packets = info sent through the communication links.
+
+Control the sending and receiving of packets by running protocols (rules)
+
+LAN = local area network -> managed by users (can make its own protocols, connect raptops with cables)
+WAN = wide area network -> generally managed by companies (connecting between tokyo office and london office)
+
+Internet protocols are TCP/IP
+
+Intranet = internal networks within companies
+
+Open Systems Interconnection -> is not used these days but good to learn
+OSI has 7 layers
+
+
+
+
 
 
