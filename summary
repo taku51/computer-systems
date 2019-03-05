@@ -18,13 +18,49 @@ Control the sending and receiving of packets by running protocols (rules)
 LAN = local area network -> managed by users (can make its own protocols, connect raptops with cables)
 WAN = wide area network -> generally managed by companies (connecting between tokyo office and london office)
 
+Protocols:
+1, the format of messages
+2, orders of the messages to be communicated
+3, actions taken on the tramsmission of a message
+
+Request -> reply -> Request -> reply
+
+All activity in the Internet that involves two or more communicating remote entities is governed by a protocol.
+
 Internet protocols are TCP/IP
 
 Intranet = internal networks within companies
 
-Open Systems Interconnection -> is not used these days but good to learn
-OSI has 7 layers
+Advantage of using protocols -> structural abstraction of the entire process (decoupling by implementing layers)
 
+Disadvantage -> could be delay between layers, errors, overheads
+
+
+Open Systems Interconnection -> is not used these days but good to learn
+OSI (7 layers):
+Application
+
+Presentation
+
+Session
+
+Transport
+
+Network
+
+DataLink
+
+Physical
+
+TCP/IP Model (4 layers):
+
+Application -> http, pop, smtp, ftp, telnet, ssh
+
+Transport -> TCP, UDP
+
+Internet -> IP, ICMP, ARP
+
+Network Interface -> Not defined
 
 
 
