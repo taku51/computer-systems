@@ -40,15 +40,17 @@ Open Systems Interconnection -> is not used these days but good to learn
 OSI (7 layers):
 Application -> users provide network services (make emails written by users network processable by lower layers)
 
-Presentation -> format information so that every device on the network can see the same messsages.
+Presentation -> format information into the same form so that every device on the network can see the same messsages.
 
-Session -> 
+Session -> manages connections between applications (mail application <-> mail server)
 
-Transport
+Transport -> controls flow, order (split data to send), response check, re-send, window (size of data to be sent) -> to make sure data are sent properly
 
-Network
+Network -> rooting (find the path), send data to the selected path (IP Address -> tells wherein the network the computer is located), data structures, identify the initial address & final address  -> enables communications between different networks
 
-DataLink
+DataLink -> when to send data, detect errors and fix them, data structures, identify the initial address & final address  -> enables communications between different networks
+enable communications between closely connected (in the same local network area) network devices using MAC address (Organizationally unique identifier)
+-> can find which maker made the device with the OUI code.
 
 Physical
 
