@@ -15,6 +15,8 @@ Packets = info sent through the communication links.
 
 Control the sending and receiving of packets by running protocols (rules)
 
+-----------------------------------------------------------------------------------
+
 LAN = local area network -> managed by users (can make its own protocols, connect raptops with cables)
 WAN = wide area network -> generally managed by companies (connecting between tokyo office and london office)
 
@@ -35,6 +37,7 @@ Advantage of using protocols -> structural abstraction of the entire process (de
 
 Disadvantage -> could be delay between layers, errors, overheads
 
+-----------------------------------------------------------------------------------
 
 Open Systems Interconnection -> is not used these days but good to learn
 OSI (7 layers):
@@ -46,13 +49,35 @@ Session -> manages connections between applications (mail application <-> mail s
 
 Transport -> controls flow, order (split data to send), response check, re-send, window (size of data to be sent) -> to make sure data are sent properly
 
-Network -> rooting (find the path), send data to the selected path (IP Address -> tells wherein the network the computer is located), data structures, identify the initial address & final address  -> enables communications between different networks
+Network -> rooting (find the path), send data to the selected path (IP Address -> tells wherein the network the computer is located, uni cast add -> 1 to 1, broadcast add -> 1 to many
+one to many, multicast add -> one to a large number), data structures, identify the initial address & final address  -> enables communications between different networks
+
+(Global IP for the Internet, Private IP for private network)
 
 DataLink -> when to send data, detect errors and fix them, data structures, identify the initial address & final address  -> enables communications between different networks
-enable communications between closely connected (in the same local network area) network devices using MAC address (Organizationally unique identifier)
+-> enable communications between closely connected (in the same local network area) network devices using MAC address (Organizationally unique identifier)
 -> can find which maker made the device with the OUI code.
 
-Physical
+Physical -> convert bit numbers into signals, and vice versa (connector shapes, pin allocations, cable types, voltage level,
+voltage alternator, transmission speed, encoding scheme)
+
+-----------------------------------------------------------------------------------
+
+Each layer uses the "header" to identify which data belong to them.
+Adding the "header" to the data sent from the previous layer is called encapsulating, and taking the header off at the current
+layer is called decapsulating.
+
+Protocol Data Unit
+
+As the header is added when moving to the lower layer, data are called differently in each layer.
+
+Datalink -> frame
+Network -> Packet
+Transport -> Segment
+
+-----------------------------------------------------------------------------------
+
+
 
 TCP/IP Model (4 layers):
 
