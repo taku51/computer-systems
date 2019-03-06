@@ -90,6 +90,16 @@ Internet -> IP, ICMP, ARP
 Network Interface -> Not defined
 
 
+-----------------------------------------------------------------------------------
+
+TCP & OSI Comparison
+
+Application = Application, Presentation, Session
+Transport = Transport
+Internet = Network
+Network Interface = Data Link, Physical
+
+
 
 
 
