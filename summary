@@ -106,8 +106,15 @@ Transport = Transport
 Internet = Network
 Network Interface = Data Link, Physical
 
+Presentation layer and Session layer are not important in TCP/IP model
 
+If an application needs these two, developers can implement on their own.
+
+Top down approach so start from application and end with Physical
+
+Socket is an interface between the application and transport, sometimes referred as an API.
 
 -----------------------------------------------------------------------------------
+
 
 
