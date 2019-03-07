@@ -131,6 +131,8 @@ Requests and responses are sent over the same TCP connection
 
 80 is the default port for HTTP.
 
+-----------------------------------------------------------------------------------
+
 Non Persistent
 All done through the socket
 Step 1: Client initiates a TCP connection to the server on port 80
@@ -145,4 +147,28 @@ Step 4: Server tells TCP to close the TCP connection
    -doesn't terminate the connection until it knows for sure that the client has received the response intact.
    
 Step 5: Client receives the response, TCP terminates, message indicates that the encapsulated object is an HTML file.
+Client:
+      extracts the HTML file, examines the HTML, and finds references to the image objects.
+      
+For each object, it requires two round trip time.
 
+For each TCP connection, it causes some OS overhead because TCP buffers must be allocated and TCP bariables
+must be kept in both the client and server.
+
+Browsers often open parallel TCP connections to fetch referenced objects.
+
+-----------------------------------------------------------------------------------
+
+Persistent (the defo for HTTP):
+Server leaves connection open after sending response. The connection closes if it's not used for a certain
+time.
+
+Subsequest HTTP messages between the same client/server are sent over the open connection.
+Like a phone call.
+
+No need to wait for the replies to pending requests (pipelining)
+
+
+
+
+-----------------------------------------------------------------------------------
