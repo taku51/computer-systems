@@ -81,8 +81,9 @@ Transport -> Segment
 
 TCP/IP Model (5 layers):
 
-Application -> http (web surfing), pop, smtp (email), ftp (file transfer bet' end systems), telnet, ssh
+Application -> http (web surfing, client & server program), pop, smtp (email), ftp (file transfer bet' end systems), telnet, ssh
 -> Help exchange packets of information with the application in another end system. Packets are called messages in this layer.
+-> Format of messages.  When and how a process sends messages and responds to them.
 
 Transport -> TCP (connection oriented service, reliable) -> phone call, UDP (conncetionless service, unrealiable -> not sure where they'll be delivered) -> post office
 -> Transports application layer messages between application endpoints.
