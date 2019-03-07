@@ -117,5 +117,14 @@ Socket is an interface between the application and transport, sometimes referred
 
 -----------------------------------------------------------------------------------
 
+HTTP
 
+HTTP uses TCP as its transport protocol.
+Client first initiates a TCP onnection with the server.
+Once it's established, the browser and the server processes access TCP through their socket interfaces.
 
+Non-Persistent conncetions:
+Each request/response pair is sent over a separate TCP connection.
+
+Persistent connections:
+Requests and responses are sent over the same TCP connection
