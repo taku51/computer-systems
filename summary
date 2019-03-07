@@ -81,16 +81,21 @@ Transport -> Segment
 
 TCP/IP Model (5 layers):
 
-Application -> http, pop, smtp, ftp, telnet, ssh
+Application -> http (web surfing), pop, smtp (email), ftp (file transfer bet' end systems), telnet, ssh
+-> Help exchange packets of information with the application in another end system. Packets are called messages in this layer.
 
-Transport -> TCP (Reliable, Conncetion oriented, phone call), UDP (Unreliable, post service)
+Transport -> TCP (connection oriented service, reliable) -> phone call, UDP (conncetionless service, unrealiable -> not sure where they'll be delivered) -> post office
+-> Transports application layer messages between application endpoints.
 
-Network -> IP (all internet components use this), ICMP, ARP
+Network -> IP (The fields in the packet, and how the end systems and routers act on these fields) ->all internet components that have this layer must run this protocol. 
+, ICMP, ARP -> (Responsible for moving network layer packet from one end system to another) 
 
-Link -> Not defined
+Link -> wifi protocol, ethernet protocol -> delivers the packets called frames to the next node along the route
+Move entire frames from one network element to the next element in the route.
 
-Physical ->
-
+Physical -> move the indiviaul bbits within the frames from the network element to the next
+-> protocols are link dependent and further depend on the actual trasmission medium of the link.
+Ex, Twist-pair opper wire, single mode fiber optics
 
 -----------------------------------------------------------------------------------
 
