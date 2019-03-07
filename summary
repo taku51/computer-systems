@@ -79,15 +79,17 @@ Transport -> Segment
 
 
 
-TCP/IP Model (4 layers):
+TCP/IP Model (5 layers):
 
 Application -> http, pop, smtp, ftp, telnet, ssh
 
-Transport -> TCP, UDP
+Transport -> TCP (Reliable, Conncetion oriented, phone call), UDP (Unreliable, post service)
 
-Internet -> IP, ICMP, ARP
+Network -> IP (all internet components use this), ICMP, ARP
 
-Network Interface -> Not defined
+Link -> Not defined
+
+Physical ->
 
 
 -----------------------------------------------------------------------------------
