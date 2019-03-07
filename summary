@@ -131,6 +131,21 @@ Requests and responses are sent over the same TCP connection
 
 80 is the default port for HTTP.
 
+Request and response are written in ASCII text.
+
+GET/somedir/page.html HTTP/1.1
+
+GET is the requist line (GET -> request an object in the specified URL, POST -> used when the user fills out a form
+, HEAD -> detect whether an object can be requested successfully, PUT -> allows to upload an obj to a specific path on a specific server
+DELETE -> allows a user to delete an obj on a server)
+
+HTTP is a stateless protocol -> Maintains no info about the clients
+To identify users, uses Cookies.
+
+Cookie header in the HTTP response and request
+Cookie file on the user's end system and managed by the browser
+A backend database at the website.
+
 -----------------------------------------------------------------------------------
 
 Non Persistent
@@ -167,6 +182,8 @@ Subsequest HTTP messages between the same client/server are sent over the open c
 Like a phone call.
 
 No need to wait for the replies to pending requests (pipelining)
+
+-----------------------------------------------------------------------------------
 
 
 
