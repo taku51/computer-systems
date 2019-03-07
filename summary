@@ -45,7 +45,7 @@ Application -> users provide network services (make emails written by users netw
 
 Presentation -> format information into the same form so that every device on the network can see the same messsages.
 
-Session -> manages connections between applications (mail application <-> mail server)
+Session -> manages connections between applications (mail application <-> mail server) -> checkpointing, recovery
 
 Transport -> controls flow, order (split data to send), response check, re-send, window (size of data to be sent) -> to make sure data are sent properly
 
@@ -108,5 +108,6 @@ Network Interface = Data Link, Physical
 
 
 
+-----------------------------------------------------------------------------------
 
 
