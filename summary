@@ -92,11 +92,17 @@ Network -> IP (The fields in the packet, and how the end systems and routers act
 , ICMP, ARP -> (Responsible for moving network layer packet from one end system to another) 
 
 Link -> wifi protocol, ethernet protocol -> delivers the packets called frames to the next node along the route
-Move entire frames from one network element to the next element in the route.
+Move entire frames from one network element to the next element in the route. -> move data between devices on the same network.
+using MAC address to identify the devices.  
 
 Physical -> move the indiviaul bbits within the frames from the network element to the next
 -> protocols are link dependent and further depend on the actual trasmission medium of the link.
 Ex, Twist-pair opper wire, single mode fiber optics
+
+From application to transport, add TCP to encapsulate
+From transport to internet, add IP to encapsulate
+From Internet to network, add Ethernet to encapsulate
+
 
 -----------------------------------------------------------------------------------
 
@@ -186,6 +192,7 @@ No need to wait for the replies to pending requests (pipelining)
 -----------------------------------------------------------------------------------
 
 
-
+TTL = time to live 
+1 bit per router.  If 8 bit, then 255 routers.
 
 -----------------------------------------------------------------------------------
