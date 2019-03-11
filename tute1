@@ -1,12 +1,13 @@
 1, List two advantages and two disadvantages of having international standards for network protocols.
 
 Advantages:
-1. Many computers from all the world can connect together, because they are using the same standard.
+1. Many computers from all the world can connect together, because they are using the same standard.  Or else it would be hard for different vendors to communicate each other.
 2. Easier maintenance and installation because you get used over time and practice.
 
 Disadvantages:
 1. If problems occur, they’ll be problems on a global scale.
-2. Prevent companies and organisations from developing new technologies
+2. Prevent companies and organisations from developing new technologies (upgrades may occur slowly)
+3, Difficult to change
 
 
 2. Suppose the algorithms used to implement the operations at layer k are changed. Do the implementations of the operations at layers k − 1 and k + 1 need to change accordingly?
@@ -72,21 +73,20 @@ The type of browser is Mozilla/5.0 on Windows.  It’s needed in an HTTP request
 
 (a) A user requests a Web page that consists of some text and three images. For this page, the client will send one request message and receive four response messages. 
 
-False.  There are four connections since each connection transports exactly one request message and one response message. So, each object will have its one request message instead of there being only one request message.
+False.  There are four connections since each connection transports exactly one request message and one response message. So, each object will have its one request message, and the total is 4 request messages and 4 response messages.
 
 (b) Two distinct Web pages (for example, http://cis.unimelb.edu.au/research/ and http://cis.unimelb.edu.au/people) can be sent over the same persistent connection. 
 
 True. It is because both of these web pages are on the same physical server (cis.unimelb.edu.au).
 
-(c) With nonpersistent connections between browser and origin server, it is possible for a single TCP connection to carry two distinct HTTP request messages.
+(c) With non-persistent connections between browser and origin server, it is possible for a single TCP connection to carry two distinct HTTP request messages.
 
-False. In a nonpersistent connection, the connection closes after each connection. In this case, the connection will close once the first message is received, and there will be a new connection opened to send the second message. 
+False. Non-persistent connections close after each connection. In this case, the connection will close once the first message is received, and there will be a new connection opened to send the second message. 
 
 (d) The Date: header in the HTTP response message indicates when the object in the response was last modified.
 
-False. The “Date:” is the time at which the request was created and not when the object was last modified.
+False. The Date is the time at which the request was created and not when the object was last modified.
 
 (e) HTTP response messages never have an empty message body
 
 False. Some HTTP response messages have an empty message body. For example, HTTP Status-Code of 204 and 304 MUST NOT include a message body. (RFC 2616)
-
