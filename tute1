@@ -129,4 +129,7 @@ Transport
 Network
 Link
 
+TCP:
+Persistent (pipeline, streamline) -> open for the whole communication
 
+Non-Persistent -> close 
