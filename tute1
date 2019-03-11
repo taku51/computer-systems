@@ -11,3 +11,6 @@ Disadvantages:
 
 2. Suppose the algorithms used to implement the operations at layer k are changed. Do the implementations of the operations at layers k − 1 and k + 1 need to change accordingly?
 
+This has no impact on the operations at layers k-1 or k+1.  Using layered protocols leads to breaking up the design problem into smaller, more manageable pieces, 
+and layering means that protocols can be changed without affecting higher or lower ones. One possible disadvantage is the performance of a layered system is likely to be worse than the performance of a monolithic system, 
+although it is extremely difficult to implement and manage a monolithic system.
