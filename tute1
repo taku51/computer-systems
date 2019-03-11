@@ -11,6 +11,25 @@ Disadvantages:
 
 2. Suppose the algorithms used to implement the operations at layer k are changed. Do the implementations of the operations at layers k − 1 and k + 1 need to change accordingly?
 
-This has no impact on the operations at layers k-1 or k+1.  Using layered protocols leads to breaking up the design problem into smaller, more manageable pieces, 
-and layering means that protocols can be changed without affecting higher or lower ones. One possible disadvantage is the performance of a layered system is likely to be worse than the performance of a monolithic system, 
-although it is extremely difficult to implement and manage a monolithic system.
+This has no impact on the operations at layers k-1 or k+1, because the way it implements the operations changes but the operations themselves remain the same.
+
+3. Suppose there is a change in the service (set of operations) provided by layer k. How does this impact services at layers k − 1 and k + 1?
+
+There is no impact at layer k-1, as it’s already implemented and they don’t change.  But operations in k+1 have to be reimplemented.
+
+4. Suppose that an application generate a message of length M bytes and there are n lower layers each of which adds a h-byte header. What fraction of the network bandwidth is filled with headers?
+
+*Bandwidth -> maximum data transfer rate of a network.  E.g. 1000Mbps (125 megabytes per second)
+
+N layers protocol hierarchy and h bytes of data are added at each layer.
+The total number of header bytes is n * h; therefore the space used on headers is n * h.
+
+Message bytes is M.
+
+So the total size is M + nh.
+
+Divide the total number of header bytes by total size to calculate the fraction of bandwidth filled with headers.
+
+(n * h) / (M + (n*h))
+
+
