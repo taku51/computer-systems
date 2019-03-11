@@ -196,3 +196,12 @@ TTL = time to live
 1 bit per router.  If 8 bit, then 255 routers.
 
 -----------------------------------------------------------------------------------
+
+Network Topology:
+
+Bus: all nodes (computers) connected via one cable
+Star: nodes connected via a router -> Ethernet
+Ring: Nodes connected with their neighbours
+Mesh: mainly used for the connections of network devices.  The devices within the network are connected diagonally, vertically, and horizontally.
+
+Data that can be fit into one frame is 1500 bytes at maximum.
