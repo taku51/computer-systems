@@ -35,8 +35,8 @@ Divide the total number of header bytes by total size to calculate the fraction 
 (n * h) / (M + (n*h))
 
 5. List five nonproprietary Internet applications and the application-layer protocols that they use
-The web : HTTP
-Remote Login : Telnet
+The web : HTTP (80) HTTPS (443)
+Remote Login : SSH
 Network News : NNTP
 E-mail : SMTP
 File transfer : FTP
@@ -94,3 +94,21 @@ False. Some HTTP response messages have an empty message body. For example, HTTP
 
 
 ----------------------------------------------------------------------------------
+
+OSI
+Application
+Presentation
+Session
+Transport
+Network
+DataLink
+Physical
+
+
+TCP/IP
+Application
+Transport
+Network
+Link
+
+
