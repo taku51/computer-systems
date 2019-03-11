@@ -34,12 +34,13 @@ Divide the total number of header bytes by total size to calculate the fraction 
 
 (n * h) / (M + (n*h))
 
-5. List five nonproprietary Internet applications and the application-layer protocols that they use
+5. List five nonproprietary (anybody can use) Internet applications and the application-layer protocols that they use
 The web : HTTP (80) HTTPS (443)
 Remote Login : SSH
 Network News : NNTP
 E-mail : SMTP
 File transfer : FTP
+Streaming Media : RTP
 
 6. Consider an e-commerce site that wants to keep a purchase record for each of its customers. Describe how this can be done with cookies.
 
@@ -96,13 +97,28 @@ False. Some HTTP response messages have an empty message body. For example, HTTP
 ----------------------------------------------------------------------------------
 
 OSI
-Application
-Presentation
-Session
-Transport
-Network
-DataLink
-Physical
+Application -> users filling forms
+
+Presentation -> change into the common format
+
+Session -> manages connections between servers
+
+Transport -> controls flow, order (split data to send), response check, re-send, window (size of data to be sent) -> to make sure data are sent properly
+
+Network -> rooting (find the path), send data to the selected path (IP Address -> tells wherein the network the computer is located, uni cast add -> 1 to 1, broadcast add -> 1 to many
+one to many, multicast add -> one to a large number), data structures, identify the initial address & final address  -> enables communications between different networks
+
+DataLink -> when to send data, detect errors and fix them, data structures, identify the initial address & final address  -> enables communications between different networks
+-> enable communications between closely connected (in the same local network area) network devices using MAC address (Organizationally unique identifier)
+-> can find which maker made the device with the OUI code.
+
+Difference between datalink and network:
+
+
+Physical -> convert bit numbers into signals, and vice versa (connector shapes, pin allocations, cable types, voltage level,
+voltage alternator, transmission speed, encoding scheme) -> move the indiviaul bbits within the frames from the network element to the next
+-> protocols are link dependent and further depend on the actual trasmission medium of the link.
+Ex, Twist-pair opper wire, single mode fiber optics
 
 
 TCP/IP
