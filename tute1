@@ -52,7 +52,7 @@ GET /people/index.html HTTP/1.1
 Host: cis.unimelb.edu.au 
 Connection: keep-alive 
 Cache-Control: max-age=0 Upgrade-Insecure-Requests: 1 
-User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) 
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64)
 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36 
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9, image/webp,image/apng,*/*;q=0.8 Accept-Encoding: gzip, deflate Accept-Language: en-US,en;q=0.9
 
@@ -69,7 +69,10 @@ Requests a persistent connection as shown “Connection:keep-alive”
 The IP address of the host on which the browser is running is cis.unimelb.edu.au
 
 (e) What type of browser initiates this message? Why is the browser type needed in an HTTP request message?
-The type of browser is Mozilla/5.0 on Windows.  It’s needed in an HTTP request because different browsers may handle the same webpage differently, due to having different capabilities.
+Searching a combination of these strings let us find the type of browser "User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64)
+AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36".
+
+Having user-agent as Mozilla doens't mean it's firefox.  
 
 8. True or false? 
 
