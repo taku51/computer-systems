@@ -224,7 +224,9 @@ Layer 2 Switch -> same as bridge but it can be connected to multiple hosts.
 
 It also finds to which port to send the frames.
 
+Routers -> find optimal paths to transfer packets, gateways, connect different protocols.
 
+Layer 3 Switch -> has the functionalities of both a layer 2 switch and router.  But it cannot convert protocols unlike routers.
 
 
 
