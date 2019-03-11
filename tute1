@@ -113,6 +113,8 @@ DataLink -> when to send data, detect errors and fix them, data structures, iden
 -> can find which maker made the device with the OUI code.
 
 Difference between datalink and network:
+Network layer is used to connect between networks, whereas datalink layer is used to connect between computers 
+within the same network, thereby requiring MAC address.
 
 
 Physical -> convert bit numbers into signals, and vice versa (connector shapes, pin allocations, cable types, voltage level,
