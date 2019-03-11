@@ -205,3 +205,26 @@ Ring: Nodes connected with their neighbours
 Mesh: mainly used for the connections of network devices.  The devices within the network are connected diagonally, vertically, and horizontally.
 
 Data that can be fit into one frame is 1500 bytes at maximum.
+
+-----------------------------------------------------------------------------------
+
+Repeaters and hubs work as the intermediary between nodes, alternating bits & signals
+
+Repeater -> can only connect two cables (sending signals from one node to another)
+Repeater Hub -> Multiple cables can be connected, however, it's structually inefficient in the way that data are 
+sent to all connected devices, regardless of the needs.
+
+The Collisions of electric signals slow down the network speed.
+
+-----------------------------------------------------------------------------------
+
+Bridge -> identify MAC address from frames and transfer data to the hosts
+
+Layer 2 Switch -> same as bridge but it can be connected to multiple hosts.
+
+It also finds to which port to send the frames.
+
+
+
+
+
