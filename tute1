@@ -32,4 +32,61 @@ Divide the total number of header bytes by total size to calculate the fraction 
 
 (n * h) / (M + (n*h))
 
+5. List five nonproprietary Internet applications and the application-layer protocols that they use
+The web : HTTP
+Remote Login : Telnet
+Network News : NNTP
+E-mail : SMTP
+File transfer : FTP
+
+6. Consider an e-commerce site that wants to keep a purchase record for each of its customers. Describe how this can be done with cookies.
+
+With both HTTP authentication and cookies, the site must keep a database record for the user.  With the former, the user first registers with the site, and then he/she provides a username and password for each subsequent visit, allowing the site to identify the user and update the user’s record.  With cookies, the user does not explicitly provide a username and password, but browser identifies the user by sending the user’s cookie number each time he/she accesses the site.
+
+7. Consider the following string of ASCII characters that were captured by Wireshark when the browser sent an HTTP GET message (i.e., this is the actual content of an HTTP GET message). The characters hcrihlfi are carriage return and line-feed characters Answer the following questions, indicating where in the HTTP GET message below you find the answer.
+
+GET /people/index.html HTTP/1.1 
+Host: cis.unimelb.edu.au 
+Connection: keep-alive 
+Cache-Control: max-age=0 Upgrade-Insecure-Requests: 1 
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) 
+AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36 
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9, image/webp,image/apng,*/*;q=0.8 Accept-Encoding: gzip, deflate Accept-Language: en-US,en;q=0.9
+
+(a) What is the URL of the document requested by the browser?
+The URL of the document is people/index.html.
+
+(b) What version of HTTP is the browser running? 
+The browser is running version 1.1 of HTTP.
+
+(c) Does the browser request a non-persistent or a persistent connection? 
+Requests a persistent connection as shown “Connection:keep-alive”
+
+(d) What is the IP address of the host on which the browser is running? 
+The IP address of the host on which the browser is running is cis.unimelb.edu.au
+
+(e) What type of browser initiates this message? Why is the browser type needed in an HTTP request message?
+The type of browser is Mozilla/5.0 on Windows.  It’s needed in an HTTP request because different browsers may handle the same webpage differently, due to having different capabilities.
+
+8. True or false? 
+
+(a) A user requests a Web page that consists of some text and three images. For this page, the client will send one request message and receive four response messages. 
+
+False.  There are four connections since each connection transports exactly one request message and one response message. So, each object will have its one request message instead of there being only one request message.
+
+(b) Two distinct Web pages (for example, http://cis.unimelb.edu.au/research/ and http://cis.unimelb.edu.au/people) can be sent over the same persistent connection. 
+
+True. It is because both of these web pages are on the same physical server (cis.unimelb.edu.au).
+
+(c) With nonpersistent connections between browser and origin server, it is possible for a single TCP connection to carry two distinct HTTP request messages.
+
+False. In a nonpersistent connection, the connection closes after each connection. In this case, the connection will close once the first message is received, and there will be a new connection opened to send the second message. 
+
+(d) The Date: header in the HTTP response message indicates when the object in the response was last modified.
+
+False. The “Date:” is the time at which the request was created and not when the object was last modified.
+
+(e) HTTP response messages never have an empty message body
+
+False. Some HTTP response messages have an empty message body. For example, HTTP Status-Code of 204 and 304 MUST NOT include a message body. (RFC 2616)
 
