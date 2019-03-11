@@ -1,0 +1,13 @@
+1, List two advantages and two disadvantages of having international standards for network protocols.
+
+Advantages:
+1. Many computers from all the world can connect together, because they are using the same standard.
+2. Easier maintenance and installation because you get used over time and practice.
+
+Disadvantages:
+1. If problems occur, they’ll be problems on a global scale.
+2. Prevent companies and organisations from developing new technologies
+
+
+2. Suppose the algorithms used to implement the operations at layer k are changed. Do the implementations of the operations at layers k − 1 and k + 1 need to change accordingly?
+
