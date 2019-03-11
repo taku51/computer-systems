@@ -1,3 +1,4 @@
+
 1, List two advantages and two disadvantages of having international standards for network protocols.
 
 Advantages:
@@ -90,3 +91,6 @@ False. The Date is the time at which the request was created and not when the ob
 (e) HTTP response messages never have an empty message body
 
 False. Some HTTP response messages have an empty message body. For example, HTTP Status-Code of 204 and 304 MUST NOT include a message body. (RFC 2616)
+
+
+----------------------------------------------------------------------------------
