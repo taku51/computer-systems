@@ -235,9 +235,25 @@ Week 2
 
 TCP/IP Model
 
-Application <- end to end -> Application
-Transport <- end to end -> Transport
-Network <- end to end & Point to Point ->  Network
-Link <- point to point -> Link
-Physical <- point to point -> Physical
+Application <- end to end (not aware of other layers (e.g cables)) -> Application
+Transport <- end to end (http request so no need to know the functionality of other layers) -> Transport
+Network <- end to end (Only consideres initial and final IP addresses) & Point to Point (but rooting is point to point because need to look at multiple nodes) ->  Network
+Link <- point to point (dependent, e.g. depends on whether it's ethernet or wifi) -> Link
+Physical <- point to point (depends on the transmission medium as well) -> Physical
 
+Persistent:
+Sequential = Request -> Response -> Request -> Response
+
+Pipelined (Default in HTTP) = doesn't need to wait for the request
+
+-----------------------------------------------------------------------------------
+
+FTP Protocol
+
+is implemented by both the client and server
+
+essentially clients accessing folders in remote servers
+
+uses two parallel TCP connections to transfer a file:
+Control connection -> sending control info betw' the two hosts (client and server)
+-> user info, password, commands to change remote directory
