@@ -231,3 +231,13 @@ Layer 3 Switch -> has the functionalities of both a layer 2 switch and router.  
 
 -----------------------------------------------------------------------------------
 
+Week 2
+
+TCP/IP Model
+
+Application <- end to end -> Application
+Transport <- end to end -> Transport
+Network <- end to end & Point to Point ->  Network
+Link <- point to point -> Link
+Physical <- point to point -> Physical
+
