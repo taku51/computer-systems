@@ -278,9 +278,35 @@ in 7-bit ASCII format.
 
 each command consts of four uppercase ASCII characters.
 
+Replies are three digit number.
+
+331 : username okay
+
+-----------------------------------------------------------------------------------
+
+Emal in the Internet
+Three major components
+   - User agents
+   - Mail servers
+   - Simple Mail Transfer (SMTP)
+   
+SMTP is at the heart of Internel email; it transfers messages from the senders' mail srvers to the reciouents' mail servers
+
+older than HTTP
+
+e.g.
+Alice composes a message with Bob's email address
+-> Alice'user agent sends the message to her mail server
+-> The client side of SMTP on Alice's mail server opens a direct persistent TCP connection to an SMTP server at port 25 on 
+Bob's mail server
+-> The client sends Alice's message over the TCP connection
+-> SMTP receives the message and places it in Bob's mailbox.
+
 -----------------------------------------------------------------------------------
 
 
 
 -----------------------------------------------------------------------------------
 
+
+-----------------------------------------------------------------------------------
