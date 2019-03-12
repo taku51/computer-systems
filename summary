@@ -304,6 +304,29 @@ Bob's mail server
 
 -----------------------------------------------------------------------------------
 
+Comparison Between SMTP and HTTP
+Similar Points:
+Both of SMTP and HTTP are used to transfer files from one host to another.
+
+HTTP transfers files (objects) from a Web server to a Web client (browser)
+SMTP transfers files (email messages) from one mail server to another mail server
+
+Both persistent HTTP and SMTP use persistent TCP connections to transfer files.
+
+
+Difference between SMTP and HTTP
+Diff 1
+1, HTTP is mainly a pull protocol
+- someone loads info on a Web server and users use HTTP to pull the info from the server.
+- The TCP connection is initiated by the machine that wants to receive the file.
+
+2, SMTP is primarily a push protocol
+- The sender mail server pushes the file to the recipient mail server.
+- The TCP connection is initiated by the machine that wants to send the file.
+
+Diff 2
+1, SMTP requires each message, including the body of each message to be in 7-bit ASCII format.
+- If the message contains non 7-bit ASCII or binary data, then the message has to be encoded into 7-bit ASCII.
 
 
 
@@ -311,3 +334,7 @@ Bob's mail server
 
 
 -----------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------
+
