@@ -254,6 +254,21 @@ is implemented by both the client and server
 
 essentially clients accessing folders in remote servers
 
-uses two parallel TCP connections to transfer a file:
+Uses two parallel TCP connections to transfer a file:
+
 Control connection -> sending control info betw' the two hosts (client and server)
 -> user info, password, commands to change remote directory
+
+Data connection -> used to send files
+
+-----------------------------------------------------------------------------------
+
+Client initiates a control connection on port 21
+   - Client sends the user identifi', password, as well as commands over this control connection during the entire FTP session.
+   
+When the server side receives a command for a file transfer, it initiates a TCP data connection at port 20
+
+FTP sends exactly one file over the data connection after which the data connection will be cloed.
+(Non-Persistent)
+
+-----------------------------------------------------------------------------------
