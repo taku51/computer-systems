@@ -271,4 +271,16 @@ When the server side receives a command for a file transfer, it initiates a TCP 
 FTP sends exactly one file over the data connection after which the data connection will be cloed.
 (Non-Persistent)
 
+Commands -> from client to server
+Replies -> from server to client
+
+in 7-bit ASCII format.
+
+each command consts of four uppercase ASCII characters.
+
 -----------------------------------------------------------------------------------
+
+
+
+-----------------------------------------------------------------------------------
+
