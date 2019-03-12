@@ -328,10 +328,56 @@ Diff 2
 1, SMTP requires each message, including the body of each message to be in 7-bit ASCII format.
 - If the message contains non 7-bit ASCII or binary data, then the message has to be encoded into 7-bit ASCII.
 
+2, HTTP data does not impose this restriction
 
+Diff 3
+1, HTTP encapsulates each object in its own HTTP response message. 
+2, SMTP places all of the message's objects into one message.
+
+(puts all vs each)
 
 -----------------------------------------------------------------------------------
 
+To obtain messages from the mail server, need to use mail access protocols
+- Post Office Protocol - Version 3 (POP3)
+- Internet Mail Access Protocol (IMAP)
+- HTTP
+
+Domain Name System (DNS)
+A host can be identified in two ways:
+- By a hostname:
+   - www.google.com.au
+   - mnemonic for human being
+   - difficult to process for routers
+   
+- By an IP address:
+   - 121.7.106.83
+   - fixed-length: four bytes, 0-255 in each field
+   - has a rigid hierarchical structure
+   
+For a client connecting to a server, the client has to know the IP address of the server
+rather than just the server's hostname.
+
+DNS is the application-layer protocol to translate user-supplied hostnames to IP addresses.
+- The DNS adds an additional delay - sometimes substantial - to the internet applications that use it.
+
+Sent within UDP to port 53 
+
+Why not DNS but UDP?
+- Need to handle a large number of requests
+- use UDP to minimise system overheads
+
+host aliasing
+- host can have one or more alias names.
+- relay1.west-coast.enterprise.com -> two aliases
+- enterprise.com and www.enterprise.com
+
+Mail server aliasing
+- the hostname of the mail server is more complicated than what we seem to have.
+- bob@hotmail.com vs bob@relay1.west-coast.hotmail.com
+
+Load Distribution
+- Perform load distribution among replicated servers.
 
 -----------------------------------------------------------------------------------
 
