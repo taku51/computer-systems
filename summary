@@ -381,6 +381,15 @@ Load Distribution
 
 -----------------------------------------------------------------------------------
 
+Maintain a single DNS server that contains all the hostname-IP mappings.
+The cleints direct all queries o the single DNS server, and the DNS server responds diretly to the querying clients
+
+In the centralised design, 
+   - single point of failure
+   - traffic volume
+   - distant centralised database
+   - maintenance
+
 
 -----------------------------------------------------------------------------------
 
