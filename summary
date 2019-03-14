@@ -387,8 +387,59 @@ The cleints direct all queries o the single DNS server, and the DNS server respo
 In the centralised design, 
    - single point of failure
    - traffic volume
-   - distant centralised database
+   - distant centralised database (too far)
    - maintenance
+
+Cannot maintain with a single server.
+
+So it's distributed, hierarchcal database of mappings.
+
+Hierarchically distributed around the world
+
+Root DNS servers: only 13 root DNS servers in the world.
+Network of replicated servers.
+
+Hundle different domains.
+
+Althoritative DNS servers:
+   -Every organisation with publicly accessible hosts on the internet must provide publicly
+   accessible  DNS records that map the names of those hosts to IP addresses.
+   - An org's authoritative DNS server houses DNS records.
+   
+  Local DNS servers:
+  -> doesn't belong to the hierarchy
+  -> uni, company, residential ISP, default name server
+  -> the local server sends queries to the hierarchy.
+
+-----------------------------------------------------------------------------------
+
+Version Control Systems -> records changes to a file over time so that can recall specific versions later.
+
+Centralised VCS:
+A single server contains all the versioned files.
+   - CVS
+   - SVN
+   - Perforce
+   
+Distributed VCS
+Each user has the entire history
+   -Git
+   -Bazaar
+   -Mercurial
+   
+Any user can use their data to recover the server even when the server is down.
+
+Git vs other VCS
+   - others use delta-based version
+   - Git uses a series of snapshots (do not need to reverse to get previous versions)
+
+Uses checksums
+   - hash code to keep track of files in Git.
+   
+
+
+-----------------------------------------------------------------------------------
+
 
 
 -----------------------------------------------------------------------------------
