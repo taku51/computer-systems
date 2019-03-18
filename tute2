@@ -4,10 +4,24 @@
 between the client and the server? What are these connections? What
 are they used for? What are the connection types of them?
 
+2 connections.
+One is control connection, which is used to control information between the two hosts (client and server), such
+as user info, password, commands to change remote directory.  The other is data connection, which is used to send files.
 
 2. Describe the commonalities and differences between STMP and (persistent) HTTP.
 
+The commonalities are file transfer and persistent connection.
+Both protocols are used to transfer files from one host to another.  HTTP is for web file transfer; STMP is for email
+messages.
 
+The differences are pull vs push, and message encoding.
+SMTP is a push protocol.  The sending mail server pushes the file to the receiving mail server.
+HTTP is a pull protocol.  Users use HTTP to pull information from the server at their convenience.
+
+SMTP also requires each message to be in 7-bit ASCII format.
+
+Another difference is how they hundle multiple documents.  SMTP places all of the message's objects into a message, but
+HTTP encapusulates each object in its own HTTP response message.
 
 3. Suppose that John just set up an auto-forwarding mechanism on his work
 email address, which receives all of his business-related emails, to forward
