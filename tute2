@@ -38,9 +38,9 @@ account. Because John forwarded his email, he did not set up a vacation
 daemon on his work machine. What happens when an email is received
 at John’s work email address?
 
-Will send back the vacation email to John's work email address, and thus gets in an infinite loop..
-However, the vacation agent stores a file to keep track of emails previously the server receiverd
-so it cancels once it gets in a loop.
+Will send back the vacation email to John's work email address, and thus gets in an infinite loop.
+However, the vacation agent stores a file to keep track of emails that the server previously have received.
+This cancels the loop.
 
 4. Consider a situation in which a cyberterrorist makes all the DNS servers
 in the world crash simultaneously. How does this change one’s ability to
@@ -74,21 +74,31 @@ its mail server. An MX resource record type contains the host name of the mail s
 6. DNS uses UDP instead of TCP. If a DNS packet is lost, there is no automatic recovery. Does this cause a problem, and if so, how is it solved?
 There's no way to check 
 
-UDP sends a request and if it doesn't get a successful notification within a given period of time.
-It knows whether it's not successfully sent.
+Browser uses UDP to send a request and if it doesn't get a successful notification within a particular period of time.
+It notifies back that it's not successfully sent.
 -> handled by DNS client
+
+DNS uses UDP because TCP is such a complex protocol and there's too much overhead.
+UDP better handles a large number of packets
 
 7. Suppose you can access the caches in the local DNS servers of your department. Can you propose a way to roughly determine the Web servers
 (outside your department) that are most popular among the users in your
 department? Explain
 
 DNS caches expire in a given period of time.
-Can take snapshots (a piece of info to understand the situation) in particular time.
+-> can take snapshots of the DNS caches in those local DNS servers (a piece of info to understand the situation) periodically.
+
+THe webserver tha appears most frequently in those caches is the most popular server.  If more users are interested in a web server, 
+then DNS requests for that server are more frequently sent by users.  Thus that web server will appear in the DNS caches more frequently.
 
 
-
-
-
+Bonus:
+Suppose Alice and Bob are communicating over an SSL session. Suppose an attacker, who
+does not have any of the shared keys, inserts a bogus TCP segment into a packet stream
+with correct TCP checksum and sequence numbers (and correct IP addresses and port
+numbers). Will SSL at the receiving side accept the bogus packet and pass the payload to
+the receiving application? Why or why not?
+ No, the bogus packet will fail the integrity check (which uses a shared MAC key).
 
 
 
