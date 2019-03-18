@@ -68,14 +68,15 @@ its mail server. An MX resource record type contains the host name of the mail s
 *DNS : hostname -> ip-address
 *MX means the mail server
 *Can have the same IP addresses and alias name
-*DNS server distinguish by looking at .
+*DNS server distinguish by looking at the type (MX, a, ...)
+*Browser sends a request to the DNS server, and gives back.
 
 6. DNS uses UDP instead of TCP. If a DNS packet is lost, there is no automatic recovery. Does this cause a problem, and if so, how is it solved?
 There's no way to check 
 
 UDP sends a request and if it doesn't get a successful notification within a given period of time.
 It knows whether it's not successfully sent.
--> handled by DNS
+-> handled by DNS client
 
 7. Suppose you can access the caches in the local DNS servers of your department. Can you propose a way to roughly determine the Web servers
 (outside your department) that are most popular among the users in your
