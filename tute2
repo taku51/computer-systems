@@ -38,21 +38,55 @@ account. Because John forwarded his email, he did not set up a vacation
 daemon on his work machine. What happens when an email is received
 at John’s work email address?
 
-Will send back the vacation email to John's work email address.
+Will send back the vacation email to John's work email address, and thus gets in an infinite loop..
+However, the vacation agent stores a file to keep track of emails previously the server receiverd
+so it cancels once it gets in a loop.
 
 4. Consider a situation in which a cyberterrorist makes all the DNS servers
 in the world crash simultaneously. How does this change one’s ability to
 use the Internet?
 
-DNS servers start stemming from their roots, so it depends on which servers in the hierarchy to get crashed.
+The DNS servers provide a mapping between domain names and IP addresses, such that when a request for a Web page is received, 
+The browser can look up in the DNS server the IP address corresponding to the domain name of the requested page, 
+and then download the requested page from that IP address. 
+
+If all the DNS servers in the world were to crash at the same time, 
+one would not be able to map between domain names and IP addresses. 
+Therefore, the only way to access Web pages would be by using the IP address of the host server instead of the domain name. 
+Since most of us do not know the IP ad- dresses of the servers we access, this type of situation would make use of the Internet extremely inefﬁcient, 
+if not virtually impossible for most users.
+
+*DNS servers enable mappings between domain names and IP addresses.
 
 5. Is it possible for an organization’s Web server and mail server to have
 exactly the same alias for a hostname (for example, foo.com)? How does
 a DNS server distinguish these two types of mapping, namely, hostnameweb server IP and hostname-mail server IP?
 
+Yes, an organization can have the same alias (alternative name to understand) name for both its Web server and
+its mail server. An MX resource record type contains the host name of the mail server. 
 
+*DNS : hostname -> ip-address
+*MX means the mail server
+*Can have the same IP addresses and alias name
+*DNS server distinguish by looking at .
 
 6. DNS uses UDP instead of TCP. If a DNS packet is lost, there is no automatic recovery. Does this cause a problem, and if so, how is it solved?
+There's no way to check 
+
+UDP sends a request and if it doesn't get a successful notification within a given period of time.
+It knows whether it's not successfully sent.
+-> handled by DNS
+
+7. Suppose you can access the caches in the local DNS servers of your department. Can you propose a way to roughly determine the Web servers
+(outside your department) that are most popular among the users in your
+department? Explain
+
+DNS caches expire in a given period of time.
+Can take snapshots (a piece of info to understand the situation) in particular time.
+
+
+
+
 
 
 
