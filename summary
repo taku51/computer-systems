@@ -458,11 +458,91 @@ Web browser -> facebook server
 
 Transport layer (browser) -> through socket -> transport layer (server)
 
+Transport layer -> logical communication between application processes running on different
+hosts.
+
+Packet is called segment.
+
+Transport layer passes the segment to network layer (browser): datagram
+
+and network layer communicates the server side of network layer
+
+Subtle but important distinction
+- Transport layer protocol provides logical communication between processes running on different hosts.
+- Network layer protocol provides logical communication between hosts
+
+E.g
+House in Melb, House in Syd
+Each with 3 children
+
+Managed by two mothers
+
+Ann and Annie
+letter with a separate envelope every week each child
+
+House A <-> Ann <-> postal service <-> Annie <-> House B
+
+Application messages: letters in envelopes
+Processes = Children
+Hosts (end system) = Houses
+Transport Layer protocol = Ann and Annie (only do the job within their houses)
+Network layer protocol = postal service (including mail carriers)
 
 -----------------------------------------------------------------------------------
 
+Internet's network layer provides a protocol called Internet Protocol (IP)
+
+IP provides logical communication between hosts.
+IP is an unreliable service
+   - Doesn't guarantee segment delivery.
+   - .. orderly delivery of segments.
+   - .. integrity of the data in the segment
+   
+Each host has a unique IP address.
+
+Transport layer -> process to process, while IP only provides a host-to-host delivery service.
+
+-> to extend the host to host, to, process to process, need multiplexing and demultiplexing
+
+Transport layer in the receiving host does not actually deliver data directly to a process
+but instead to an intermediary socket.
+
+Sockets are the doors for application processes to receive and send data (messages)
+
+Each socket has a unique identifier.
+The format of the identifier depends on what transport layer protocol is used. (UDP or TCP)
+
+Each transport layer segment has a set of fields identifying the sockets
+
+Demultiplexing: at the receiving end, the transport layer examines the fields in the segment to 
+identify the receiving socket and then directs the segment to that socket
+
+Multiplexing: Gather data chunks at the soure host from different sockets
+Encapsulate each data chunk with header info (will be used in demultiplexing later) to 
+create segments.
+
+Pass the segments to the network layer
+
+-----------------------------------------------------------------------------------
+
+User Datagram Protocol (UDP)
+UDP:
+   It is no frills and bare-bone
+   It does as little as transport layer can do:
+       multiplexing and demultiplexing
+         - In UDP, sockets are identified by port numbers.
+         - Some light error checking.
+         
+Except for the above two jobs, it adds nothing to IP.
+UDP is connectionless and unreliable:
+      -no guarantees on delivery, order, and integrity, inheriting from IP
+
+browser (msg) -> socket -> transport layer (small chunks) -> UDP segments network layer
+-> logical communication -> network layer -> same process then transport layer -> socket -> facebook server.
 
 
+
+-----------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------
