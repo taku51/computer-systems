@@ -436,9 +436,26 @@ Git vs other VCS
 Uses checksums
    - hash code to keep track of files in Git.
    
+   
+DNS:
+DNS roots -> top level domains -> authoritative
+Send requests to the local ones then roots
+
+Git:
+Working directory: load one of the versions from the repository
+Staging area: add changes, stage files, snapshot, commit changes to the database
+
+Branching
 
 
 -----------------------------------------------------------------------------------
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
 
 
 
