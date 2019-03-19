@@ -540,6 +540,34 @@ UDP is connectionless and unreliable:
 browser (msg) -> socket -> transport layer (small chunks) -> UDP segments network layer
 -> logical communication -> network layer -> same process then transport layer -> socket -> facebook server.
 
+Why still need UDP?
+
+Finer applicayion-level control over what data is sent and when
+   data is sent immediately; no congestion control.
+   real-time applications often:
+      requires a minimum sending rate
+      do not want to overly delay segment transmission
+      can tolerate some data loss
+      
+No connection establishment
+   Why DNS runs over UDP rather than TCP
+   
+No connection state
+   Low system overhead
+   
+Small packet header
+
+Checksum
+-> error detection
+determine whether bits within the UDP segment have been altered
+
+Compute the sum of all the 16bit words in the segment with any overflow encountered during the sum being wrapped around
+
+Compute the 1s complement of the sum
+   - converting all the 0s and 1s
+   
+Can only detect 1 bit errors
+If the sum don't get all 1s, it's an error.
 
 
 -----------------------------------------------------------------------------------
