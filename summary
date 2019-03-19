@@ -445,12 +445,18 @@ Git:
 Working directory: load one of the versions from the repository
 Staging area: add changes, stage files, snapshot, commit changes to the database
 
-Branching
-
+Branching:
+Enable development of different parts
+Max 1000 branches
 
 -----------------------------------------------------------------------------------
 
+Application-Layer Services
 
+image in the application-layer: encapsulated header and image
+Web browser -> facebook server
+
+Transport layer (browser) -> through socket -> transport layer (server)
 
 
 -----------------------------------------------------------------------------------
