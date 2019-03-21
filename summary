@@ -515,11 +515,11 @@ The format of the identifier depends on what transport layer protocol is used. (
 Each transport layer segment has a set of fields identifying the sockets
 
 Demultiplexing: at the receiving end, the transport layer examines the fields in the segment to 
-identify the receiving socket and then directs the segment to that socket
+identify the receiving socket and then directs the segment to that socket -> segment to the socket
 
 Multiplexing: Gather data chunks at the soure host from different sockets
 Encapsulate each data chunk with header info (will be used in demultiplexing later) to 
-create segments.
+create segments.  -> Process data chunks and match them with header info
 
 Pass the segments to the network layer
 
@@ -569,8 +569,121 @@ Compute the 1s complement of the sum
 Can only detect 1 bit errors
 If the sum don't get all 1s, it's an error.
 
+-----------------------------------------------------------------------------------
+
+User Datagram Protocol (UDP)
+UDP:
+Socket is the one between web browser and transport layer.
+To break down messages into small chunks
+Cutting into small chunks depends but in UDP, it's done by the application layer
+
+Between the facebook server and transport layer as well.
+
+UDP protocol preferes a small message.
 
 -----------------------------------------------------------------------------------
+
+IP is unreliable no integrity, order, segment delivery
+
+How to implement reliable and unreliable transfer
+-> Sometimes need to implement reliable transfer at the application as well as the link layer.
+
+Use the Packet to indicate the data (including the header) unit sent at the target layer between the two sides,
+
+rather than the transport-layer "segment".
+
+We first consider the simplest case, where the underlying channel is
+completely reliable.
+
+reliable data transfer protocol -> rdt_send() -> reliable channel -> rdt_receive() -> reliable protocol
+-> deliver data.
+
+How to design the sender and receiver
+
+Version 1.0
+Assumed the channel is completely reliable
+
+Sender:
+Wait for call from above then gets in a loop
+rdt_send(data)
+packet = make_packet(data)
+udt_send(packet)
+
+Receiver:
+Wait for call from below
+rdt_rcv(packet)
+extract(packet, data)
+deliver_data(data)
+
+Over channel with Bit Errors: RDT 2.0
+
+Bits in a packet may be corrupted.
+
+All the transmitted packets are received ordely in which they were sent (meeting two of the requirements)
+
+Bit errors can occur in the physical components of a network as a packet is transmitted.
+
+You:
+Sentence 1
+
+Note Taker:
+OK (Positive acknowledgement)
+
+You:
+Sentence 2 (garbled)
+
+Note Taker:
+Please repeat that (negative acknowledgement)
+
+You:
+Sentence 2
+
+Acknowledgements allow the receiver to let the sender know what has been received correctly,
+What have been received in error and thus requires repeating.
+
+Such retransmission are called automatic repeat request protocols.
+
+
+Three additionl protocol capabilities are required in ARQ protocols to handle the presence of bit errors:
+
+Error detection
+   - a mechanism needed to allow receiver to detect bit errors.
+   
+Receiver feedback
+   - explicit positive (ACK) and negative (NAK) acknowledgements (packets) from the receiver to the sender.
+   - one bit suffices, 1 = ACK and 0 = NAK
+
+Retransmission
+   - packet received in errors at the received will be retransmitted by the sender.
+   
+(Wait for call from above)  <(rdt_rct(rcvkt) & isACK(rcvpkt)) -(rdt_send(data))> (Wait for ACK or NAK, loop)
+
+
+If the sender is in wait for ACK or NAK, it cannot get more data from the upper layer.
+
+The sender will not send a new piece ofdata until it is sure that the receiver has
+correctly received the current packet.
+
+rdt 2.0 are known as stop-and-wait protocols
+-----------------------------------------------------------------------------------
+
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+
+
+-----------------------------------------------------------------------------------
+
+
+
+
+-----------------------------------------------------------------------------------
+
 
 
 -----------------------------------------------------------------------------------
