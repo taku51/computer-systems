@@ -561,11 +561,21 @@ Checksum
 -> error detection
 determine whether bits within the UDP segment have been altered
 
-Compute the sum of all the 16bit words in the segment with any overflow encountered during the sum being wrapped around
+After summing given bits
+Add another word bit.
+Wrap the overflown 1 and add it to the lowest bit
 
+This bit overflows.
+Wrap the ”1” around (by
+adding it to the lowest
+16 bits of the sum).
+
+Then tak the compliment
 Compute the 1s complement of the sum
    - converting all the 0s and 1s
-   
+
+And then check the sum of these two -> done by the receiver once he receives it
+
 Can only detect 1 bit errors
 If the sum don't get all 1s, it's an error.
 
@@ -665,12 +675,35 @@ The sender will not send a new piece ofdata until it is sure that the receiver h
 correctly received the current packet.
 
 rdt 2.0 are known as stop-and-wait protocols
+
 -----------------------------------------------------------------------------------
 
+Protocol rdt 2.0 has a fatal flaw.
 
+-> That is, we have not accounted for the possibility
+that the ACK or NAK (check) packet could be corrupted!
+rdt_rcv(rcvpket) && notcorrupt(rcvpkt)
+-> extract, deliverdata, sndpkt, udt_send
 
+-> can add checksu bits to ACK/NAK packets in order to detect such errors.
 
+How protocol should handle the errors in ACK or NAK packets
 
+Three solutions:
+The sender asks the receiver to retransmit the garbled ACK/NAK packet.
+   if the retransmission request is corrupted, the receiv has no idea whether this is a request or a new data packet.
+   
+Add enough checksum bits to allow the sender not only to detect, but also to recover from, bit errors.
+   - solves the immediate prob but not for the case that packets can be lost.
+   
+The sender resends the current data packet when it receives a garbled (corrupted) ACK or NAK packet
+
+   - The receiver canno know a priori whether an arriving packet contains data or is a retransmission.
+   
+   - simple sol is to add a new field - a seq number - in the data packet
+      - stop and wait protocol, 1-bit seq number will suffice
+      - In particular, the sender alternates the 1-bit sequence number between
+0 and 1 for each new data packet.
 -----------------------------------------------------------------------------------
 
 
