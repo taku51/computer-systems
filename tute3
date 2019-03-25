@@ -97,18 +97,40 @@ UDP exists to allow you to send IP-encapsulated data without the connection over
 The advantage of UDP over simply sending raw IP packets is that UDP gives the capability to multiplex/
 demultiplex on different source/destionation ports.
 
+IP packets have no end-to-end error detection mechanism.  IPv4 has a checksum that covers only its header,
+so the data is protected only by the layer 2 error detection -> not end to end.
+
+Both UDP and TCP use a end-toend checksum.
 
 5. Both UDP and TCP use port numbers to identify the destination entity
 when delivering a message. Give two reasons for why these protocols
 invented a new abstract ID (port numbers), instead of using process IDs,
 which already existed when these protocols were designed?
 
+Process IDs are given by the OS.  Port numbers 
+
+When communicating with different servers, it also needs port numbers to use different end points.
+
+・In some situations, one process manages multiple sockets (channels of communications) on different TSAPs. If process ID is used, 
+it cannot be implemented since one process can have only one process ID.
+
+・Process ID is not static. Since process ID is assigned dynamically to the process when a process is created, it cannot be used 
+for well-known service such as HTTP. 
 
 6. What are the guarantees that a reliable data transfer must provide?
 
+no packet loss
+integrity
+order of delivery
+
+With TCP, can lose packets.  But as long as they can detect the loss, it's reliable.
 
 7. What is the fatal flaw of rdt2.0? Please give an example to explain why
 it would be a problem.
+
+rdt2.0 uses ACK and NAK to let the receiver or sender know the packet is delivered securely.
+But there's a chance that even ACK and NAK can be corrupted.  In these cases, cannot detect 
+the packet errors.
 
 
 8. Please draw the FSM (Finite State Machine) of both the sending and
