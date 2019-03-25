@@ -62,7 +62,7 @@ depends on the speed of the network.
 
 (c) Congestion-controlled data transfer between processes
 
-TCP
+TCP as it segments messages into smaller bytes.
 
 (d) A guarantee that data will be delivered within a specified amount of
 time
