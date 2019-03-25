@@ -1,41 +1,129 @@
+1. Suppose a process in Host C has a UDP socket with port number 6789.
+Suppose both Host A and Host B each send a UDP segment to Host C with
+destination port number 6789. Will both of these segments be directed to
+the same socket at Host C? If so, how will the process at Host C know
+that these two segments originated from two different hosts?
 
-1. How many connections does FTP use when a file needs to be transfered
-between the client and the server? What are these connections? What
-are they used for? What are the connection types of them?
+It all depends on the socket (port number, ip-address), as long as one of those is differnt.
+Diff browsers -> diff port numbers
+Diff hosts -> diff IP addresses.
 
+Yes, both segments will be directed to the same socket. For each of those
+segments, at the socket interface, the OS will provide the
+process with the IP addresses to determine the origins of the individual
+segments.
 
+*Different browsers have different port numbers.
 
-2. Describe the commonalities and differences between STMP and (persistent) HTTP.
+2. UDP and TCP use 1s complement for their checksums. Suppose you have
+the following three 8-bit bytes: 11010011, 11100110, 11110100.
 
+(a) What is the 1s complement of the sum of these 8-bit bytes? (Note
+that although UDP and TCP use 16-bit words in computing the
+checksum, for this problem you are being asked to consider 8-bit
+sums.) Show all work.
 
-3. Suppose that John just set up an auto-forwarding mechanism on his work
-email address, which receives all of his business-related emails, to forward
-them to his personal email address, which he shares with his wife. John’s
-wife was unaware of this, and activated a vacation agent on their personal
-account. Because John forwarded his email, he did not set up a vacation
-daemon on his work machine. What happens when an email is received
-at John’s work email address?
+11010011
+11100110
+--------------------------
+1011
 
-
-4. Consider a situation in which a cyberterrorist makes all the DNS servers
-in the world crash simultaneously. How does this change one’s ability to
-use the Internet?
-
-
-5. Is it possible for an organization’s Web server and mail server to have
-exactly the same alias for a hostname (for example, foo.com)? How does
-a DNS server distinguish these two types of mapping, namely, hostnameweb server IP and hostname-mail server IP?
-
-
-
-6. DNS uses UDP instead of TCP. If a DNS packet is lost, there is no automatic recovery. Does this cause a problem, and if so, how is it solved?
-
-
+11110100
 
 
+--------------------------
+01010000 (complement)
+
+(b) Why is it that UDP takes the 1s complement of the sum; that is,
+why not just use the sum?
 
 
-7. Suppose you can access the caches in the local DNS servers of your department. Can you propose a way to roughly determine the Web servers
-(outside your department) that are most popular among the users in your
-department? Explain.
+(c) With the 1s complement scheme, how does the receiver detect errors?
 
+
+(d) Is it possible that a 1-bit error will go undetected?
+
+
+(e) How about a 2-bit error?
+
+
+3. Indicate whether TCP or UDP (or both or neither) provide the following
+services to applications:
+-> TCP vs UDP
+
+(a) Reliable data transfer between processes
+
+TCP provides a reliable byte-stream between client and server.
+
+(b) Minimum data transmission rate between processes
+
+Neither.  It cannot ensure the speed.
+depends on the speed of the network.
+
+(c) Congestion-controlled data transfer between processes
+
+TCP
+
+(d) A guarantee that data will be delivered within a specified amount of
+time
+
+Neither -> cannot ensure depends on the network speed.
+
+(e) Preserve application-level message boundaries. That is, when a sender
+sends a group of bytes into a socket via a single send operation, that
+group of bytes will be delivered as a group in a single receive operation at the receiving application
+
+UDP preserves message boundaries, 
+while TCP is byte-stream oriented, and does not preserve message boundaries.
+
+Message boundaries:
+With UDP -> uses two calls. Send() and Recv()
+With TCP -> segments messages into smaller bytes and control the transmission.
+
+(f) Guaranteed in-order delivery of data to the receiver
+
+TCP will deliver bytes to the receiver in the order in which they were sent, because 
+it's reliable (three things are guaranteed).
+UDP does not guarantee delivery of message data in the order in which they were sent.
+
+
+4. Why does UDP exist? Would it not have been enough to just let the user
+processes send raw IP packets?
+
+IP: host to host -> doesn't consider port numbers
+UDP/TCP: process to process.
+
+UDP exists to allow you to send IP-encapsulated data without the connection overhead of TCP.
+The advantage of UDP over simply sending raw IP packets is that UDP gives the capability to multiplex/
+demultiplex on different source/destionation ports.
+
+
+5. Both UDP and TCP use port numbers to identify the destination entity
+when delivering a message. Give two reasons for why these protocols
+invented a new abstract ID (port numbers), instead of using process IDs,
+which already existed when these protocols were designed?
+
+
+6. What are the guarantees that a reliable data transfer must provide?
+
+
+7. What is the fatal flaw of rdt2.0? Please give an example to explain why
+it would be a problem.
+
+
+8. Please draw the FSM (Finite State Machine) of both the sending and
+receiving sides of rdt2.0 by your own (without looking at the slides).
+
+
+
+
+*Notes
+Two different types of orders the CPU processes:
+6s-endian
+from the most significant bit (right to left)
+
+Little-endian
+from the least significant bit (left to right)
+
+Since there are these two different types, the system uses the complement rather than the sum.
+So that it won't be representation dependent.
