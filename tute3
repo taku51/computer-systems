@@ -38,15 +38,24 @@ Wrap around if overflow.
 (b) Why is it that UDP takes the 1s complement of the sum; that is,
 why not just use the sum?
 
-To detect errors, the receiver adds the four words
+To detect errors, the receiver adds the four words (the three original words and the checksum)
+The receiver side might be using a different representation (6's endian vs little endian).
+One of which reads from the left hand side, as opposed to the other starting from the right hand side.
+Depending on the OS
+
 (c) With the 1s complement scheme, how does the receiver detect errors?
 
+If the sum contains a zero, the receiver knows there has been an error.
+The sum should only have 1s.
 
 (d) Is it possible that a 1-bit error will go undetected?
 
+All one-bit errors will be detected.
 
 (e) How about a 2-bit error?
 
+Two-bit errors can be undetected (if the last digit of the first word is converted to
+a 0 and the last digit of the second word is converted to a 1), because it only checks the sum.
 
 3. Indicate whether TCP or UDP (or both or neither) provide the following
 services to applications:
@@ -137,8 +146,15 @@ the packet errors.
 8. Please draw the FSM (Finite State Machine) of both the sending and
 receiving sides of rdt2.0 by your own (without looking at the slides).
 
+(state1) - (Transition) > (state 2) ->
 
+Sending side:
+(wait for call from above) <(make_packet(packet,data), udt_send(packet)) 
+- (rdt_send(data))> (wait for call from above)
 
+Receiving side:
+(wait for call from below) <extract(packet,data), deliver_data(data)
+- (rdt_rcv(packet))> (wait for call from below)
 
 *Notes
 Two different types of orders the CPU processes:
