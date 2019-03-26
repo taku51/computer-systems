@@ -735,27 +735,129 @@ Three sol:
       - in a stop-and-wait protocol, a 1-bit seq number will suffice.
       
       - sender alternates the 1 bit seq number between 0 and 1 for every new data packet.
+rdt2.0 works with the addition of checksum bits but the problem how the protocol should recover from errors in ACK or NAK packets.
+If ACK or NAK is corrupted, the sender has no way of knowing whether or not the receiver has correctly received the last piece
+of transmitted data.
+
+By adding checksum bits to allow the sender to not only detect, but recover from bit errors.
+But doesn't consider the case the packet is lost.
+
+*ACK and NAK are sent by receivers to let the sender know the the packet is correctly received.
+So adding checksum bits to ACK or NAK packets would detect ACK or nAK packet is corrupted.
+Can detect errors with checksum bits but the sender wouldn't know whether the receiver was interending
+to send ACK or NAK packets anyway if they were corrupted.
+
+To solve these new problems, add a new field to the data packet and have 
+the sender number its data packets by putting a sequence number into this field.
+The receiver then need only check this sequence number to determine whether or not the 
+received packet is a retransmission.
+
+(the sequence number of the received packet has the same sequence number as the most recently received packet) 
+
+*sequence number is used to inform the order of packets being sent
+
+Since we are currently assuming a channel that does not lose packets, 
+ACK and NAK packets do not themselves need to indicate 
+the sequence number of the packet they are ACKing or NAKing, 
+since the sender knows that a received ACK or NAK packet
+(whether garbled or not) was generated in response to 
+its most recently transmitted data packet.
 
 -----------------------------------------------------------------------------------
+
 rdt 2.1
 19:18
+Sender Side:
 (wait for call 0 from above) -> ((wait for ACK or NAK 0)<loop>)-> 
 (wait for call 1 from above) -> ((wait for ACK or NAK 1)<loop>)-> 
 (wait for call 0 from above) -> ...
 
+Receiver side:
+(<->(wait for 0 from below)<->) -> (<-> (wait for 1 from below) <->)
 
 
-
------------------------------------------------------------------------------------
-
-
-
-
------------------------------------------------------------------------------------
-
+What if the sequence number is corrupted?
+-> nothing.  if to send the ACK, the packet must not be corrupted.
+-> if corrupted, it'll send the NAK
 
 -----------------------------------------------------------------------------------
 
+rdt 2.2 can get rid of NAK packets.
+
+Instead of sending a NAK packet to the sender, the receiver sends an ACK packet for the 
+LAST correctly received packet.
+e.g. sentence 1, sentence 2 -> instead of saying sentence 2 is not okay but
+say sentence 1 is okay with a sequence number of 1.
+
+Receiver:
+(wait for 0 from below <loop>) <-> (wait for 1 from below <loop>) 
+
+Sender:
+(wait for call 0 from above) -> ((wait for ACK 0)<loop>)-> 
+(wait for call 1 from above) -> ((wait for ACK 1)<loop>)-> 
+(wait for call 0 from above) -> ...
+
+-----------------------------------------------------------------------------------
+
+rdt 3.0 over a lossy channel with bit errors:
+In addition to bit errors.
+
+Two additional concerns:
+   - how to detect packet loss
+      - timers can help
+   - what to do when packet loss occurs
+      - the techs of checksums, seq numbers, ACK packets and retransmissions developed in
+      rdt 2.2 are sufficient to address this concern.
+      
+      -Retransmission is a panacea.
+      
+Sender:
+(wait for call 0 from above) -> ((wait for ACK 0)<loop>)-> 
+(wait for call 1 from above) -> ((wait for ACK 1)<loop>)-> 
+(wait for call 0 from above) -> ...
+
+But set a timer when starting to send a packet.
+
+-> what to do with the receiver side from rdt 2.2?
+No need -> if it hits the timer, retransmit the packet.
+
+Even when the ACK gets lost, the sender will retransmit the packet with a new timer.
+
+rdt 3.0 is a functionally correct protocol but people not happy with its performance.
+-> because it's a stop-and-wait protocol.
+
+-----------------------------------------------------------------------------------
+
+Pipelined RDT protocols
+The sender is allowed to send multiple packets without waiting for acknowledgements.
+
+data packet = DP
+->
+DP a, DP b, DP c, DP d
+<-
+ACK a, ACK b, ACK c, ACK d
+
+The 1-bit seq number is no longer sufficient .
+   - each packet in transit must have a unique seq number.
+
+Buffers in both the sender and the receiver are needed
+   - the sender may need to buffer the packets that have been transmitted 
+   but not yet acknowledged.
+   - the receiver may need to buffer the packets that have been correctly received.
+ 
+Transmission Control Protocol (TCP):
+TCP is a pipelined RDT.
+
+-> connection-oriented because two processes must handshake.
+
+TCP creates a number of variables and buffers during the three-way handshake.
+TCP is full-duplex, mutual communications between two sides.
+
+Client process passes a stream of data through the socket.
+TCP grabs data chunks from the send buffer, creates TCP segments, 
+and passes the segments to the network layer.
+
+   
 
 -----------------------------------------------------------------------------------
 
