@@ -704,15 +704,63 @@ The sender resends the current data packet when it receives a garbled (corrupted
       - stop and wait protocol, 1-bit seq number will suffice
       - In particular, the sender alternates the 1-bit sequence number between
 0 and 1 for each new data packet.
+
+*From the previous weeks
+Perfectly Reliable Channel
+rdt 1.0
+
+Over a channel with bit errors
+rdt 2.0
+-> has a state which waits for ACK or NAK -> has the receive packet and udt_send
+-> when in the wait for ACK or NAK -> cannot get more data from layers above.
+-> ACK or NAK could be corrupted as well.
+
+Can add checksum bits to ACK/NAK packets in order to detect such errors.
+However, how the protocol should ahndle the errors in ACK or NAK packets.
+How should the receiver identify the ACK/NAK packets?
+-> TCP segments into small bytes.
+
+Three sol:
+-> Sender asks the receiver to retransmit the garbled (corrupted) ACK/NAK packet.
+   - if this retransmission request is corrupted, the receiver has no idea 
+   whether this is a request or a new data packet.
+   
+-> Add enough checksum bits to allow the sender not only to detect, but also to recover from, bit erros.
+   - It solves the immediate problem but not for the case that packets can be lost.
+
+-> sender resends the current data packet when it receives a garbled ACK or NAK packet.
+   - The receiver cannot know a priori whether an arriving packet contains new data or is a retransmission
+
+   - simple sol to the above issue is to add a new field - a sequence number in the data packet.
+      - in a stop-and-wait protocol, a 1-bit seq number will suffice.
+      
+      - sender alternates the 1 bit seq number between 0 and 1 for every new data packet.
+
+-----------------------------------------------------------------------------------
+rdt 2.1
+19:18
+(wait for call 0 from above) -> ((wait for ACK or NAK 0)<loop>)-> 
+(wait for call 1 from above) -> ((wait for ACK or NAK 1)<loop>)-> 
+(wait for call 0 from above) -> ...
+
+
+
+
 -----------------------------------------------------------------------------------
 
 
 
 
+-----------------------------------------------------------------------------------
+
 
 -----------------------------------------------------------------------------------
 
 
+-----------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------------------
