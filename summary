@@ -844,6 +844,27 @@ Buffers in both the sender and the receiver are needed
    - the sender may need to buffer the packets that have been transmitted 
    but not yet acknowledged.
    - the receiver may need to buffer the packets that have been correctly received.
+
+Perfect reliable channel
+   - rdt1.0
+   
+Channel with Bit errors
+   - rdt2.0
+      - retransmissions
+      - checksums for packets
+      - ACK and NAK (overlooked the possible corruptions in them)
+      
+   - rdt2.1
+      - checksums for acknowledgements
+      - 1-bit sequence number in packets
+   - rdt2.2
+      - duplicate ACK for the last correctly received packet
+   Lossy channel with bit errors
+      - rdt3.0
+         - timer for packet loss detections
+
+-----------------------------------------------------------------------------------
+
  
 Transmission Control Protocol (TCP):
 TCP is a pipelined RDT.
@@ -857,13 +878,80 @@ Client process passes a stream of data through the socket.
 TCP grabs data chunks from the send buffer, creates TCP segments, 
 and passes the segments to the network layer.
 
+Two types of sockets in the server side:
+   - welcoming socket
+      -  special socket -> welcomes initial contact from a client process running on an arbitrary host.
+   - connection socket
+      - dedicated socket for a particular client process.
+    
+client socket <-Three-way handshake> welcoming socket
+client socket <bytes -> connection socket
+
+Client process passes a stream of data through the socket.
+
+TCP grabs data chunks from the send buffer, creates TCP segments, and passes the segments
+to the network layer.
+
+TCP socket -> has source IP address, source port num, destination IP address, destination port num
+The server notes these four in the connection request segment and its accompanying info.
+
+Why source IP and dest IP are absent from the segment header?
+-> will be sent by the underlying OS automatically along with the connection request segment.
+-> 20 bytes in total.
+
+Sequence number -> byte-stream number of the first byte in the data field of the segment
+
+Seq Num -> HOST A can send data to HOST B, and HOST B can also send data to HOST A.
+
+ACK numbers:
+-> is the byte-stream number of next byte (e.g. the seq num of the next segment)
+that HOST A is expecting from HOST B and vice versa.
+
+   - TCP only acknowledges bytes up to the first missing byte in the stream.
+   -> provide cumulative acknowledgements.
+
+To improve the network bandwidth, TCO combines an ACK and a data packet in one segment.
+
+-----------------------------------------------------------------------------------
+
+Telnet -> popular app layer protocol used for remote  login, which runs over TCP.
    
+   - Each character typed by the user (HOST !) will be sent to the remote host (HOST B)
+   -> will send back a copy of each character, which will be displayed on the TELNET user's screen.
+
+HOST A                                          HOST B
+User types C -Seq = 42, ACK 79, data = 'C'>  
+           <- (seq = 79, ACK = 43, data = 'c')  HOST ACKs receipt of 'c', echoes back 'c'
+
+HOST ACKs receipt of echoed 'c'   (seq = 43, ACK = 80)->
 
 -----------------------------------------------------------------------------------
 
+Out of Order Segments
+What does a host do when it receives out of order segs?
+   - discord them
+      - simplifies the receiver design
+   - keep them and wait for the missing bytes to fill the gap
+      - more efficient in network bandwidth
+      - taken in practice
 
------------------------------------------------------------------------------------
+Socket Programming:
+Client-server app
 
+1. The client reads data from its keyboard and sends it to
+the server.
+2. The server receives the data and converts the characters to uppercase.
+3. The server sends the modified data to the client.
+4. The client receives the modified data and displays the line on its screen.
+
+Will use UDP and TCP as the transport layer protocol respectively.
+
+Before sending the packet of data, need to attach a destination address.
+
+Sender's source address consisting of the 
+Source IP address and the source port number is also attached to the packet
+
+is automatically done by the underlying OS rather than the UDP protocol.
 
 -----------------------------------------------------------------------------------
 
