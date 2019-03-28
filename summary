@@ -1037,15 +1037,34 @@ serverPort = 12000
 # indicate the underlying network is using IPv4, Indicate that it is creating a TCP socket.
 clientSocket = socket(AF_INET, SOCK_STREAM)
 
+# Initiate a TCP connection to the server (the three way handshake is performed).
+no need to specify the client address
+clientSocket.connect((serverName, serverPort))
+
 # Get an input from keyboard and store it in message.
-message = raw_input('Input lowercase sentence:')
+sentence = raw_input('Input lowercase sentence:')
 
-# Send the message to the destination address via clientSocket
-clientSocket.sendto(message,(serverName, serverPort))
+# no adress.  Drop the bytes of sentence into the connection via the socket.
+clientSocket.send(sentence)
 
-# Receive the modified message from the server, where 2048 is the buffer size,
-and server address store the address (IP and port number) where the packet is sent from
-modifiedMessage, server Address = clientSocket.recvfrom(2048)
+# Characters continue to accumulate in the modifiedSentence until the line ends
+with a carriage return character.  1024 is the buffer size.
+modifiedSentence = clientSocket.recv(1024)
 
 print modifiedMessage
+
+# close the socket and hence the TCP connection.
 clientSocket.close()
+
+
+Serverside:
+
+#Let the server listen for TCP connection request from the client. The parameter
+specifies the max num of queued connections (at least 1)
+serversocket.listen(1)
+
+while 1:
+   # when a connection request from a client arrives, the program invokes
+   accept(), which creates a new socket connectionSocket dedicated to this particular
+   client
+   connectionSOcket, addr = serverSocket.accept()
