@@ -953,9 +953,99 @@ Source IP address and the source port number is also attached to the packet
 
 is automatically done by the underlying OS rather than the UDP protocol.
 
+
+
 -----------------------------------------------------------------------------------
 
+Python implementation of socket programming (UDP Client Side):
 
+# import the socket module
+from socket import * 
+
+# specify the destination address
+serverName = 'hostname'
+serverPort = 12000 
+
+# indicate the underlying network is using IPv4, Indicate that it is creating a UDP socket.
+clientSocket = socket(socket.AF_INET, socket.sock_DGRAM)
+
+# Get an input from keyboard and store it in message.
+message = raw_input('Input lowercase sentence:')
+
+# Send the message to the destination address via clientSocket
+clientSocket.sendto(message,(serverName, serverPort))
+
+# Receive the modified message from the server, where 2048 is the buffer size,
+and server address store the address (IP and port number) where the packet is sent from
+modifiedMessage, server Address = clientSocket.recvfrom(2048)
+
+print modifiedMessage
+clientSocket.close()
 
 -----------------------------------------------------------------------------------
 
+Server side:
+
+from socket import *
+serverPort = 12000
+
+#Create a UDP socket
+serverSocket = socket(AF_INET, SOCK_DGRAM)
+
+# Bind the port num 12000 to the server's socket
+serverSocket.bind(('', serverPort))
+print "The server is ready to receive"
+while 1:
+   # Store the packet data in message and the
+       address of the source of the packet in
+      clientAddress.
+   message, clientAddress = serverSocket.recvfrom(2048)
+   modifiedMessage = message.upper()
+   serverSocket.sendto(modifiedMessage, clientAddress)
+
+
+Socket Prog with TCP:
+
+Unlike UDP, TCP is a connection-oriented protocol. Before the client and server can
+start to send data to each other, a TCP connection must be established.
+
+The connection is associated with:
+• The client socket address (IP address and
+port #)
+• The server socket address (IP address and
+port #)
+
+When one side wants to send data to the
+other side, it just drops the data into the TCP
+connect via its socket.
+
+• This is different from UDP, where the
+destination address must be attached to
+the packet.
+
+-----------------------------------------------------------------------------------
+
+TCP Client Prog
+
+# import the socket module
+from socket import * 
+
+# specify the destination address
+serverName = 'hostname'
+serverPort = 12000 
+
+# indicate the underlying network is using IPv4, Indicate that it is creating a TCP socket.
+clientSocket = socket(AF_INET, SOCK_STREAM)
+
+# Get an input from keyboard and store it in message.
+message = raw_input('Input lowercase sentence:')
+
+# Send the message to the destination address via clientSocket
+clientSocket.sendto(message,(serverName, serverPort))
+
+# Receive the modified message from the server, where 2048 is the buffer size,
+and server address store the address (IP and port number) where the packet is sent from
+modifiedMessage, server Address = clientSocket.recvfrom(2048)
+
+print modifiedMessage
+clientSocket.close()
