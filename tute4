@@ -61,11 +61,20 @@ whenever it receives a segment from Host A.
 (a) In the second segment sent from Host A to B, what are the sequence
 number, source port number, and destination port number?
 
+seq = 207, port num = 302, dst = 80
+Port num and dst always stay the same.
+
 (b) If the first segment arrives before the second segment, in the acknowledgment of the first arriving segment, what is the acknowledgment
 number, the source port number, and the destination port number?
 
+ack = 207
+Port num and dst always stay the same.
+
 (c) If the second segment arrives before the first segment, in the acknowledgment of the first arriving segment, what is the acknowledgment
 number?
+
+ack = 127
+-> because the received packet at this point is 126, so the next acknowledge number will be 127
 
 (d) Suppose the two segments sent by A arrive in order at B. The first
 acknowledgment is lost and the second acknowledgment arrives after
@@ -74,6 +83,7 @@ segments and all other segments and acknowledgments sent. (Assume there is no ad
 figure, provide the sequence number and the number of bytes of data;
 for each acknowledgment that you add, provide the acknowledgment
 number.
+
 
 
 
