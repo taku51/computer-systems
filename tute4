@@ -30,14 +30,24 @@ TCP connection. The first segment has sequence number 900; the second
 has sequence number 1024.
 (a) How much data is in the first segment?
 
+sq number + data = acknowledge number/next sequence number.
+If the packet is lost, then the acknowledge number/next seq number will be the previous sequence number but not data.
+data = 1024 - 900 (We know the second seq number already so if the packet arrived fine thne it becomes 1024) = 124 bytes
+
+
 (b) Suppose the first segment is lost but the second segment arrives at
 B. In the acknowledgement that Host B sends to Host A, what will
 be the acknowledgement number?
+
+(data is lost so don't add up to the previous sequence number)
+ack = 900
 
 (c) Suppose that now the third segment with sequence number of 1124
 from Host A arrives to Host B, and the second segment is still missing.
 What will be the acknowledgement number?
 
+Because the first segment is lost, and the second segment is also missing, it still has the same ACK number as the first segment.
+ack = 900
 
 
 6. Host A and B are communicating over a TCP connection, and Host B
