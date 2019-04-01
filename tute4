@@ -1,0 +1,71 @@
+
+1. Consider a TCP connection between Host A and Host B. Suppose that the
+TCP segments traveling from Host A to Host B have source port number
+x and destination port number y. What are the source and destination
+port numbers for the segments traveling from Host B to Host A?
+
+
+2. Suppose that a Web server runs in Host C on port 80. Suppose this Web
+server uses persistent connections, and is currently receiving requests from
+two different Hosts, A and B. Are all of the requests being sent through
+the same socket at Host C? If they are being passed through different
+sockets, do both of the sockets have port 80? Discuss and explain.
+
+
+
+3. Consider a reliable data transfer protocol that uses only negative acknowledgments. Suppose the sender sends data only infrequently. Would a
+NAK-only protocol be preferable to a protocol that uses ACKs? Why?
+Now suppose the sender has a lot of data to send and the end-to-end connection experiences few losses. In this second case, would a NAK-only
+protocol be preferable to a protocol that uses ACKs? Why?
+
+
+
+4. Draw the FSM (finite state machine) for the receiver side of protocol rdt
+3.0.
+
+
+
+5. Suppose Host A sends two TCP segments back to back to Host B over a
+TCP connection. The first segment has sequence number 900; the second
+has sequence number 1024.
+(a) How much data is in the first segment?
+
+(b) Suppose the first segment is lost but the second segment arrives at
+B. In the acknowledgement that Host B sends to Host A, what will
+be the acknowledgement number?
+
+(c) Suppose that now the third segment with sequence number of 1124
+from Host A arrives to Host B, and the second segment is still missing.
+What will be the acknowledgement number?
+
+
+
+6. Host A and B are communicating over a TCP connection, and Host B
+has already received from A all bytes up through byte 126. Suppose
+Host A then sends two segments to Host B back-to-back. The first and
+second segments contain 80 and 40 bytes of data, respectively. In the
+first segment, the sequence number is 127, the source port number is 302,
+and the destination port number is 80. Host B sends an acknowledgment
+whenever it receives a segment from Host A.
+
+(a) In the second segment sent from Host A to B, what are the sequence
+number, source port number, and destination port number?
+
+(b) If the first segment arrives before the second segment, in the acknowledgment of the first arriving segment, what is the acknowledgment
+number, the source port number, and the destination port number?
+
+(c) If the second segment arrives before the first segment, in the acknowledgment of the first arriving segment, what is the acknowledgment
+number?
+
+(d) Suppose the two segments sent by A arrive in order at B. The first
+acknowledgment is lost and the second acknowledgment arrives after
+the first timeout interval. Draw a timing diagram, showing these
+segments and all other segments and acknowledgments sent. (Assume there is no additional packet loss.) For each segment in your
+figure, provide the sequence number and the number of bytes of data;
+for each acknowledgment that you add, provide the acknowledgment
+number.
+
+
+
+
+
