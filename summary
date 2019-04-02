@@ -1082,12 +1082,17 @@ destionation IP address, destination port number.
 Seq numbers:
 First byte in the data segment
 
-5:52
 Ack:
+Next byte
 
+ACK = seq + bytes unless packets are lost.
+And sequence number from the receiver is the ACK from the sender.
 
+If two packets at the same time and the first didn't arrive, then the second seg
+becomes the seq + bytes of the first segment.
 
-
+If packet is lost, then the receiver side will ask for  retransmission by sending the 
+seq of the missing packet.
 
 -----------------------------------------------------------------------------------
 
