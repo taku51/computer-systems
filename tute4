@@ -4,6 +4,7 @@ TCP segments traveling from Host A to Host B have source port number
 x and destination port number y. What are the source and destination
 port numbers for the segments traveling from Host B to Host A?
 
+Source port number y and destination port number x.
 
 2. Suppose that a Web server runs in Host C on port 80. Suppose this Web
 server uses persistent connections, and is currently receiving requests from
@@ -11,19 +12,41 @@ two different Hosts, A and B. Are all of the requests being sent through
 the same socket at Host C? If they are being passed through different
 sockets, do both of the sockets have port 80? Discuss and explain.
 
-
+For	each	persistent	connection,	the	Web	server	creates	a	separate	
+“connection	socket”.	Each	connection	socket	is	identified	with	a	four-tuple:	
+(source	IP	address,	source	port	number,	destination	IP	address,	destination	port	
+number).	When	host	C	receives	and	IP	datagram,	it	examines	these	four	fields	in	
+the	datagram/segment	to	determine	to	which	socket	it	should	pass	the	payload	
+of	the	TCP	segment.	Thus,	the	requests	from	A	and	B	pass	through	different	
+sockets.	The	identifier	for	both	of	these	sockets	has	80	for	the	destination	port;	
+however,	the	identifiers	for	these	sockets	have	different	values	for	source	IP	
+addresses.	Unlike	UDP,	when	the	transport	layer	passes	a	TCP	segment’s	
+payload	to	the	application	process,	it	does	not	specify	the	source	IP	address,	as	
+this	is	implicitly	specified	by	the	socket	identifier.
 
 3. Consider a reliable data transfer protocol that uses only negative acknowledgments. Suppose the sender sends data only infrequently. Would a
 NAK-only protocol be preferable to a protocol that uses ACKs? Why?
 Now suppose the sender has a lot of data to send and the end-to-end connection experiences few losses. In this second case, would a NAK-only
 protocol be preferable to a protocol that uses ACKs? Why?
 
+In a NAK only protocol, the loss of packet x is only detected by the receiver (he/she is the one who sends 
+NAK)
+when packet x+1 is received. That is, the receiver receives x-1 and then x+1 (missing x), only when
+x+1 is received does the receiver realizes that x was missed. If there is a long delay
+between the transmission of x and the transmission of x+1 
+(doesn't realise x is lost unless x + 1 is being sent), then it will be a long time
+until x can be recovered, under a NAK only protocol.
+
+On the other hand, if data is being sent often, then recovery under a NAK-only scheme
+could happen quickly. Moreover, if errors are infrequent, then NAKs are only
+occasionally sent (when needed), and ACK are never sent – a significant reduction in
+feedback in the NAK-only case over the ACK-only case. 
 
 
 4. Draw the FSM (finite state machine) for the receiver side of protocol rdt
 3.0.
 
-
+<-> <-> (Wait for 0 from below) <-> (wait for 1 from below) <-> <->
 
 5. Suppose Host A sends two TCP segments back to back to Host B over a
 TCP connection. The first segment has sequence number 900; the second
