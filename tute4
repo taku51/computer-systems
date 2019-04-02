@@ -30,6 +30,7 @@ TCP connection. The first segment has sequence number 900; the second
 has sequence number 1024.
 (a) How much data is in the first segment?
 
+*Send back to back
 sq number + data = acknowledge number/next sequence number.
 If the packet is lost, then the acknowledge number/next seq number will be the previous sequence number but not data.
 data = 1024 - 900 (We know the second seq number already so if the packet arrived fine thne it becomes 1024) = 124 bytes
@@ -61,18 +62,22 @@ whenever it receives a segment from Host A.
 (a) In the second segment sent from Host A to B, what are the sequence
 number, source port number, and destination port number?
 
-seq = 207, port num = 302, dst = 80
+*TCP, so there's a timer and if it receives another segment when there's already one being processed,
+*The receiver will send previous ACK to ask for retransmission. 
+seq = 207 (126 + 80 + 1 because in the second segment
+it assumes the first one is already sent, and the next one so + 1), port num = 302, dst = 80
 Port num and dst always stay the same.
 
 (b) If the first segment arrives before the second segment, in the acknowledgment of the first arriving segment, what is the acknowledgment
 number, the source port number, and the destination port number?
 
-ack = 207
+ack = 207 because if it arrives fine then it's 126 + 80 + 1, same as (a)
 Port num and dst always stay the same.
 
 (c) If the second segment arrives before the first segment, in the acknowledgment of the first arriving segment, what is the acknowledgment
 number?
 
+Arrives in the acknowledgement of the frist arriving segment, so while the first one is still being processed.
 ack = 127
 -> because the received packet at this point is 126, so the next acknowledge number will be 127
 
@@ -83,6 +88,24 @@ segments and all other segments and acknowledgments sent. (Assume there is no ad
 figure, provide the sequence number and the number of bytes of data;
 for each acknowledgment that you add, provide the acknowledgment
 number.
+
+*Send two segments at the same time so it times out
+1, Host A Seq = 127, 80 bytes -> Host B
+
+1 arrives and Host B sends
+2, Host A <- ack = 207 Host B
+
+Host A sends the other segment 
+3, Host A Seq = 207, 40 bytes -> Host B
+
+3 Arrives and Host B sends before the 4 arrives so timeout and request a retransmission
+4, Host A <- ACK = 247 Host B
+
+Host A retransmit 1
+5, and ACK = 247 arrives, so the next ACK will be 247
+
+
+
 
 
 
