@@ -1094,6 +1094,7 @@ becomes the seq + bytes of the first segment.
 If packet is lost, then the receiver side will ask for  retransmission by sending the 
 seq of the missing packet.
 
+If haven't processed a segment, its data bytes will be added to the most recent one.
 -----------------------------------------------------------------------------------
 
 
