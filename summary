@@ -1095,10 +1095,64 @@ If packet is lost, then the receiver side will ask for  retransmission by sendin
 seq of the missing packet.
 
 If haven't processed a segment, its data bytes will be added to the most recent one.
------------------------------------------------------------------------------------
-
 
 -----------------------------------------------------------------------------------
+
+Timer in TCP
+In rdt3.0, each packet sent is associated with a timer in the sender.
+
+In TCP, there is only one timer in the sender.
+   Maintaining a large number of timers is a considerable overhead
+
+A simplified TCP sender does the following actions:
+   1: data received from application above
+      - create a new TCP segment
+      - If (timer is not running)
+         - start timer
+   2: timer timeout
+      - retransmit not yet acknowledge segment with smallest sequence number
+      - start timer
+   3: ACK received acknowleding a not-yet-acknowledged segment
+      - if there are any not yet acknowledged segments
+         - start timer
+
+-> problem:
+   timeout period can be relatively long.
+
+When a segment is lost, this timeout period forces the sender to delay resending 
+the lost packet, thereby increasing the end-to-end delay.
+
+Fast retransmission allows sender to retransmit a segment before timeout.
+   Event 4: Duplicate ACK received for a segment with seq num y
+      - increase the duplicate ACK counter of segment y by 1.
+      - if this counter reaches to 3
+         - resend the segment y
+         - reset the counter of segment y to 0
+         
+-> when the sender receives four ACK for a segment y, the sender resend the segment y
+   before timeout
+   
+Why 3?
+-> stats
+
+TCP Flow Control:
+-> make its applications to eliminate the possibility of the sender overflowing 
+(overwriting) the receiver's buffer.
+
+-> how many buffers are allowed to be sent at once.
+Sender tells the receiver how much free buffer space there is.
+
+Lastbyteecvd - lastbyteread <= rcvbuffer
+rwnd = RcvBuffer - [LastByteRcvd - lastbyteread]
+
+The sender must ensure:
+   lastbytesent - lastbyte acked <= rwnd
+
+Receive window -> the amount of data that can be sent
+If it's zero, no more data can be sent.
+
+-----------------------------------------------------------------------------------
+
 
 
 -----------------------------------------------------------------------------------
