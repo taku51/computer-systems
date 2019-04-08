@@ -1153,7 +1153,25 @@ If it's zero, no more data can be sent.
 
 -----------------------------------------------------------------------------------
 
+Host A                                              Host B
+13 ~ 16 (4 bytes)->  Seq=13, ack=11, 4 bytes        11 ~ 30 (20 bytes)-> Seq=11, ack=17, 20 bytes
+17 ~ 29 (13 bytes)-> Seq=17, ack=31, 33 bytes (missing) 31 ~ 90 (60 bytes)-> Seq=13, ack=11, 4 bytes
+30 ~ 99 (70 bytes)-> Seq=30, ack=31, 70 bytes        91 ~ 122 (32 bytes)-> Seq=13, ack=11, 4 bytes
 
+When it first starts, it starts from the first byte so in this case 13, and the first ack will be 11
+as the receiver side has 11.
+
+And the receiver side will have seq as the first sent ack as seq.
+And if there was no packet loss, then the ack back from the receiver will be seq + bytes so 17.
+
+If there was packet loss, Sender or receiver will receive a packet with ack which doesn't match the previous
+seq number.
+
+When retransmitting, the seg ill have the same sequence number and bytes of the lost packet but
+everything else will have the up to time values such as ack and seq.
+
+After the retransmission of a packet loss, everything else stays the same but the receiver's response would have
+the ack of the packet which was sent right after the packet loss and was on pending.
 
 -----------------------------------------------------------------------------------
 
