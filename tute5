@@ -12,7 +12,36 @@ Rwnd -> receive window: spare space in receiver's buffer
   Rwnd -> spare space = total buffer size - buffer still occupied
   Buffer stil occupied = bytes received - bytes read/processed (once read them can remove).
   
+TCP - segment loss
+  Sender performs retransmission when
+    timer time out
+    receive 4 packets with the same ACK.
+    
+Potential deadlock:
+  while sender flushes all receiver's buffer
+    rwnd = 0, sender must stop sending and wait for spare buffer space available on receiver
+    receiver clears the buffer and wait for sender to send new pkt
+    
+  Both in passive state: waiting for the opposites
   
+  Solutions:
+    active sender: on receiving rwnd = 0, constant pings zero window.
+    
+TCP congestion control
+Target: negotiating on data transfer rate between sender & receiver when congested
+
+How? -> set a initial threshold
+        test the threshold
+            if not suitable
+              change it (slower)
+            if suitable
+              keep it
+
+ssthreshold - slow start threshold
+
+(slow start) cwnd == ssthreshold -> cwnd += 1 (congestion avoidance) 4 same ACK, ssthreshold = cwnd/2,
+cwnd = ssthreshold + 3 <-> New ACK (fast recov) <-> 4 same ACK, timeout(slow start)
+
 
 1. What is the difference between congestion control and flow control? What
 methods (as discussed in the lectures) are used in TCP to provide each
