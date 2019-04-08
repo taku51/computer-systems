@@ -37,7 +37,7 @@ Advantage of using protocols -> structural abstraction of the entire process (de
 
 Disadvantage -> could be delay between layers, errors, overheads
 
------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
 
 Open Systems Interconnection -> is not used these days but good to learn
 OSI (7 layers):
