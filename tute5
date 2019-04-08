@@ -1,0 +1,52 @@
+RDT 3.0 Timer : Stop and Wait protocol. Can't process multiple segments.
+
+TCP fast retransmission: not strictly required.
+
+Flow control:
+Prevent the sender from overflowing the receiver's buffer
+  - Receiver's buffer is full, but there are still new pkts arriving
+  - controls over;
+  
+Rwnd -> receive window: spare space in receiver's buffer
+  The capability of how much btes the receiver could receive at this point.
+  Rwnd -> spare space = total buffer size - buffer still occupied
+  Buffer stil occupied = bytes received - bytes read/processed (once read them can remove).
+  
+  
+
+1. What is the difference between congestion control and flow control? What
+methods (as discussed in the lectures) are used in TCP to provide each
+functionality?
+
+
+
+2. How can a deadlock occur in the TCP Sliding Window protocol? What
+is the countermeasure used in TCP to prevent this scenario happening?
+
+
+3. How does the TCP Slow Start algorithm detect potential congestion in
+the network? What other methods (possibly with the explicit assistance
+of the network layer) could be used to infer congestion in the network?
+
+
+4. Suppose that the network is not congested. How does the congestion
+window size cwnd get increase in each transmission round in the Slow
+Start, Congestion Avoidance and Fast Recovery algorithms, respectively?
+
+
+5. When will the congestion control enter into the Congestion Avoidance
+algorithm from the Slow Start algorithm?
+
+
+6. How does the Slow Start algorithm handle segment loss events?
+
+
+7. How does the Congestion Avoidance algorithm handle segment loss events?
+
+
+
+8. For the fast retransmission event, why does it set cwnd = ssthresh + 3 ·
+MSS rather than cwnd = ssthresh?
+
+
+
