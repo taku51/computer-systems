@@ -25,12 +25,13 @@ Potential deadlock:
   Both in passive state: waiting for the opposites
   
   Solutions:
-    active sender: on receiving rwnd = 0, constant pings zero window.
+    active sender: on receiving rwnd = 0, constant pings zerowindowprobe to receiver.
+    active receiver: on clearing out the buffer, sends WindowUpdate to sender
     
 TCP congestion control
 Target: negotiating on data transfer rate between sender & receiver when congested
 
-How? -> set a initial threshold
+How? -> set a initial threshold (Set value)
         test the threshold
             if not suitable
               change it (slower)
@@ -38,10 +39,14 @@ How? -> set a initial threshold
               keep it
 
 ssthreshold - slow start threshold
+Set a low threshold and if matches cwnd(used to check whether receiver's buffer is full) the threshold,it
+timeout and
+increment cwnd by 1.
 
-(slow start) cwnd == ssthreshold -> cwnd += 1 (congestion avoidance) 4 same ACK, ssthreshold = cwnd/2,
-cwnd = ssthreshold + 3 <-> New ACK (fast recov) <-> 4 same ACK, timeout(slow start)
+If 4 same ACK, timeout and set the thrshold = cwnd / 2
+cwnd = threshold + 3 (update the threshold)
 
+Fast recovery increments cwnd by 1.
 
 1. What is the difference between congestion control and flow control? What
 methods (as discussed in the lectures) are used in TCP to provide each
