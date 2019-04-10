@@ -1198,13 +1198,44 @@ Sender needs to control its send rate according to the congestion state of the n
    minimum of congestion window and window size
 
 -> How does the sender perceive the network congestion?
-
+   - segment loss (good indicator)
+      time out
+      fast transmission
 
 -> What algo should the sender use to perform congestion control?
-
+   - congetion avoidance
+   - slow start
+   - recovery
+   
 -----------------------------------------------------------------------------------
 
+Maximum Segment size: max size allowable size of the data field in a segment
 
+Round Trip Time: the time that a segment ise sent to the receiver and its ack is sent back to the sender
+
+Transmission Round: all the segments in the congestion window (held by the sender)
+are sent out to the receiver and their ACKs ar sent back to the sender.
+   In pipelined transmission, we can regard RTT = Transmission Round.
+   Round Trip time = transmission round
+   
+Slow Start:
+   set cwnd = 1 mSS
+   For each transmission round:
+      for each ack for a not yet acknowledged segment:
+         increase cwnd by 1MSS, cwnd = cwnd + 1MSS
+         cwnd - cwnd + 1MSS
+         if cwnd == ssthresh (slow-start threshold (initial val))
+            run the congestion avoidance algorithm
+      if a timeout event occurs:
+         ssthresh = cwnd / 2
+         cwnd = 1MSS
+      if a fast transmission event occurs:
+         ssthresh = cwnd / 2
+         cwnd = ssthresh + 3MSS
+         
+        Run the fast recovery
+        
+        
 -----------------------------------------------------------------------------------
 
 
