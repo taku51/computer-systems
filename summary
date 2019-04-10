@@ -1173,6 +1173,9 @@ everything else will have the up to time values such as ack and seq.
 After the retransmission of a packet loss, everything else stays the same but the receiver's response would have
 the ack of the packet which was sent right after the packet loss and was on pending.
 
+TCP Flow Control:
+Let the sender know how much free buffer space is available
+
 -----------------------------------------------------------------------------------
 
 
