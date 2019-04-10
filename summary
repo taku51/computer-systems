@@ -1176,6 +1176,32 @@ the ack of the packet which was sent right after the packet loss and was on pend
 TCP Flow Control:
 Let the sender know how much free buffer space is available
 
+Once the bytes are read, it gets released by the application process.
+Out of order segments can be dropped anytime (lost segments)
+
+Deadlock can happen if sender wont send any more data (window size is 0) and receiver
+won't receive anything, therefore won't send any ACKs to let the sender know about the increase in its
+window size.
+
+How to circumvent this?
+Send a notification.
+Option 1: Receiver can initiate an update by sending a WindowUpdate
+
+Option 2: Set a timer and ask the receiver periodically about the window size.
+
+TCP Congestion Control:
+Sender needs to control its send rate according to the congestion state of the network.
+
+-> How does the sender control its traffic send rate?
+   - congestion window cwnd
+   - lastbytesent - lastbyteacked <= min(cwnd, rwnd)
+   minimum of congestion window and window size
+
+-> How does the sender perceive the network congestion?
+
+
+-> What algo should the sender use to perform congestion control?
+
 -----------------------------------------------------------------------------------
 
 
