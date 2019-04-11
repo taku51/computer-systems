@@ -4,7 +4,7 @@
 (c) Yes, the “network layer” refers to the actual network equipment (wires, routers), not a protocol
 (d) No, without a network layer, data cannot go from one place to another
 
-
+b ->　physical
 
 2. What layer is DNS?
 (a) Network; DNS concerns the naming of nodes, which is a network layer function
@@ -12,6 +12,7 @@
 (c) Application; DNS is concerned with allowing the final application to use simple names
 (d) Link; DNS provides a link between domain names and IP addresses
 
+c -> ip to names but not link betw' names and IP addresses.
 
 3. Which of the following is NOT a role of sockets in network programming?
 (a) They are the interface between the transport layer and the application layer.
@@ -19,6 +20,7 @@
 (c) A socket can bypass the physical layer to allow an application to continue working when a cable gets cut.
 (d) A socket can listen for attempts to connect to a particular TCP port.
 
+c 
 
 4. What is multiplexing/demultiplexing, and how does it relate to the transport layer?
 (a) Multiplexing/demultiplexing refers to sharing one resource between multiple uses; the transport demultiplexes a single network attachment (IP address) between multiple logical data flows
