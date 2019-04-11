@@ -20,7 +20,7 @@ c -> ip to names but not link betw' names and IP addresses.
 (c) A socket can bypass the physical layer to allow an application to continue working when a cable gets cut.
 (d) A socket can listen for attempts to connect to a particular TCP port.
 
-c 
+c ->
 
 4. What is multiplexing/demultiplexing, and how does it relate to the transport layer?
 (a) Multiplexing/demultiplexing refers to sharing one resource between multiple uses; the transport demultiplexes a single network attachment (IP address) between multiple logical data flows
@@ -28,6 +28,7 @@ c
 (c) Multiplexing/demultiplexing refers to requiring multiple numbers to identify something; a TCP connection is identified by (source address, source port, destination address, desti- nation port)
 (d) Multiplexing/demultiplexing refers to indexing things by sequence numbers; TCP uses multiplexing/demultiplexing to know which packets to retransmit when loss occurs
 
+a ->
 
 5. In SMTP, how does the receiver know when the header is finished?
 (a) The header starts with a “Length” field saying how many bytes are in the header 
@@ -35,6 +36,7 @@ c
 (c) The header ends with a “Bcc” field; after that is the message body
 (d) The line after the header is the first blank line after the start of the message.
 
+d ->
 
 6. If an authoritative DNS server becomes unavailable, what happens?
 (a) DNS will no longer work because no other DNS servers are authorized
@@ -42,6 +44,7 @@ c
 (c) Most things will keep working because the information in the authoritative server is prob- ably cached in other DNS servers, and an ongoing TCP connection does not need DNS
 (d) DNS will stop working for the hosts for which this server is authoritative, but existing connections will continue.
 
+c ->
 
 7, Why are protocol “stacks” made of layers?
 (a) Early designers wanted to break the coding tasks between teams, and the functionality assigned to each team is called a “layer”
@@ -49,7 +52,7 @@ c
 (c) Layering allows each protocol to hide some complexity from the higher layers to provide a simpler view of the network, but sometimes layers need to interact with layers they are not adjacent to
 (d) A “layer” is any protocol that lays headers in front of packets; these headers are needed to tell other network entities what to do with the packet
 
-
+c ->
 
 8, TCP is a “reliable” protocol. That means
 (a) It delivers to the receiver all of the packets that are sent by the sender
@@ -57,7 +60,7 @@ c
 (c) It doesn’t accidentally disconnect often; some implementations automatically reconnect if needed
 (d) If packets are lost by the lower layers, it will keep retransmitting them until either they get through or the connection is broken
 
-
+d ->
 
 9. The URL foo://123.45.6.7/abc/def.jpg
 (a) is not a valid URL
@@ -65,6 +68,7 @@ c
 (c) says that there is a JPEG image file called def.jpg in folder abc at host 123.45.6.7 
 (d) tells the browser to contact host 123.45.5.6 and try to access file abc/def.jpg
 
+b ->
 
 10. HTTP can use persistent or non-persistent TCP connections.
 (a) A non-persistent connection is a different type of TCP connection that doesn’t persist in retransmitting lost packets; these are better for streaming applications
@@ -72,6 +76,7 @@ c
 (c) Using persistent connections is always faster than non-persistent connections, because there is less overhead
 (d) Using non-persistent connections can be faster because they allow more parallelism than persistent connections
 
+d ->
 
 1. What are three advantages of UDP over TCP? (1 mark)
 (a) No need for set up
