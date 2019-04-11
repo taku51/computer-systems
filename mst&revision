@@ -111,3 +111,19 @@ What are the values of seq and ack in B’s first segment? (1 mark)
 (d) Upon the arrival of B’s second segment, Host A retransmits its second segment. What are the values of seq and ack in this retransmission? (1 mark)
 
 (a) 50; (b) seq = 20,ack = 73; (c)seq = 60,ack = 73; (d) seq = 73,ack = 80.
+
+
+--------------------------------------------------------------------------------
+Revision
+
+Two types of FTP connections:
+
+Principal components of protocols:
+
+3 things that reliable transfers guarantee:
+
+ack and seq:
+
+
+
+
