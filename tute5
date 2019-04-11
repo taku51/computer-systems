@@ -55,12 +55,19 @@ functionality?
 A flow-control service is used to eliminate the possibility of the sender
 overflowing the receiver’s buffer. Flow control is thus a speed-matching
 service - matching the rate at which the sender is sending against the rate
-at which the receiving application is reading. A TCP sender can also be
+at which the receiving application is reading. 
+
+A TCP sender can also be
 throttled due to congestion within the IP network; this form of sender
 control is referred to as congestion control.
 
 • Flow control: Sliding Window protocols
 • Congestion control: Slow Start, Congestion Avoidance and Fast Recovery algorithms
+
+Flow control -> prevent the sender from overflowing the receiver's buffer, thus matchnig the speed and the rate
+at which the sender is sending against the rate at which the receiver is reading.
+
+Congestion Control: TCP Sender -> can be throttled or stopped due to congestion within IP network.
 
 2. How can a deadlock occur in the TCP Sliding Window protocol? What
 is the countermeasure used in TCP to prevent this scenario happening?
@@ -74,22 +81,32 @@ window values to Host A; indeed, TCP sends a segment to Host A only if it
 has data to send or if it has an acknowledgment to send. Therefore, Host
 A is never informed that some space has opened up in Host B’s receive
 buffer — Host A is blocked and can transmit no more data.
+
+Buffer on the receiver side is full and told the sender that its receiving window is zero but has no data or ACK to
+send back to B.
+
 To solve this problem, the TCP specification requires Host A to continue to
 send segments with one data byte when B’s receive window is zero (a window probe). 
 These segments will be acknowledged by the receiver. Eventually the buffer 
 will begin to empty and the acknowledgments will contain a nonzero receive window value.
 A similar situation can occur if a window size update is lost.
 
+Send one data byte segments when receive window is zero (a window probe).
+These segs will be acked by the receiver.  Eventually the buffer will begin to empty and the acks will contain a nonzero receive windo
+val. -> also when a window size update is lost.
+
 3. How does the TCP Slow Start algorithm detect potential congestion in
 the network? What other methods (possibly with the explicit assistance
 of the network layer) could be used to infer congestion in the network?
 
 TCP segment loss (as indicated by a timeout event or a fast retransmission
-event) is taken as an indication of network congestion and TCP decreases
-its congestion window size accordingly.
+event) is taken as an indication of network congestion and 
+-> TCP decreases its congestion window size accordingly.
+
 Other methods may include using increasing round-trip delay values as
-indicators of increased network congestion. Network-assisted congestion
-control mechanisms may use Explicit Congestion Notification, where a
+indicators of increased network congestion. 
+
+Network-assisted congestion control mechanisms may use Explicit Congestion Notification, where a
 router marks/updates a field in a packet flowing from sender to receiver
 to indicate congestion. Upon receipt of a marked packet, the receiver then
 notifies the sender of the congestion indication.
@@ -100,29 +117,40 @@ Start, Congestion Avoidance and Fast Recovery algorithms, respectively?
 
 • In the Slow Start algorithm, cwnd gets doubled for each transmission
 round.
+
 • In the Congestion Avoidance algorithm, cwnd gets increased by 1 MSS
 for each transmission round.
+
 • In the Fast Recovery algorithm, cwnd gets increased by 1 MSS for each
 duplicate ACK.
+
+-> each is the key. Each transmission round for cong avoi and slow start, and fast rec is duplicate ACK.
 
 5. When will the congestion control enter into the Congestion Avoidance
 algorithm from the Slow Start algorithm?
 
 When cwnd == ssthresh, it enters to the Congestion Avoidance algorithm to slow down the increment rate of cwnd.
+Start from slow start algo. If 4 duplicate ACKs -> fast recov
+if cwnd == slowstartthreshhold, then congestion avoi
 
 6. How does the Slow Start algorithm handle segment loss events?
 
 For timeout event, set ssthresh = cwnd and cwnd = 1, and continue
 the Slow Start algorithm.
-• For fast retransmission event, set ssthresh = cwnd and cwnd = ssthresh+
-3 · MSS, and enter to the Fast Recovery algorithm
+
+For fast retransmission event, set ssthresh = cwnd and cwnd = ssthresh+
+3 · MSS (because 4 duplicate ACKs), and enter to the Fast Recovery algorithm
 
 7. How does the Congestion Avoidance algorithm handle segment loss events?
 
 • For timeout event, set ssthresh = cwnd and cwnd = 1, and enter to
 the Slow Start algorithm.
+Slow start always set the cwnd = 1 and threshold = cwnd
+
 • For fast retransmission event, set ssthresh = cwnd and cwnd = ssthresh+
 3 · MSS, and enter to the Fast Recovery algorithm.
+
+same
 
 8. For the fast retransmission event, why does it set cwnd = ssthresh + 3 ·
 MSS rather than cwnd = ssthresh?
@@ -136,9 +164,12 @@ to set cwnd as appropriate as possible.
 
 • For timeout event, set ssthresh = cwnd and cwnd = 1, and enter to
 the Slow Start algorithm.
+
 • For each duplicate ACK, increase cwnd by 1 · MSS.
+
 • As soon as it receives a new ACK, cwnd = ssthresh and enter to the
 Congestion Avoidance algorithm.
+New ACK -> reset the cwnd and enter to congestion avoi.
 
 10. True or False?
 
@@ -158,19 +189,23 @@ size.
 
 
 
-(a) False. The size of the TCP receive window will change when data is
+(a) False. The size of the TCP receive window (constantly change )will change when data is
 received (size decreases) to the buffer, and when the application on
 the receiver reads data from the buffer (size increases).
 
 (b) True. The sliding window protocol maintains the invariant that the
 number of unacknowledged bytes (last byte sent - last byte acknowledged) is less than or equal 
 to the advertised receive windo
+Last byte setnt - last byte acknolwedged must be less than the received window
 
 (c) False. The sequence number of the subsequent segment will depend
 on the number of bytes in the segment sent. (e.g. If the current
 sequence number is 101 and 50 bytes were sent the next sequence
 number would be 151)
-
+Subsequent so if it successfully received by the recv side, then gives back the ACK which is seq + data,
+and subseq of the sender side would be seq + data.
 
 (d) True. The Window Size field that appears immediately after the TCP
 flag sections refers to the Receive Window size.
+
+Window size -> header
