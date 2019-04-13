@@ -1235,7 +1235,30 @@ Slow Start:
          
         Run the fast recovery
         
-        
+MSS: the maximum allowable size of the data field in a segment
+Round-trip Time(RTT): the time that a segment is sent to the receiver and its ACK is sent back to the sender:
+
+Transmission Round: all the segments in the congestion window are sent out to the receiver and their 
+ACKs are sent back to the sender.
+
+Slow Start:
+Set cwnd = 1MSS.
+For each transmission round:
+   for each ACK for a not-yet-acknowledged segment (when it doesn't receive the right ACK):
+      cwnd = cwnd + 1 MSS
+      if cwnd == ssthresh(slow-start threshold)
+         run the congestion avoidance algorithm
+
+Round 1: cwnd = 1 MSS, increase by 1 MSS
+Round 2: cwnd = 2 MSS, increase by 2 MSS
+Round 3: cwnd = 4 MSS, increase by 4 MSS
+--
+After each round (before cwnd reaches to ssthresh), the size of cwnd is doubled.
+
+      If a timeout event occurs:
+         ssthresh = cwnd / 2 # assuming half of the congestion size would be fine.
+         cwnd = 1 MSS
+
 -----------------------------------------------------------------------------------
 
 
