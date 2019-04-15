@@ -1286,6 +1286,8 @@ Fast Recovery:
          go back to congestion avoidance
 -> is not required component of TCP but recommended
 
+-----------------------------------------------------------------------------------
+
 Summary (Appeared on the exam):
 Protocols:
 Internet is a complext network which consists of various end systems and internal devices.
@@ -1318,13 +1320,127 @@ FTP: file transfers
 SMTP: email
 DNS: network name to network address translation
 
+-----------------------------------------------------------------------------------
 
+Sockets:
+-> interface between app layer and the transport layer.
+sometimes referred to as an API (Application Programming Interface)
+
+App processes send and receive messages via sockets.
+HTTP:
+Most of web pages consist of a base HTML file and several referenced objects
+Each URL is an reference to objects.
+
+Two types of TCP connections in HTTP:
+Non persistenet:
+   Each req/respo pair is sent over a separate TCP connection
+
+Persistent
+   All the reqs and their respo are sent over the same TCP connection.
+   e.g. phone call
 
 -----------------------------------------------------------------------------------
 
+FTP:
+uses two parralel tcp connections to transfer a file:
+   Control Connection (persistent)
+      it is for sending control info ( commands and info)between the two hosts including:
+         user identification
+         password
+         commands to change remote directory
+         commands to get and put files
+      
+      7 bit ascii format
 
------------------------------------------------------------------------------------
+   Data connection (non persistenet)
+      it is used to actually send a file.
+      FTP sends exactly one file over the data connection after which the data connection will be closed.
 
+SMTP and the message format:
+SMTP transfers messages from the senders' mail servers to the recipents' mail servers.
+SMTP uses persistenet TCP connection by default.
+The format of the mail message is as follows:
+
+Only 7 bit ascii characters are allowed.
+
+SMTP vs HTTP:
+Common Points:
+Both are used to transfer files from one host to another.
+Both use persistent TCP connections to transfer files by default
+
+Differences:
+HTTP is mainly a pull protocol; SMTP is primarily a push protocol.
+
+HTTP data does not impose the 7 bit ascii format restriction.
+
+HTTP encapsulates each obj in its own HTTP response messages (one in one), SMTP places
+all of the message's objects into one message. (all in one)
+
+DNS:
+Domain Name System is the application layer protocol to translate user supplied hostnames to IP address.
+
+   DNS uses UDP as its transport layer protocol by default
+   
+DNS also provides the following important services:
+   Host alliasing
+      A host can have one or more alias names
+   Mail server aliassing
+      bob@hotmail.com vs bob@relay1.west-coast.hotmail.com
+   Load disto:
+      perform load disto among replicated servers.
+
+Hierarechy
+Root DNS servers (Only 7 in the world, Japan, America and so on)
+
+Top Level Domain DNS servers (com DNS, org DNS, edu DNS)
+
+Authoritative DNS servers (yahoo.com, amazon.com, poly.edu, umass.edu)
+
+Local DNS servers:
+Not strictly belong to the hierarchy but nevertheless central to the DNS architecture.
+Each ISP has a local DNS server (default name server)
+
+Transport Layer Protocols:
+User Datagram Protocol
+
+Priciples of reliable data transfer (RDT)
+   A general tecnique not just for the transport layer.
+   
+TCP:
+Suble distinction between transport and network layers:
+transport -> logical communications between processes running on different hosts (process to process)
+network -> logical comm between hosts (host to host)
+
+In order to extend the host to host delivery service to process to process, transport layer uses
+multiplexing and demultiplexing.
+
+Sockets are the doors for app processes to receive and send data.
+   Each socket has a unique identifier
+   The format of the identifier depends on what transport layer protocol is being used (UDP or TCP)
+   Each transport layer segmnet has a set of fields for identifying sockets.
+
+Multiplexing
+Gather data chunks at the source host from diff sockets
+Encapsulate each data chunk with header info to create segments
+Pas the segs to the network layer
+
+demultiplexing
+Bill's job
+At the receiving end, the transport layer examines the fields in the segment to identify the receiving socket
+and then directs the seg to that socket.
+
+Transport layer protocols provide the multiplexing and demultiplexing services
+
+UDP just does as little as a transport layer protocol can do:
+   IN UDP, sockets are identified by dest IP, dest, port num
+   
+   Some light error checking
+   
+   UDP is connectionless and unreliable
+   
+      No guarantess on delivery, order, and integrity of data.
+RDT 3.0 -> stop and wait
+TCP is pipelined RDT
 
 -----------------------------------------------------------------------------------
 
