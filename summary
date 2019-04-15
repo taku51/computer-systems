@@ -1246,7 +1246,7 @@ Set cwnd = 1MSS.
 For each transmission round:
    for each ACK for a not-yet-acknowledged segment (when it doesn't receive the right ACK):
       cwnd = cwnd + 1 MSS
-      if cwnd == ssthresh(slow-start threshold)
+      if cwnd == ssthresh(slow-start threshold if cwnd hits the ssthresh hold, cwnd constanly changes)
          run the congestion avoidance algorithm
 
 Round 1: cwnd = 1 MSS, increase by 1 MSS
@@ -1255,9 +1255,70 @@ Round 3: cwnd = 4 MSS, increase by 4 MSS
 --
 After each round (before cwnd reaches to ssthresh), the size of cwnd is doubled.
 
-      If a timeout event occurs:
-         ssthresh = cwnd / 2 # assuming half of the congestion size would be fine.
+Congestion Avoidance:
+
+For each ACK for a niot-yet ack segment:
+   cwnd = 1 MSS * (MSS/cwnd)
+   In other words cwnd can only be increased by 1 MSS for each round.
+
+If a timeout event occurs:
+   ssthresh = cwnd / 2 # assuming half of the congestion size would be fine. reset if timeouts
+   cwnd = 1 MSS # reset if timeouts
+   Go back to slow start
+
+fast transmission:
+   ssthresh = cwnd / 2 (halve the threshhold to reset as always) 
+   cwnd = ssthresh + 3 MSS (+ 3 because there are 3 unacknowledged segments)
+   run the fast recovery algo.
+
+
+
+Fast Recovery:
+   for each transmission round:
+      for every duplicate ACK:
+         cwnd = cwnd + 1 MSS
+      if a timeout event occurs:
+         ssthresh = cwnd /2
          cwnd = 1 MSS
+         Go back to Slow Start  
+      If it receives a new ACK:
+         cwnd = ssthresh
+         go back to congestion avoidance
+-> is not required component of TCP but recommended
+
+Summary (Appeared on the exam):
+Protocols:
+Internet is a complext network which consists of various end systems and internal devices.
+
+All acitivity in the internet that involves two or more communicating remote entities is governed by a protocol.
+
+
+-> defines the format and the order of messages exchanged between two or more communicating entities, as well
+as the actions taken on the transmission and/or receipt of a message or other event.
+
+IN TCP, application, transport, network, link, physical
+IN OSI, there are also presentation and session layers in addition to the ones above.
+
+Strengths of the layering model:
+Provide a structural abstraction of the entire process:
+-> each layer need not worry about the implementation of other layers
+
+Only need to know the API's of the lower layer
+No implementation details of other layers.
+can focus on providing their services to the upper layer
+
+Drawbacks:
+Introduces overheads
+Inefficient and has delays
+Increases the chance of making errors
+
+Application layer protocols:
+HTTP: the web
+FTP: file transfers
+SMTP: email
+DNS: network name to network address translation
+
+
 
 -----------------------------------------------------------------------------------
 
