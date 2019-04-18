@@ -68,10 +68,15 @@ full disk encryption
 E.g. AES
 
 What's AES?
-AES breaks data into blocks and encrypts each block
+1, breaks data into blocks
+2, encrypts each block
+
 AES has different modes of operation
 – ECB, CBC, CTR, etc.
 – Determines how each block is treated, and/or linked
+Can be generated from a password.
+256 bit key derived from supplied password
+Random salt stored 
 
 what's assymetric crypto?
 – Two keys, encrypt with one, decrypt with the other
@@ -80,10 +85,27 @@ science
 
 Sender can only encrypt to make duplicates
 
-what's 
+what's electronic codebook?
+Symmetric encryption, which replaces each block of the clear text by the block of ciphertext. 
 
-what's
+Simple, parallelisable
+maybe no diffusion and confidentiality
+should never be used
 
+How electroniccodebook is done?
+1, split the clear text into blocks of N bits
+2, encrypt (decrypt) each block of clear text using the only key.
+
+what's cipher block chaining?
+Initialisation vector -> not secret
+must be random and not reused, done sequentially
+Decryption can be done parallely
+Loss of a block or corrupt IV prevents decription of all subsequent blocks.
+
+How is cipher block chaining done?
+1, data is encrypted in specific blocks
+2, each block is dependent on the blocks before it for decryption. 
+The process uses an initialization vector to help tie these blocks of encrypted data together
 
 what's
 
