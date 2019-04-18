@@ -1,0 +1,192 @@
+
+What's transport layer security?
+Security socket layer ssl
+Basis of HTTPS
+Encrypts transmission to prevent eavesdropping () and
+modification
+Help the server identify who it seems to be
+
+What's secure communication?
+– private communication between two end-points, with
+– integrity checks to ensure data does not change in transit, and
+– authentication to establish identities of one or both of the end
+
+How's TLS handshake done?
+A: Client Hello: Cipher suites
+B: Server Hello: cipher suites, client certificate
+A: Send key
+B: Send key
+= Encrypted data exchange
+
+1, Client sends Client hello for secure connection,
+listing its supported “cipher suites”
+
+2, Server responds with ServerHello and selects one of the cipher
+suites presented, includes its certificate, and
+request the client send its certificate (mutual authentication)
+
+3, Client confirms validity of certificate
+
+4, Client generates session key
+
+5, once these steps are done and both parties share a key that is then
+used for encrypting/decrypting messages.
+
+what's TLS Crypto?
+Sec Nodes
+Encryption
+– Hiding data from everyone except those holding the decryption key
+– Output is a cipher text
+
+Decryption
+– Recovering the original data from the cipher text using the key
+– Output is a plaintext
+
+Basis: intended receiver knows a secret “key” that is
+unknown to eavesdroppers
+
+what's crypto?
+based on maths. well studied and believed computationally hard
+  Factorising the product of 2 large primes (RSA)
+  Solving discrete logs (ElGamal)
+  AES - substitution-permutation network
+  
+No perfect sec
+  always susceptible to brute force
+  but make it hard to compute within the lifetime of the data
+
+what's symmetric crypto?
+Encrypt(SecretKey, Message) -> Cipher Text
+Decrypt(SecretKey, Cipher Text) -> Message
+
+– Same key is used for encryption and decryption
+to share a message with someone, find some way of securely exchanging the secret key
+
+- Useful for keeping own data secure
+full disk encryption
+
+E.g. AES
+
+What's AES?
+AES breaks data into blocks and encrypts each block
+AES has different modes of operation
+– ECB, CBC, CTR, etc.
+– Determines how each block is treated, and/or linked
+
+what's assymetric crypto?
+– Two keys, encrypt with one, decrypt with the other
+– One of the most important developments in modern computer
+science
+
+Sender can only encrypt to make duplicates
+
+what's 
+
+what's
+
+
+what's
+
+
+what's
+
+what's
+
+what's
+
+what's
+
+v
+what's
+
+what's
+what's
+
+v
+v
+
+what's
+
+what's
+
+
+what's
+
+what's
+
+what's
+
+what's
+
+what's
+
+what's
+
+what's
+
+what's
+
+what's
+
+what's
+
+what's
+
+what's
+
+what's
+
+
+---------------------------------------------------------------------
+
+
+
+
+
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+
+
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+
+
+
+
