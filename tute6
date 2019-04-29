@@ -119,16 +119,32 @@ Key ->
 ---------------- Notes ------------------------
 Secure Connection:
 Only those who are in the network communications are involved
+Privacy, Integrity (data is not tampered), Authentication 
 
-No Tamperment:
+TLS: Transport Layer Security
+Encryption, Decryption, key
 
-TLS:
+Privacy: hidden between two end points, others can detect but cannot understand
+
+Integrity: No change in the sent data
+
+Authentication: Are the selected end point users engage in the communication 
+
 TCP applicable
 
 Protocol: HTTPS -- HTTP + Secure
    using port 443 distinguishable from HTTP: 80
    
+SSL: Secure socket layer -> confidence, encryptions
 TLS - Handshake Process
+
+Secure Roles Distribution with OSI Network Model
+
+#7 Application Layer – HTTP functionalities
+
+#6 Presentation Layer – Encryption + Data Formatting
+
+#5 Session Layer – Authentication (+ Restoration of Interrupted Sessions)
 
 Client   TCP Connection established      Server
 Hello    Hello: applicale cither Suites   ->
