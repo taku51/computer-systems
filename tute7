@@ -1,0 +1,87 @@
+
+1. What is the difference between a symmetric-key cryptography system and a public-key system?
+
+
+2. Suppose N people want to communicate with each of N − 1 other people using symmetric
+key encryption. All communication between any two people, i and j, is visible to all other
+people in this group of N, and no other person in this group should be able to decode their
+communication. How many keys are required in the system as a whole? Now suppose that
+public key encryption is used. How many keys are required in this case?
+
+
+3. Is AES an asymmetric or symmetric cryptography algorithm? What does that mean? Why
+is AES less suitable for digital signatures than RSA?
+
+
+4. Why is asymmetric key cryptography not often used to encrypt actual messages? Describe
+how asymmetric key cryptography is commonly used in combination with symmetric key
+cryptography to encrypt messages.
+
+
+
+5. What is a digital certificate?
+
+
+6. Suppose certifier.com creates a certificate for foo.com. Typically, the entire certificate would
+be encrypted with certifier.com’s public key. True or False?
+
+
+7. The Diffie-Hellman key exchange is being used to establish a secret key between Alice and
+Bob. Alice sends Bob (p = 227, g = 5, TA = g
+x = 82). Bob responds with (125). Alice’s
+secret number, x, is 12, and Bob’s secret number, y, is 3. Show how Alice and Bob compute
+the secret key.
+
+
+
+8. RSA asymmetric cryptography uses powers of large numbers modulo a third number, like
+Diffie-Hellman key exchange. It relies on the fact that there are triples of numbers (d, e, n)
+such that for any integer m, (me) d ≡ m(mod n). The public key consists of e and n, and the
+private key consists of d and n. Encryption consists of calculating me
+(mod n). Decrypting ciphertext c consists of calculating c d (mod n).
+Explain in one or two lines why this will always decrypt to the correct plaintext.
+Encrypt the message 6 with the key (e = 3, n = 55). Decrypt the ciphertext with the key
+(d = 7, n = 55).
+
+
+9. Alice wants to communicate with Bob, using public-key cryptography. She establishes a
+connection to someone she hopes is Bob. She asks him for his public key and he sends it to
+her in plaintext along with an X.509 certificate signed by the root CA. Alice already has the
+public key of the root CA. What steps does Alice carry out to verify that she is talking to
+Bob? Assume that Bob does not care who he is talking to (e.g., Bob is some kind of public
+service).
+This will require more detail than was given in the lectures. A long answer is given at
+question 2 of https://security.stackexchange.com/questions/139176/details-of-tls-certificateverification
+
+
+10. Suppose that a system uses PKI based on a tree-structured hierarchy of CAs. Alice wants
+to communicate with Bob, and receives a certificate from Bob signed by a CA X after
+establishing a communication channel with Bob. Suppose Alice has never heard of X. What
+steps does Alice take to verify that she is talking to Bob?
+See https://www.ibm.com/support/knowledgecenter/en/SSLTBW 2.1.0/
+com.ibm.zos.v2r1.icha700/icha700 Certificate hierarchies.htm
+
+
+11. (Brainstorming question; there are no right or wrong answers). In what ways could a salt be
+combined with a plaintext before encryption? What are the pros and cons of each method?
+
+
+
+12. Describe the TLS Handshake process.
+
+
+13. Challenge question: It is a fact that if x ≡ X(mod p) and y ≡ Y (mod p) then xy ≡
+XY (mod p) — that is, we can reduce factors before we perform the multiplication. Use this
+fact to show how to calculate g a (mod p) efficiently for large a and large p. (Hint: express a in binary, and use the laws governing exponentials.)
+
+
+14. Challenge question: Recall that x ≡ X(mod p) means that x − X − np for some integer n.
+Use that to prove the first sentence in the previous question.
+
+
+15. Challenge question: Both Electronic Codebook and Cipher Block Chaining modes from AES
+can, in principle, be used with asymmetric coding instead of AES. Can Cipher Feedback,
+shown in Figure 1, be used with asymmetric coding? If so, how? If not, why not? Further,
+the final plaintext is not passed through a cipher block; does that mean it is less well protected
+than with ECB and CBC, or the earlier plaintext blocks with CFB?
+
