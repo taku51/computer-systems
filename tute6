@@ -1,6 +1,8 @@
 
 1. What is the difference between a symmetric-key cryptography system and a public-key system?
 
+Symmetric: uses same key in both envryption & decryption
+Assymetric: different keys are used
 
 2. Suppose N people want to communicate with each of N − 1 other people using symmetric
 key encryption. All communication between any two people, i and j, is visible to all other
@@ -8,40 +10,61 @@ people in this group of N, and no other person in this group should be able to d
 communication. How many keys are required in the system as a whole? Now suppose that
 public key encryption is used. How many keys are required in this case?
 
+Fully connected graph: every 2 nodes has an edge in between
+# of edges = # of keys -> N * (N-1) / 2
+
+N people want to communicate with N-1 other people but since we want to remove repetitions, divide by 2
 
 3. Is AES an asymmetric or symmetric cryptography algorithm? What does that mean? Why
 is AES less suitable for digital signatures than RSA?
 
+AES: Symmetric 
+Using the same key for both encryption and decryption
+Anyone who has that key can change the signature (only authorised people should be able to replicate signatures in digital signatures)
 
 4. Why is asymmetric key cryptography not often used to encrypt actual messages? Describe
 how asymmetric key cryptography is commonly used in combination with symmetric key
 cryptography to encrypt messages.
 
+Assymmetric is slower than Symmetric in data transmission
+Use asymmetric cypto to share the symmetric KEY required in data transmission afterwords
 
 
 5. What is a digital certificate?
+
+Describe a third party entity proves the ownership of a PUB key
 
 
 6. Suppose certifier.com creates a certificate for foo.com. Typically, the entire certificate would
 be encrypted with certifier.com’s public key. True or False?
 
+False
+
+cerifier.com would include a digital signature, which is a hash of foo.com's info (including its public key), and signed with
+certifier.com's key
 
 7. The Diffie-Hellman key exchange is being used to establish a secret key between Alice and
-Bob. Alice sends Bob (p = 227, g = 5, TA = g
-x = 82). Bob responds with (125). Alice’s
-secret number, x, is 12, and Bob’s secret number, y, is 3. Show how Alice and Bob compute
+Bob. Alice sends Bob (p = 227, g = 5, TA = gx = 82). Bob responds with (125). 
+Alice’s secret number, x, is 12, and Bob’s secret number, y, is 3. Show how Alice and Bob compute
 the secret key.
 
-
+Alice: g^a mod p -> 5^12 mode 227 = 82 then
+Bob: 5^3 mod 227 = 125 -> response
+Alice: On receiving: 125 -> secret = 125^12 mod 227 = 212
+or Bob: On receiving: 82 -> 82 ^ 3 mod 227 = 212
 
 8. RSA asymmetric cryptography uses powers of large numbers modulo a third number, like
 Diffie-Hellman key exchange. It relies on the fact that there are triples of numbers (d, e, n)
 such that for any integer m, (me) d ≡ m(mod n). The public key consists of e and n, and the
 private key consists of d and n. Encryption consists of calculating me
 (mod n). Decrypting ciphertext c consists of calculating c d (mod n).
+
 Explain in one or two lines why this will always decrypt to the correct plaintext.
 Encrypt the message 6 with the key (e = 3, n = 55). Decrypt the ciphertext with the key
 (d = 7, n = 55).
+Sender: m -> m^e = c
+Receiver: c^d = (m^e)^d
+Since: m (mod n) = (m^e)^d (mod n) -> correct plaintext
 
 
 9. Alice wants to communicate with Bob, using public-key cryptography. She establishes a
@@ -53,6 +76,11 @@ service).
 This will require more detail than was given in the lectures. A long answer is given at
 question 2 of https://security.stackexchange.com/questions/139176/details-of-tls-certificateverification
 
+if X.509 valid? Decoding with CA's PUB key
+   If valid, Alice would get Bob's PUB key
+If the other end was potentially "Bob" (or fake)?
+   Alice sends a Msg m to Bob encoded by Bob pub key for testing
+   if Bob could send plain text m back to Alice -> Bob has PRIV key -> Bob is Bob
 
 10. Suppose that a system uses PKI based on a tree-structured hierarchy of CAs. Alice wants
 to communicate with Bob, and receives a certificate from Bob signed by a CA X after
@@ -61,31 +89,32 @@ steps does Alice take to verify that she is talking to Bob?
 See https://www.ibm.com/support/knowledgecenter/en/SSLTBW 2.1.0/
 com.ibm.zos.v2r1.icha700/icha700 Certificate hierarchies.htm
 
+PKI - Public Key Infrastructure
+Chained Verification of CA X
+   Alice asking X for its PUB key -> if X replied with another certificate signed by Y,
+   Alice would need to verify Y, until reaching root CAs or CA that Alice trusted
+   
+   if valid, then Alice communicates with Bob through the channel
 
 11. (Brainstorming question; there are no right or wrong answers). In what ways could a salt be
 combined with a plaintext before encryption? What are the pros and cons of each method?
 
-
+how a salt can be added to a plain text
+Possible arithmetic operations:
+   XOR
+   Attached with plain text
+   In head of text
 
 12. Describe the TLS Handshake process.
 
+Client   TCP Connection established      Server
+Hello    Hello: applicale cither Suites   ->
 
-13. Challenge question: It is a fact that if x ≡ X(mod p) and y ≡ Y (mod p) then xy ≡
-XY (mod p) — that is, we can reduce factors before we perform the multiplication. Use this
-fact to show how to calculate g a (mod p) efficiently for large a and large p. (Hint: express a in binary, and use the laws governing exponentials.)
+server verified<-       Hello: certain cipher suites server certificate, requesting on client certificate
 
-
-14. Challenge question: Recall that x ≡ X(mod p) means that x − X − np for some integer n.
-Use that to prove the first sentence in the previous question.
-
-
-15. Challenge question: Both Electronic Codebook and Cipher Block Chaining modes from AES
-can, in principle, be used with asymmetric coding instead of AES. Can Cipher Feedback,
-shown in Figure 1, be used with asymmetric coding? If so, how? If not, why not? Further,
-the final plaintext is not passed through a cipher block; does that mean it is less well protected
-than with ECB and CBC, or the earlier plaintext blocks with CFB?
-
-
+Client certificate ->
+Key ->
+<- key 
 
 ---------------- Notes ------------------------
 Secure Connection:
