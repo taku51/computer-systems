@@ -85,3 +85,129 @@ shown in Figure 1, be used with asymmetric coding? If so, how? If not, why not? 
 the final plaintext is not passed through a cipher block; does that mean it is less well protected
 than with ECB and CBC, or the earlier plaintext blocks with CFB?
 
+
+
+---------------- Notes ------------------------
+Secure Connection:
+Only those who are in the network communications are involved
+
+No Tamperment:
+
+TLS:
+TCP applicable
+
+Protocol: HTTPS -- HTTP + Secure
+   using port 443 distinguishable from HTTP: 80
+   
+TLS - Handshake Process
+
+Client   TCP Connection established      Server
+Hello    Hello: applicale cither Suites   ->
+
+server verified<-       Hello: certain cipher suites server certificate, requesting on client certificate
+
+Client certificate ->
+Key ->
+<- key 
+
+Crypto:
+2 phases
+Encryption: Data sent -> cipher text to network
+Decryption: cipher text from network -> data received
+*Integrity: ensure data sent == data received
+
+Limitations:
+No perfect crypto: can be broken with brutal-force
+  every one of them can be broken with unlimited computing power and time
+  
+Types:
+Symmetric vs Asymmetric 
+Differences?
+Symmetric: uses same key in both envryption & decryption
+Assymetric: different keys are used
+
+Electronic Codebook
+Sneder: 
+Chunking plain text into blocks
+Encrypting with key assigned -> generating ciphertext for each of the blocks
+
+Receiver:
+Get cyphertextblocks
+Decrypting each of the blocks with the same key -. getting plaintext -> merging together
+
+Easy to design & control
+
+parallelised.
+
+Not applicable? Why?
+No diffusion on ciphertext blocks produced
+  same plaintext blocks producing the same ciphertet blocks
+  Pattern matching in other granularities.
+  
+repetition in patterns
+
+Crypto - CBC:
+Cipher Block Chaining
+Initialisation vectors (salt)
+
+Key to encrypt use key to encrypt again and so on.
+
+Key Exchange:
+Diffie Hellman Key Exchange
+  Each Entity generates part of elms in key
+  one exchanges partial key publicly to the other
+  On receiving partial KEY, each entity adds its partial key with the received one
+  Finally: each entity has the same KEY for encryption
+  
+ Features:
+  Sound KEY never exposed to public - generated same KEY on both sides
+
+Encrypt with PUB key
+Decrypt with PRIVATE key
+
+Private key is only owned by the owner.
+
+WHy asymmetric?
+  Non eed to perform Key exchange between entities
+    Sender don't need to touch priv key
+    
+    Limitations
+      slower than ssymmetrcic encryption: more complicated
+      
+Used in symmetric key sharing process.
+
+Public key signatures:
+Announcement on validity of a priv key holder
+priv key holder:
+  Encrypting a message M with its priv key -> signature
+
+Verification:
+  anyone else with PUB KEY decrypts signature received -> M.recv if M.recv equal to M -> verified
+  
+Salt:
+Add randomness to hashing process:
+SHA-256
+Using SHA-256
+
+Certificates:
+Third-party authority to PUB KEY ownership
+  This PUB KEY belongs to Alice - signed by some Authority
+  
+  The Issuer: Certificate Authority (CA)
+  Chain of Authority may be necessary
+    If CA1 is an authorised CA? Let CA2 tell
+    If CA" ...
+    
+    
+ Things to bear in mid:
+ Key sizes - determines the degree of security
+  Longer key -> harder to be computed by brute force, but inefficient for encoding/decoding
+  
+  Randomess:
+  Create Unccertainty to hackers
+  should never be reused
+  
+  
+
+      
+      
