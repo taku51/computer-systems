@@ -118,9 +118,23 @@ Revision
 
 Two types of FTP connections:
 
+Uses two parallel TCP connections to transfer a file.
+
+Control connection -> sending control info betw' the two hosts (client and server)
+-> user info, password, commands to change remote directory
+
+Data connection -> used to send files
+
 Principal components of protocols:
+1, the format of messages
+2, orders of the messages to be communicated
+3, actions taken on the tramsmission of a message
 
 3 things that reliable transfers guarantee:
+1, integrity (no data loss or change)
+2, order
+3, segment delivery (successful delivery)
+
 
 ack and seq:
 
