@@ -1,4 +1,6 @@
-1. The Internet community (“TCP/IP model”) consider layers 5 and 6 to be “empty”; they do not add any processing, headers or messages. Is it possible for the network layer of a communica- tion system to be empty?
+1. The Internet community (“TCP/IP model”) consider layers 5 and 6 to be “empty”; they do not add any processing, headers or messages. 
+Is it possible for the network layer of a communication system to be empty?
+
 (a) No, the network layer is the only layer of the stack that cannot be empty.
 (b) Yes, a single point-to-point link like a USB cable can be seen as a communication system with no network layer
 (c) Yes, the “network layer” refers to the actual network equipment (wires, routers), not a protocol
@@ -25,7 +27,7 @@ c ->
 4. What is multiplexing/demultiplexing, and how does it relate to the transport layer?
 (a) Multiplexing/demultiplexing refers to sharing one resource between multiple uses; the transport demultiplexes a single network attachment (IP address) between multiple logical data flows
 (b) Multiplexing/demultiplexing refers to being able to do more than one thing at once; the transport layer can send and receive data at the same time, which is a form of multiplexing
-(c) Multiplexing/demultiplexing refers to requiring multiple numbers to identify something; a TCP connection is identified by (source address, source port, destination address, desti- nation port)
+(c) Multiplexing/demultiplexing refers to requiring multiple numbers to identify something; a TCP connection is identified by (source address, source port, destination address, destination port)
 (d) Multiplexing/demultiplexing refers to indexing things by sequence numbers; TCP uses multiplexing/demultiplexing to know which packets to retransmit when loss occurs
 
 a ->
@@ -68,7 +70,8 @@ d ->
 (c) says that there is a JPEG image file called def.jpg in folder abc at host 123.45.6.7 
 (d) tells the browser to contact host 123.45.5.6 and try to access file abc/def.jpg
 
-b ->
+b -> 
+If there's an IT address and protocol, can ignore the rest
 
 10. HTTP can use persistent or non-persistent TCP connections.
 (a) A non-persistent connection is a different type of TCP connection that doesn’t persist in retransmitting lost packets; these are better for streaming applications
@@ -103,14 +106,18 @@ What impact will delayed ACKs have on slow start? (2 marks)
 
 Slow start increases cwnd once per ACK, and so it would halve the rate of increase on cwnd size
 
-5. Suppose Host A sends three TCP segments back to back to Host B over a TCP connection. The sequence numbers of these three segments are 13, 73 and 123, respectively. Host B also sends three segments to Host A with sequence numbers of 20, 60 and 80, respectively.
+5. Suppose Host A sends three TCP segments back to back to Host B over a TCP connection. 
+The sequence numbers of these three segments are 13, 73 and 123, respectively. 
+Host B also sends three segments to Host A with sequence numbers of 20, 60 and 80, respectively.
+
 (a) How many bytes are there in the data field of the second segment sent by A? (1 mark)
 (b) Suppose that when A’s first segment arrives to B, and B then sends its first segment to A.
 What are the values of seq and ack in B’s first segment? (1 mark)
 (c) Suppose that A’s second segment is lost and A’s third segment arrives to B, and B then sends its second segment to A. What are the values of seq and ack in B’s second segment? (1 mark)
 (d) Upon the arrival of B’s second segment, Host A retransmits its second segment. What are the values of seq and ack in this retransmission? (1 mark)
 
-(a) 50; (b) seq = 20,ack = 73; (c)seq = 60,ack = 73; (d) seq = 73,ack = 80.
+(a) 50; (b) seq = 20,ack = 73; (c)seq = 60,ack = 73; (asking A to send 73 again) (d) seq = 73,ack = 80. (as the second segment is stil lost, retransmit
+ack=80 because there's still B's 80 left to be transmitted)
 
 
 --------------------------------------------------------------------------------
