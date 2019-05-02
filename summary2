@@ -107,25 +107,53 @@ How is cipher block chaining done?
 2, each block is dependent on the blocks before it for decryption. 
 The process uses an initialization vector to help tie these blocks of encrypted data together
 
-what's
+what's 
 
 
-what's
+what's the goal of Internet (network layer)?
+get data from the source all the way to the destination
+Point to point link (maybe not in a single hop)
+
+What's the link?
+Entire network
+
+What's important for Internet (network layer)?
+Traffic must be routed efficiently (by routers)
+Nodes must have (addresses)
+
+What's internet?
+network of networks
+
+what's connectionless network?
+Packet Switching (datagram network)
+MInimum require service.
+here's packet, here's packet...
+
+what's connection-oriented?
+Circuit switching
+
+What are the type, addressing, state, routing, quality of service, congestion control of connectionless   net work?
+Type: connectionless
+Addressing: each packet has full source and destination
+State: Routers need not hold state info about connections
+
+What are the type, addressing, state, routing, quality of service, congestion control of connection-oriented?
+
+
+
+
+what's packet switching?
+Internet is a packet switched network
+e.g. host A sends a packet to host B
+1, Host A Transmits it to the nerest router (A)
+2, The packet is buffered while it is arriving.
+3, If valid, the packet is stored until the outgoing interface is free
+4, Router forwards the packet onto the next router in the path
+5, Repeat 2-4
+called store and forward network
 
 what's
-
 what's
-
-what's
-
-v
-what's
-
-what's
-what's
-
-v
-v
 
 what's
 
