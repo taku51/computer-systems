@@ -189,17 +189,84 @@ Determine how IP addresses were allocated.
 They simplify routing -> size of network field
 Networks often bigger than needed
 
-what's 
+what's IPv6?
+designed 20 years ago to improve the problem of exhausting IPv4 address space
+Made simpler header -> faster processing
+improved security
+further quality of service support
 
-what's
+IPv6 addresses are 128 bits -> unlikely ever run out, unless new wasterful allocation schemes are used.
+-> still not widely deployed.
 
-what's
+what happens if IPv4 are not needed anymore?
+If companies go bankrupt, they would sell IPv4 at premium.
 
-what's
+what's Diffie-Hellman Key Exchange?
+Generates private key.
+Each entity generates random parts of in KEY
+One exchanges partial KEY  publicly to the other
+On receiving partial KEY, each entity adds its partial KEY with the received one
+Finally: each entity has the same key for en cryption
 
-what's
+What are the features of DHKE?
+KEY never exposed to public - generated same key on both ends
+Only partial KEYs: useless to eavesdroppers
+Randomly/newly generated key: not applicable to previous cipher text
+uses g^ab mod p (Alice provides a, Bob provides b)
 
-what's
+If g = 4, p = 23
+Alice chooses a = 5, Bob chooses b = 13
+Alice computes 4^5 mod 23 = 12 and sends it to Bob
+Bob computes 4^13 mode 23 = 16 and sends it to Alice
+Alice computes 16^5 mod 23 = 6
+Bob computes 12^13 mod 23 = 6
+P needs to be a large prime number
+
+What's Public key infra?
+Assymetric key exchange.
+Alice posts her public key onliune
+Bob generates a secret key
+Bob runs encrypt using the public key online and his secret key and create cipher text
+Bob sends the cipher text to alice
+Alice runs decrtot using privatekey and cipher text to generate the secret key
+Now Alice and Bob share a secret key and can exchange symmetrically encrypted messages.
+-> How TLS (HTTPS) works.
+
+*Alice's public key is associated with her private key. and using that private key to decrypt someone's cipher text
+which was encrypted using her public key.
+
+what's cipher text?
+encrypted text
+
+Why asymmetric?
+No need to perform key exchange between entities
+  * sender don't need to touch priv key
+
+what's public key signature?
+validity of a priv key holder
+Priv key holder: encrypting a message M with its priv key signature
+Verification:
+  Anyone else with pub KEY decrypts signature received M.recv if M.recv equal to M verified.
+  Non repudiation.
+Unlike the other ones, it uses public key to encrypt and private key to decrypt.
+Only the person who has the private key can sign it (decrypt it).
+
+What's good about PKI?
+Infeasible to reverse, easy and fast to calculate.
+
+What's Cryptgraphic hashing?
+Quick to compute, hard to invert
+Encryption with no decryption key
+e.g. used for password matching, just one way unless brute forcing.
+checking passwords on the web.
+Protect confidentiality
+
+ M is too large?
+ Hashing M
+
+what's cipher suite?
+Encryption algo.
+Diff combo of encryption the system uses
 
 what's
 
