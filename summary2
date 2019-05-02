@@ -133,14 +133,26 @@ what's connection-oriented?
 Circuit switching
 
 What are the type, addressing, state, routing, quality of service, congestion control of connectionless   net work?
-Type: connectionless
+Type: connectionless, datagram
 Addressing: each packet has full source and destination
 State: Routers need not hold state info about connections
+Routing: each packet independently
+Quality of service: difficult
+Congestion control: difficult
 
 What are the type, addressing, state, routing, quality of service, congestion control of connection-oriented?
+Type: connection oriented, circuit
+Addressing: each packet contains a short VC number
+State: Each VC requires router table space per connection
+Routing: Defined at setup (circuit so it's predefined)
+Quality of service: easy if enough resources
+Congestion control: easy if enough resources
 
-
-
+What's quality of service?
+not all services are equally important.
+e.g. not all services are equally impo or robust to network delay
+  VoIP vs file downloads
+  VPN connections vs web browsing.
 
 what's packet switching?
 Internet is a packet switched network
@@ -152,17 +164,32 @@ e.g. host A sends a packet to host B
 5, Repeat 2-4
 called store and forward network
 
-what's
-what's
+what's multiprotocol label switching?
+Example of connection oriented
+Primary purpose is quality of service:
+- Priortising traffic
+- service level agreements for network perfo
+- Reliable connectivity with known parameters
 
-what's
+Popular with businesses that want to connect multiple sites and phone companies carrying voice traffic
+Internet connection is cheaper than telecom connection
 
-what's
+what are the numbers of IPv4 Addresses?
+[000.000.000, 255.255.255.255]
 
+what are the types of addresses?
+Unicast: one dest (normal)
+broadcast: send to everyone
+multicast: sent to a partciular set of nodes (video streaming)
+anycast: send to any one of a set of addresses (database queries)
+geocast: send to all users in a geographic area (send ad to those in store, warning to those near a hazard)
 
-what's
+what are the classes?
+Determine how IP addresses were allocated.
+They simplify routing -> size of network field
+Networks often bigger than needed
 
-what's
+what's 
 
 what's
 
