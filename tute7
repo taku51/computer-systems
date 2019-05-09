@@ -1,0 +1,157 @@
+----------------------------------------------------------
+Tier1 : consortiums which have submarine cables connecting from countries to countries
+Tier2 : Telstra TPG Optus 
+Tier3 : ISP providers : vodafone dodo (They pay tier2 to get networks. If slow, they don't
+pay tier 2 to get enough capacity)
+
+Example Orgs: ISP, Universities
+Piering: asking other tier 3
+Transit: Asking tier 2
+----------------------------------------------------------
+
+1. Do routers have IP addresses? If so, how many?
+Yes.
+Depends on the number of network interface devices
+
+2. Two hosts have IP addresses 192.200.20.5 and 192.200.100.5.
+
+(a) If each is on a /24 network, are they on the same network?
+24 bits.  3 decimals are used to represent 8.
+Read 24 bits from the left.
+false
+
+(b) If each is on a /20 network, are they on the same network?
+false
+
+(c) If each is on a /17 network, are they on the same network?
+true
+
+(d) if each is on a /14 network, are they on the same network?
+true
+
+
+3. Datagram networks route each packet as a separate unit, independent of
+all others. Virtual-circuit networks do not have to do this, since each
+data packet follows a predetermined route. Does this observation mean
+that virtual-circuit networks do not need the capability to route isolated
+packets from an arbitrary source to an arbitrary destination? Explain
+your answer.
+
+Yes. Do not figure out the route because it's predetermined.
+
+4. A network on the Internet has a subnet mask of 255.255.240.0. What is
+the maximum number of hosts it can handle?
+
+NET ID for 20, leave 12 bit for Host ID (IP address is 32 bits). 12 bits allows 4096 -2 hosts,
+namely the maximum number of hots that can be handled are 4094.
+
+5. A router has just received routes to the following new IP networks: 57.6.96.0/21,
+57.6.104.0/21, 57.6.112.0/21, and 57.6.120.0/21. If all of them are routed
+on the same outgoing line, can they be aggregated? If so, to what? If not,
+why not?
+
+A Subnet mask is a 32-bit number that masks an IP address, 
+and divides the IP address into network address and host address.
+
+Prefix: substring
+
+57.6.96.0/21
+57.6.104.0/21
+57.6.112.0/21
+57.6.120.0/21
+
+convert the different decimals into bits and take the most optimal one
+
+96: 01100000
+104: 01101000
+112: 01110000
+120: 01111000
+
+They can be aggregated to 57.6.96.0/19.
+/19 is the longest prefix that can be taken.
+
+6. A large number of consecutive IP addresses are available starting at 198.16.0.0.
+Suppose that four organizations, A, B, C, and D, request 4000, 2000, 4000,
+and 8000 addresses, respectively, and in that order, and that each is allocated the lowest available IP addresses. For each of these, give the first
+IP address assigned, the last IP address assigned, and the mask in the
+w.x.y.z/s notation.
+
+To start with, all the requests are rounded up to a power of two. The starting address, ending
+address, and mask are as follows:
+4000 addresses require 12 bits. Therefore A: 198.16.0.0 – 198.16.15.255 written as
+198.16.0.0/20
+2000 addresses require 11 bits. Therefore B: 198.16.16.0 – 198.16.23.255 written as
+198.16.16.0/21
+4000 addresses require 12 bits. Therefore C: 198.16.32.0 – 198.16.47.255 written as
+198.16.32.0/20
+8000 addresses require 13 bits. Therefore D: 198.16.64.0 – 198.16.95.255 written as
+198.16.64.0/19
+
+7. A router has the following (CIDR) entries in its routing table:
+Address/mask Next hop
+135.46.56.0/22 Interface 0
+135.46.60.0/22 Interface 1
+192.53.40.0/23 Router 1
+default Router 2
+For each of the following IP addresses, what does the router do if a packet
+with that address arrives?
+(a) 135.46.63.10
+(b) 135.46.57.14
+(c) 135.46.52.2
+(d) 192.53.40.7
+(e) 192.53.56.7
+
+
+8. List one motivation for a host to send an IP packet with the wrong source
+IP address. List two ways that this can adversely affect the legitimate
+owner of that IP address.
+(Note that there are some niche legitimate reasons to spoof addresses:
+http://www.cs.northwestern.edu/~yzh734/papers/LEND-Sigcomm06.
+pdf.)
+
+
+9. Consider a network with the following link costs. Find the shortest path
+from A to B using Dijkstra’s algorithm.
+\ A B C D E
+A 0 – 1 2 4
+B – 0 – 10 4
+C 1 – 0 3 2
+D 2 10 3 0 5
+E 4 4 2 5 0
+
+
+10. The IP packet header includes a time-to-live field that is decremented by
+each router along the path. Why is the time-to-live field necessary?
+
+11. Suppose an ISP owns the block of addresses of the form 101.101.128.0/17.
+Suppose it wants to create four subnets from this block, each block having
+the same number of IP addresses. What are the prefixes (of form a.b.c.d/x)
+for the four subnets?
+
+
+12. Consider the example of BGP shown in the lectures (also given below)
+(a) What is an Autonomous Sytem? What do A, B and C represent?
+
+
+(b) As shown in the figure, a physical path exists between AS2 and AS3,
+as well as between AS3 and AS4. Can a packet sent from C with
+destination A be sent from AS4 to AS3 to AS2? Why or why not?
+
+
+13. Bonus for fun: IPv6 uses 16-byte addresses. If a block of 1 million addresses is allocated every picosecond, how long will the addresses last?
+The following questions are brain teasers. If you have questions, please ask on
+the forum. These should not take tutorial time away from the above questions.
+
+
+14. Challenge question: Imagine that 192.168.4.0/24 has been into four /26
+subnets. You want to allocate a new /25 in that same /24. Somebody
+points out that each existing subnet only uses the first half of its allocation, and suggests that each could be turned into a /7 with basically no
+reconfiguration. Would this work? If so, how? If not, how could you make
+room for the /25 with minimal reconfiguration?
+
+
+15. Challenge question: When Dijkstra’s algorithm “closes” a node, how can
+we know that it has found the shortest pah to that node? (That is, give
+a heuristic proof of correctness for Dijkstra’s algorithm.)
+
+
