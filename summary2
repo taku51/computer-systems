@@ -269,14 +269,34 @@ Encryption algo.
 Diff combo of encryption the system uses
 
 what's packet forwarding?
+the basic method for sharing information across systems on a network. 
+Packets are transferred between a source interface and a destination interface, usually on two different systems. 
+When you issue a command or send a message to a nonlocal interface, your system forwards those packets onto the local network. 
+The interface with the destination IP address that is specified in the packet headers then retrieves 
+the packets from the local network. If the destination address is not on the local network, 
+the packets are then forwarded to the next adjacent network, or hop.
 
-what's
+what's routing table?
+used to give instructions of how to forward packets
+CIDR
+But overflow problems sometimes -> but lookup and exchange
 
-what's
+what do the routing tables have?
+Destination IP (base) : input
+Subnet Mask : input
+Outgoing Line (physical or virtual) : output
 
-what's
+e.g: 203.32.8.0 (destination address) 255.255.255.0 (subnet mask) Eth 0 (outgoing)
+Longest mask always used when choosing a route
 
-what's
+what's classlessinterdomainrouting(CIDR)?
+is a way to allow more flexible allocation of Internet Protocol (IP) addresses 
+than was possible with the original system of IP address classes. As a result, 
+the number of available Internet addresses was greatly increased, which along 
+with widespread use of network address translation (NAT), has significantly 
+extended the useful life of IPv4.
+
+what's 
 
 what's
 
