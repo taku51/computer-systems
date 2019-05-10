@@ -1,0 +1,73 @@
+1. Let’s revisit the logic behind the voting method of classifier combination (used in Bagging, Random Forests, simple Stacking, and Boosting to some extent): Let’s make a few assumptions (some
+of which we’ll try to relax later):
+(1) We have a two–class problem; 
+A, B
+A/B/C makes a difference.
+Voting works well with binary.
+-> important 
+
+(2) The test (and training) instances are roughly evenly divided between the two classes;
+500 -> A, 500 -> B
+
+-> not important
+(3) Our classifiers predict the test instances roughly in proportion to the distribution of the
+classes;
+""
+-> not important
+
+(4) We are building an ensemble out of two classifiers;
+2 classifiers
+
+-> not important
+(5) The errors between the two classifiers are uncorrelated.
+are uncorrelated
+
+-> important
+SVM, NB, DT are most of the time correlated.
+The table is not practical if classifiers are correlated.
+If they are uncorrelated, as increase the number of classifiers, the error rate should decrease.
+
+(a) First, let’s assume our two classifiers both have an error rate of e = 0.4, calculated over 1000
+instances.
+i. Build the confusion matrix for these classifiers, based on the assumptions above.
+
+
+
+ii. On the table overleaf, indicate the number of instances in the (count) column for the
+first two systems — a couple of values have been filled out; for example, there are 180
+instances where the actual class is A, and both systems predicted A.
+
+
+
+iii. Assuming that the voting ties are broken randomly, what the the expected error rate of
+the voting ensemble?
+
+If the same label as the one 
+
+
+(b) What if we add a third classifier, also with error rate 0.4? Fill in the rest of the table, and determine the error rate of this ensemble. Why has adding a third system caused it to improve?
+
+Do the same thing
+
+(c) Now consider two classifiers, one (1) with e1 = 0.1 and the second with e2 = 0.2.
+i. Build the two confusion matrices.
+ii. Fill out the second table overleaf. Some values are given. Determine the expected error
+rate of the ensemble.
+iii. Add another system with e3 = 0.2; does the error rate improve this time?
+iv. What if the errors between the systems were very highly correlated instead? What will
+happen to the error rate then? What do you think would happen if we added many more
+highly correlated classifiers to the ensemble?
+
+
+(d) (Extension) Find general forms for the rightmost values in the tables:
+i. for N instances and error rates e1,2,3;
+ii. and, instead of the true labels being evenly divided between the two classes, a fraction
+α of the instances are class A, and (1 − α) are class B;
+iii. and, instead of the classifier making predictions in the ratio of the true labels, it is potentially biased, predicting class A for a fraction β of the instances, and (1 − β) for class B
+[Hint: the A-A cell in the confusion matrix should be N
+
+
+
+(e) Why can’t we easily relax assumption (1) with the information given?
+
+
