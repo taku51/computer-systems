@@ -1,0 +1,130 @@
+Fragmentation:
+Limits when using:
+Extra Network Overheads-20B per sub-pkt
+Extra Host Overheads - chunking & ordering & merging
+Single sub-pkt loss - resend for all other sub-pkts
+
+Needs for finding the right size for each fragmentation
+
+Path MTU discovery
+Init: just send original "large" pkt
+If routers can handle -> free if problems
+Otherwise routers would reject such a pkt with ICMP msg back.
+
+IPv4 - 2 approaches for fragmenting
+  non-transparent -just fragment
+  Path MTU - find the largest allowed pkt size
+  
+IPv6
+  Hosts to discover the optimal path MTU
+  
+Subnets
+  use masking to separate single subnet area to several ones
+  
+Medium Access Control (MAC)
+
+Instead of end to end connection:
+  wifi connection - broadcasting communicating pattern
+    -> Everyone can hear every pkt broadcast by wireless router
+  on replying: devices.
+  
+ALOHA
+  For end users: just send data
+  if ACKed, then done
+  if collided: resend pkt after an arbitrary timeout
+  Until pkt sent - ACK received
+
+Problems: 
+  low throughput ^ avg 18% Network usage
+  timeout mechanism - may have to wait several TO before timeout.
+
+To improve:
+CSMA - Carrier- Sense Multiple access
+  Listen before talk
+  if the router was not occupied by other devices, then send my pkt
+
+Problems:
+  More complicated implementation
+  collision still not been fully solved
+    -> 2 devices send pkts to router at the same time.
+ 
+Minimise the cost when collided
+CSMA/CA - CSMA with collision Avoidance
+Contention window - Cwin, uniformly set at a random value initially
+Workflow
+  Idle channel -> counting down from Cwin
+  if Cwin == 0 -> send a pkt
+    if ACKed, done
+    If not, Cwin = Cwin * 2, repeat
+
+------------------------------------------------------------------------------------------
+
+
+1. Consider sending a 1500-byte datagram into a link that has an MTU
+(Maximum Transmission Unit) of 500 bytes. Suppose the original datagram is stamped with the identification number 1. Assume that IPv4 is
+used. Hint: The IPv4 header is 20 bytes long.
+
+Need to chunk into smaller because it's too big.
+
+(a) Where does fragmentation happen? Where are the fragments reassembled?
+
+ROuters with small MTU -> necessity for fragmentation.
+Pkt re-assembled at the end hosts
+
+(b) How many fragments are generated?
+
+500 has 20 header and 480 data.
+480 * 3 + 1
+
++ 1 is for anything else carrying
+60 left so another one fragment needed.
+
+4 fragments in total 
+
+(c) In addition to the identification number, what are the fields in the
+generated IP datagram(s) that are related to fragmentation?
+
+
+(d) What are the values of the fragmentation-related fields in the generated IP datagram(s)?
+
+DF = 0
+First 3 fragments: MF = 1; 4th MF = 0
+1st FO = 0; 2nd FO = 60; 3rd FO = 120; 4th FO = 180
+
+480 / 8 bytes
+960 / 8 bytes
+...
+
+2. John’s home network consists of his laptop, smart phone and smart speaker.
+(a) Is it likely that each of these devices will each have unique global IP
+address? Explain why or why not.
+
+
+
+(b) The network address of the home network is 192.168.1.0/24. Assign
+addresses to all interfaces in the home network.
+
+Just allocate internal IPs to each of the devices
+192.168.1.1
+
+(c) Describe a widely used solution (as described in the lectures) which
+allows several devices to share the same global IP address.
+
+NAT - Network address transmission
+
+(d) John is a keen computer science student who is writing his own web
+server. Describe the key difficulty he will face when testing his server
+which is related to the solution you described above, and describe a
+workaround for the problem.
+
+Once an external user initiated a connection to the web server -> 404
+Manually set a NAT rule;: mapping internal web server
+
+3. Explain the difference between an application layer proxy and a NAT box.
+
+APP proxy:
+  App -> proxy -> Destination
+  Mapping external IP address to numbers of internal IP addresses
+
+
+
