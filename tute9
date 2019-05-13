@@ -126,5 +126,32 @@ APP proxy:
   App -> proxy -> Destination
   Mapping external IP address to numbers of internal IP addresses
 
+4. Why are acknowledgments used in 802.11 but not in wired Ethernet?
 
+Wireless scenario: more likely losing pkts
+wireless sender may not be capable listening and sending at same time.
+Interference may occur without sender's awareness
+
+5. If the duration of a packet is very much less than the propagation delay
+(round-trip time) from one side of a network to the other, does CSMA
+provide much performance benefit over Aloha? Why or why not?
+
+No.
+CSMA: listen before sending
+While RTT super large when compared to pkt sending/resending:
+Worse case: listening to the other end of network consuming a RTT
+
+6. Which is “better”, Aloha or CSMA? Why?
+
+ALOHA: simpler, but lower TP
+CSMA: better performance, but more complicated implementation
+
+Dependency on e.g. Hardware
+  Only poor performance provided: ALOHA may beat CSMA
+
+7. If CSMA was phased out of ethernet decades ago, why is it still used in
+WiFi?
+
+Wifi: based on broadcasting, manipulates over a shared medium
+Ethernet: point to point connection, no need to severely negotiate with other hosts.
 
