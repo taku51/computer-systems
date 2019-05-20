@@ -1,0 +1,75 @@
+
+1. In what sense is modern ethernet still “ethernet”? In what fundamental
+ways has it changed?
+
+
+2. Rank the following in order of speed, from slowest to fastest. Discuss.
+(a) A single segment of 100 Mbps CSMA/CD ethernet (“Fast ethernet”)
+
+
+(b) Switched 100 Mbps ethernet
+
+
+(c) The same number of hosts as above on three “Fast ethernet” segments, connected by bridges
+
+
+(d) Switched 10 Mbps ethernet
+
+
+
+3. How many combinations of three non-overlapping WiFi channels are there?
+A rough answer is good enough. Is any one combination better than any
+other?
+
+
+
+
+4. How does clock speed (the “GHz”) of a CPU influence its performance?
+Until about a decade ago, CPU manufacturers used to advertise the clock
+speed prominently, but they no longer do. Why not? Think about the
+microarchitecture of the Core 2 shown in lecture notes, and about pipelining.
+
+
+
+
+5. Consider a CPU for which it takes 0.6 ns to or write read up to 16 bytes
+from RAM and 0.7 ns to interpret an op-code and work out how to execute
+it. Most instructions take less than 0.5 ns to execute (excluding fetch,
+decode and writeback), but one takes 1.3 ns to complete.
+
+(a) What is the fastest clock speed (in MHz or GHz) that the CPU can
+operate at.
+
+
+(b) If the slow instruction can be removed from the instruction set, what
+is the fastest clock speed the CPU can operate at?
+
+
+(c) If the slow instruction is vital, what other approaches could be taken
+to allow the CPU to operate at the faster clock speed?
+
+
+6. Identify the micro-ops you think would be required for each instruction in
+the int i=1; example
+
+
+
+7. An ALU (arithmetic logic unit) takes two operands and produces an arithmetic or logical output, such as their sum. What other arithmetic or
+logical operations could it perform?
+Add-with-carry adds two numbers and then adds the ”carry” bit (as the
+least-significant bit) from the flags register. It is mainly used for computing quantities too big to fit into a register, but also allows ones-complement
+addition which you have used for for calculating UDP checksums.
+Subtract-with-carry subtracts one number from another, and then subtracts the carry bit.
+Note that multiply is listed but divide is not. Division is more complex,
+and is often relegated to the floating point unit.
+Shift-left is equivalent to multiplication by two, unless the most significant
+bit was 1. Some instructions shift the most significant bit into the carry
+flag.
+Shift-right is equivalent to division by two. There are often two forms: one
+assuming the number is signed and one assuming the number is unsigned.
+
+
+
+8. The number of stages in a pipeline is called its depth What are the advantages and disadvantages of a deep pipeline?
+
+
