@@ -1,7 +1,11 @@
+Sender and receiver know the same secret key in symmetric systems. Therefore, the same secret key is 
+used for both encryption and decryption.
 
+-> sender chooses a secret key to encrypt a plain text, and the recipent uses the same key to decrypt the cipher text.
 
+Encryption and decryption keys are different in public key systems. The encryption key is known by everyone including the sender, 
+but the decryption key is only known by the receiver.
 
-
-
-
-
+-> Receiver first creates its own public and private keys, where the former is open to everyone but the latter is hidden.
+Sender uses the former (public key created by the receiver, which is open to everyone) to encrypt a plain text. 
+Recipent can open the cyphertext encrypted using the public key by sender, with its private key.
