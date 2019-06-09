@@ -16,6 +16,14 @@ shared symmetric key, that is N * (N-1) / 2 keys.
 -> N people want to communicate with N-1 other people, and symmetric key encryption uses the same secret key for both encryption
 and decrypiton, so N * N -1. Since we only need the same key for one pair, remove duplicates by diving it by 2.
 
-With a public key system, 
+With a public key system
+
+-> Everyone user should have two keys, including one public key which is open to 
+everyone and the other which is onlu known by the user. Anyone can use the user's public key to encrypt a plain text, and 
+the user can use its own private key to decrypt the cyphertext.
+
+Therefore, every user would need 2 keys for encryption and decryption.
+So 2N keys required.
+
 
 
