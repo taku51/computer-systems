@@ -25,5 +25,17 @@ the user can use its own private key to decrypt the cyphertext.
 Therefore, every user would need 2 keys for encryption and decryption.
 So 2N keys required.
 
+AES is an symmetric cryptography algo'. 
+-> The same secret key is used for encryption and decryption. 
+Key to sign is the same as the key to verify
+
+AES is less suitable for digital signatures than RSA (public key systems).
+-> It is less suitable because digital signatures should only be forged or created by one user, but
+in symmetric system, it uses the same secret key, and thus can be used for both verification and creation of signatures.
+
+Asymmetric key crypto is not used to encrypt actual messages.
+
+
+Asymmetric key crypto is usually used with symmetric key crypto to encrypt messages.
 
 
