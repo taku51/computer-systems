@@ -10,5 +10,12 @@ but the decryption key is only known by the receiver.
 Sender uses the former (public key created by the receiver, which is open to everyone) to encrypt a plain text. 
 Recipent can decrypt and open the cyphertext encrypted using the public key by sender, with its private key.
 
+If N people want to communicate with each of N-1 other people using symmetric key encryption, each pair of users must have a
+shared symmetric key, that is N * (N-1) / 2 keys.
+
+-> N people want to communicate with N-1 other people, and symmetric key encryption uses the same secret key for both encryption
+and decrypiton, so N * N -1. Since we only need the same key for one pair, remove duplicates by diving it by 2.
+
+With a public key system, 
 
 
