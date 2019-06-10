@@ -16,7 +16,7 @@ shared symmetric key, that is N * (N-1) / 2 keys.
 -> N people want to communicate with N-1 other people, and symmetric key encryption uses the same secret key for both encryption
 and decrypiton, so N * N -1. Since we only need the same key for one pair, remove duplicates by diving it by 2.
 
-With a public key system
+With a public key system (also known as assymetric crypto)
 
 -> Everyone user should have two keys, including one public key which is open to 
 everyone and the other which is onlu known by the user. Anyone can use the user's public key to encrypt a plain text, and 
@@ -34,8 +34,28 @@ AES is less suitable for digital signatures than RSA (public key systems).
 in symmetric system, it uses the same secret key, and thus can be used for both verification and creation of signatures.
 
 Asymmetric key crypto is not used to encrypt actual messages.
+-> Because it is slower than symmetric. Not suitable for encrypting large amounts of data. Can
+only encrypt data up to the sie of the key. As it needs to first encrypt using the public key(which is open to everyone 
+and private key to decrypt, where as with symmetric can just use a single key for both, which simplifies
+the entire system)
+
+Asymmetric key crypto (public key system. Different keys for encryption and decryption) is 
+usually used with symmetric key crypto to encrypt messages.
+-> it is used to exchanging a joint secret key for symmetric system.
+
+The entire process would look like
+Alice generates her key pair and posts her public key online.
+Bob generates a secret key and encrypts his secret key using Alice's public key (public key is always
+used to encrypt in public key system)
+Bob sends the encrypted text to Alice
+Alice uses her own private key to decrypt Bob's encrypted secret key.
+Now Alice and Bob share the secret key. This means that secret key is shared in an encrypted way,
+and the key can be used as the key for both encryption and decryption of messages between alice and bob.
 
 
-Asymmetric key crypto is usually used with symmetric key crypto to encrypt messages.
+
+
+
+
 
 
