@@ -101,7 +101,20 @@ The decoded message is ciphertext^decryption key ≡ plaintext^encrption key^dec
 Original message.
 
 
-
+Alice wants to communicate with Bob, using public-key cryptography. She establishes a
+connection to someone she hopes is Bob. She asks him for his public key and he sends it to
+her in plaintext along with an X.509 certificate signed by the root CA. Alice already has the
+public key of the root CA. What steps does Alice carry out to verify that she is talking to
+Bob? Assume that Bob does not care who he is talking to (e.g., Bob is some kind of public
+service).
+This will require more detail than was given in the lectures. A long answer is given at
+question 2 of https://security.stackexchange.com/questions/139176/details-of-tls-certificateverification
+Step 1 is to verify the X.509 certicate using the root CAs public key. If it is genuine, she
+now has Bob’s public key, although she should check the CRL (certificate revocation list) if
+there is one. But to see if it is Bob on the other end of the connection, she needs to know
+if Bob has the corresponding private key. She picks a nonce (essentially a random number
+used once) and sends it to him with his public key. If Bob can send it back in plaintext, she
+is convinced that it is Bob.
 
 
 
