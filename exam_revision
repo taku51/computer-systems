@@ -101,24 +101,63 @@ The decoded message is ciphertext^decryption key ≡ plaintext^encrption key^dec
 Original message.
 
 
-Alice wants to communicate with Bob, using public-key cryptography. She establishes a
-connection to someone she hopes is Bob. She asks him for his public key and he sends it to
-her in plaintext along with an X.509 certificate signed by the root CA. Alice already has the
-public key of the root CA. What steps does Alice carry out to verify that she is talking to
-Bob? Assume that Bob does not care who he is talking to (e.g., Bob is some kind of public
-service).
-This will require more detail than was given in the lectures. A long answer is given at
-question 2 of https://security.stackexchange.com/questions/139176/details-of-tls-certificateverification
-Step 1 is to verify the X.509 certicate using the root CAs public key. If it is genuine, she
-now has Bob’s public key, although she should check the CRL (certificate revocation list) if
-there is one. But to see if it is Bob on the other end of the connection, she needs to know
+Alice wants to communicate with Bob, using public-key system (assymetric, public key and private key). 
+She establishes a connection to someone she hopes is Bob. Alice gets Bob's public key(encryption key) through
+plaintext along with an X.509 certificate signed by the root CA. 
+Alice already has the public key of the root CA. 
+
+-> Alice checks if it's Bob by Step 1 is to verify the X.509 certicate using the root CAs public key (
+alrady has the public key of the root CA and needs to verify the bob's public using the x.509 certificate). 
+If it is genuine, she now has Bob’s public key, although she should check the CRL (certificate revocation list) if
+there is one. 
+
+-> To see if it is Bob on the other end of the connection, she needs to know
 if Bob has the corresponding private key. She picks a nonce (essentially a random number
 used once) and sends it to him with his public key. If Bob can send it back in plaintext, she
-is convinced that it is Bob.
+is convinced that it is Bob. As Bob needs to decrypt with his private key.
+So all she needs is use Bob's public to encrypt that is done through¥ the certificate, and then send a 
+random number in an encrypted way and let him decrypt.
 
+Suppose that a system uses PKI based on a tree-structured hierarchy of CAs. Alice wants
+to communicate with Bob, and receives a certificate from Bob signed by a CA X after
+establishing a communication channel with Bob. Suppose Alice has never heard of X. What
+steps does Alice take to verify that she is talking to Bob?
+See https://www.ibm.com/support/knowledgecenter/en/SSLTBW 2.1.0/
+com.ibm.zos.v2r1.icha700/icha700 Certificate hierarchies.htm
+First Alice establishes a communication channel with X and asks X for a certificate to verify
+his public key. Suppose X provides a certificate signed by another CA Y . If Alice does not
+know Y , she repeats the above step with Y .
+Alice continues to do this, until she receives a certificate verifying the public key of a CA
+Z signed by A and Alice knows As public key. Note that this may continue until a root
+is reached, that is, A is the root. After this Alice verifies the public keys in reverse order
+starting from the certificate that Z provided. In each step during verification, she also checks
+the CRL to make sure that the certificate provided have not been revoked. Finally, after
+verifying Bobs public key, Alice ensures that she is indeed talking to Bob using the same
+method as in the previous problem.
 
+ In what ways could a salt be
+combined with a plaintext before encryption? What are the pros and cons of each method?
+This is a brainstorming question. You can probably come up with better answers than these
+samples. If so, please post them to the forum.
+The salt could be arithmetically added to the plaintext, treating both binary strings as numbers. A con is that this requires carry over many bytes.
 
+The salt could be appended or prepended to the plaintext. An advantage is that this works
+with arbitrary length plaintexts. A disadvantage is that this makes the plaintext longer, which
+increases computation substantially. If the plaintext is long enough to need to be broken into
+blocks, then some blocks may not be protected at all.
 
-
-
+Describe the TLS Handshake process.
+(a) TCP connection is established
+(b) Client sends ClientHello to server asking for secure connection,
+listing its supported cipher suites
+(c) Server responds with ServerHello and selects one of the cipher
+suites presented that it supports, also includes its certificate, and
+can request the client send its certificate (mutual authentication)
+(d) Client confirms validity of certificate
+(e) Client generates session key
+i. Either directly by picking a random key and encrypting it with the public key of the
+server, or
+ii. By running the Diffie-Hellman Key Exchange protocol that provides better security
+(f ) Handshake concludes and both parties share a key that is then used for encrypting/decrypting
+messages
 
