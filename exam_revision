@@ -52,6 +52,19 @@ Alice uses her own private key to decrypt Bob's encrypted secret key.
 Now Alice and Bob share the secret key. This means that secret key is shared in an encrypted way,
 and the key can be used as the key for both encryption and decryption of messages between alice and bob.
 
+Degital Ceritifcate is the fundamental job of a certificate in order to bind a public key to 
+the name of someone (individual or company). 
+It includes details about the owner, information about the public
+key, and the signature of the certifying authority.
+
+-> It is a set of information including the public key, owner, and the digital signature.
+
+Suppose certifier.com creates a certificate for foo.com. The entire certificate would be encrypted with 
+certifier.com's public key. 
+
+-> False. Ceritifcates need to be distinct so needs to include some data of foo.com, which could be 
+a hash of foo.com's information (including its public key), and signed with certifier.com's private key.
+As public key is always open to everyone. Needs to sign with private key to certify.
 
 
 
