@@ -66,6 +66,43 @@ certifier.com's public key.
 a hash of foo.com's information (including its public key), and signed with certifier.com's private key.
 As public key is always open to everyone. Needs to sign with private key to certify.
 
+Diffie Hellman key exchange is used for sharing a secret key between two users. p and g are already fixed.
+*g must be smaller than p. Because it's modulo p. P must be a prime number.
+The secret key chosen by each user is user to power g. e.g. if secret key is 4. g^4 but p always stays
+the same, and it's used for modulo p.
+
+Alice and Bob share the secret key as follows:
+Alice sends p, g and A's computed public key (g^x mod p where is a secret key) in the tuple
+(227, 5, 82), where x = 12. 
+
+Bob finds x by reverse engineering
+the g^x mod p sent by Alice, this can be done by manually inserting a value into x
+until it finds a value 82, 5^x mod 227 = 82). -> Bob now has Alice's secret key.
+
+Bob sends 125 (g^y mod p) where y is the secret key Bob chose = 3.
+
+Alice sends g^b^a mod p = 5^12^3 mod 227 = 212, after doing the same step as Bob did to find her secret key.
+
+The secret key in the endis g^b^a mod p = 5^12^3 mod 227
+
+RSA asymmetric cryptography uses powers of large numbers modulo a third number, like
+Diffie-Hellman key exchange. 
+
+-> Encryption consists of calculating m^e(mod n).
+e and n are the variables and m is the plaintext.
+
+-> Decrypting ciphertext c consists of calculating c^d (mod n) 
+private key consits d and n excluding the cyphertext
+
+-> always decrypt to the correct plaintext.
+e.g. encrypt the message 6 with the key (e = 3, n=55, they are any integers)
+Decrypt the cipher text with (d=7, n=55). n has to be the same but d can be any secret integer.
+The decoded message is ciphertext^decryption key ≡ plaintext^encrption key^decryption key ≡ 
+Original message.
+
+
+
+
 
 
 
