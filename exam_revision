@@ -321,26 +321,36 @@ the network prevents the packet from being in an inifinate loop.
 Otherwise, it would consume excessive resources, or even escape the
 loop eventually and reach the destination much later.
 
-Suppose an ISP owns the block of addresses of the form 101.101.128.0/17.
-Suppose it wants to create four subnets from this block, each block having
-the same number of IP addresses. What are the prefixes (of form a.b.c.d/x)
-for the four subnets?
-101.101.128.0/19
-101.101.160.0/19
-101.101.192.0/19
-101.101.224.0/19
+An ISP owns the block of addresses of the form 101.101.128.0/17.
+It wants to create four subnets from this block, each block having
+the same number of IP addresses. The prefixes (of form a.b.c.d/x)
+for the four subnets are as follows: add 32 each time.
 
-Consider the example of BGP shown in the lectures (also given below)
-(a) What is an Autonomous Sytem? What do A, B and C represent?
-(b) As shown in the figure, a physical path exists between AS2 and AS3,
-as well as between AS3 and AS4. Can a packet sent from C with
-destination A be sent from AS4 to AS3 to AS2? Why or why not?
-(a) An AS is an independent networks that are collections of routers
-under the same administrative control. A good mental model for an
-AS is an ISP network. A, B, and C are customers of the ISPs that
-own the Autonomous Systems AS2, AS3 and AS4 respectively.
-Note that if A, B and C are retail customers, then they are considered part of their provider’s AS from the network point of view, even
-though they may administer their own private network
+Four equalsize subnets:
+need additional 2 digits to express 4 different patterns. So 17 ->19
+101.101.128.0/17 single subnet 110.101.1(0000000.0/17)
+so 
+101.101.10000000.0/19 -> 101.101.128.0/19
 
-(b) No. The customer ISP typically only advertises routes for their network to avoid transiting other traffic (in this case, traffic destined to
-A).
+101.101.10100000.0/19 -> 101.101.160.0/19
+
+101.101.11000000.0/19 -> 101.101.192.0/19
+
+101.101.11100000.0/19 -> 101.101.224.0/19
+
+
+Consider the example of BGP (how the vendor map looks like, each of the nodes is an autonomous system):
+
+(a) an Autonomous Sytem is a network that are collections of routers
+under the same administrative control (network which contains routers under the same control system). 
+e.g. ISP network. Customers A, B, C own autonomous systems.
+
+(b) A physical path exists between AS2 and AS3,
+as well as between AS3 and AS4. A packet sent from C with
+destination A cannot be sent from AS4 to AS3 to AS2.
+-> The customer ISP typically only advertises routes for their network to avoid transiting other traffic 
+(in this case, traffic destined to A).So cannot transit to other tranffic.
+
+
+
+
