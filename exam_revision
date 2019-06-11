@@ -118,46 +118,45 @@ is convinced that it is Bob. As Bob needs to decrypt with his private key.
 So all she needs is use Bob's public to encrypt that is done through¥ the certificate, and then send a 
 random number in an encrypted way and let him decrypt.
 
-Suppose that a system uses PKI based on a tree-structured hierarchy of CAs. Alice wants
+In, PKI based on a tree-structured hierarchy of CAs, Alice wants
 to communicate with Bob, and receives a certificate from Bob signed by a CA X after
-establishing a communication channel with Bob. Suppose Alice has never heard of X. What
-steps does Alice take to verify that she is talking to Bob?
-See https://www.ibm.com/support/knowledgecenter/en/SSLTBW 2.1.0/
-com.ibm.zos.v2r1.icha700/icha700 Certificate hierarchies.htm
-First Alice establishes a communication channel with X and asks X for a certificate to verify
-his public key. Suppose X provides a certificate signed by another CA Y . If Alice does not
-know Y , she repeats the above step with Y .
+establishing a communication channel with Bob. Alice has never heard of X.
+
+-> First Alice establishes a communication channel with X and asks X for a certificate to verify
+his public key (when verifying
+always need to first verify the authority of the certificate, public key)
+X provides a certificate signed by another CA Y. Alice does not
+know Y, she first does it with Y.
 Alice continues to do this, until she receives a certificate verifying the public key of a CA
-Z signed by A and Alice knows As public key. Note that this may continue until a root
-is reached, that is, A is the root. After this Alice verifies the public keys in reverse order
+Z signed by A and Alice knows As public key. 
+After this Alice verifies the public keys in reverse order
 starting from the certificate that Z provided. In each step during verification, she also checks
 the CRL to make sure that the certificate provided have not been revoked. Finally, after
 verifying Bobs public key, Alice ensures that she is indeed talking to Bob using the same
 method as in the previous problem.
 
- In what ways could a salt be
-combined with a plaintext before encryption? What are the pros and cons of each method?
-This is a brainstorming question. You can probably come up with better answers than these
-samples. If so, please post them to the forum.
-The salt could be arithmetically added to the plaintext, treating both binary strings as numbers. A con is that this requires carry over many bytes.
+Salt can be addded to plaintext in the following ways:
+The salt could be arithmetically added to the plaintext, 
+treating both binary strings as numbers. A con is that this requires carry over many bytes.
 
 The salt could be appended or prepended to the plaintext. An advantage is that this works
 with arbitrary length plaintexts. A disadvantage is that this makes the plaintext longer, which
-increases computation substantially. If the plaintext is long enough to need to be broken into
-blocks, then some blocks may not be protected at all.
+increases computation of encryption and decryption substantially. 
+If the text is in block shape, then some blocks may not be protected at all.
 
-Describe the TLS Handshake process.
-(a) TCP connection is established
-(b) Client sends ClientHello to server asking for secure connection,
-listing its supported cipher suites
+Describe the TLS (transport layer security, responsible for the authentication and key exchange 
+necessary to establish) Handshake process.
+(a) First TCP connection (always need a TCP connection to begin with, otherwise no connection between them)
+(b) Client (always start with a client) sends clienthello and asks the server for secure connection,
+listing its supported cipher suites (signature, encryption method and so on).
 (c) Server responds with ServerHello and selects one of the cipher
 suites presented that it supports, also includes its certificate, and
 can request the client send its certificate (mutual authentication)
-(d) Client confirms validity of certificate
-(e) Client generates session key
-i. Either directly by picking a random key and encrypting it with the public key of the
-server, or
-ii. By running the Diffie-Hellman Key Exchange protocol that provides better security
+(d) Client confirms validity of certificate (receving the server certificate) Once the certificates are valid, do key exchange
+(e) Client generates session key -> can do in two ways
+i. Picking a random key and encrypting it with the public key of the
+server (alway use the opponet's public key to encrypt)
+ii. Running the Diffie-Hellman Key Exchange protocol that provides better security
 (f ) Handshake concludes and both parties share a key that is then used for encrypting/decrypting
 messages
 
