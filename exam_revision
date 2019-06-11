@@ -1,3 +1,5 @@
+week 8
+
 Sender and receiver know the same secret key in symmetric systems. Therefore, the same secret key is 
 used for both encryption and decryption.
 
@@ -160,3 +162,4 @@ ii. Running the Diffie-Hellman Key Exchange protocol that provides better securi
 (f ) Handshake concludes and both parties share a key that is then used for encrypting/decrypting
 messages
 
+week 9
