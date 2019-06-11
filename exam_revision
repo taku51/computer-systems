@@ -799,9 +799,9 @@ time and no congestion. The receive window is 24 kiB and the segment
 size is 2 kiB. How long does it take before the first full window can be
 sent? (Bonus: what is the difference between ki, Mi, Gi and k, M, G?)
 
-The first bursts contain 2ki, 4ki, 8ki, and 16ki bytes, respectively. The
-window size will grow to accommodate 24ki after 40,msec. The first full
-window will have been sent after 40 ms plus the time to send 24ki bytes
+The first bursts contain 2ki, 4ki, 8ki, and 16ki bytes (gradually goes up as its size. Doubles), respectively. The
+window size will grow to accommodate 24ki after 40,msec (4 times). The first full
+window (24 kib is the window size) will have been sent after 40 ms plus the time to send 24ki bytes
 (= 24ki/bitrate).
 
 
@@ -811,9 +811,7 @@ perform a fast retransmit after the first duplicate ACK for a segment is
 received.
 
 Packets can arrive out of order from the IP layer. So whenever an out of
-order packet would be received it would generate a duplicate ACK and if
-we perform retransmission after the first duplicate ACK it would lead the
-sender to introduce too many redundant packets in the network.
+order packet would be received it would generate a duplicate ACK anyway so no need to set it the first ACK.
 
 
 5. Your friend states that the Transport Layer in routers does not need to
@@ -822,12 +820,12 @@ you agree with their statement? In in-order delivery, which layer receives
 packets in order?
 
 The friend is exhibiting a lack of understanding of the functions of each
-layer. Ideally, routers are only responsible for network layer functions.
-Transport layer protocols operate on each end host, and therefore any inorder delivery requirements will be satisfied by buffering segments at end
-hosts and delivering them in order to the application layer.
-(Nitty gritty: Real routers are not ideal. Real routers exhibit layering violations by looking into IP payloads to observe transport layer port numbers
-to try to reduce out-of-order delivery of packets within a TCP flow to improve the performance of TCP, even though routers don’t themselves have
-a “transport layer”.)
+layer. Ideally, routers are only responsible for network layer functions so not transport layer.
+
+Transport (responsible for efficient data carrying
+) layer protocols operate on each end host, and therefore any inorder delivery requirements will be satisfied by 
+buffering segments at end
+hosts and delivering them in order to the application layer (transport -> application).
 
 6. In what way does an encrypted message hash using public-key cryptography provide a better digital signature than an encrypted message?
 
