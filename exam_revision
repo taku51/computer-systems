@@ -197,7 +197,7 @@ all others, as the name says datagram (piece of data).
 In virtual-circuit networks, each data packet follows a predetermined route (as circuits are usually defined)
 -> Virtual-circuit networks need the capability to route isolated
 packets from an arbitrary source to an arbitrary destination, in order to
-route connection setup packets from an arbitrary source to an arbitrary
+guide connection setup packets from an arbitrary source to an arbitrary
 destination.
 
 A network on the Internet has a subnet mask of 255.255.240.0. 
@@ -264,31 +264,36 @@ D: 8000 addresses require 13 bits, so
 198.16.64.0 – 198.16.95.255 written as
 198.16.64.0/19
 
-A router has the following (CIDR) entries in its routing table:
+A router has the following (CIDR) entries in its routing table (it shows how routing should be done, where it goes):
+
 Address/mask Next hop
 135.46.56.0/22 Interface 0
 135.46.60.0/22 Interface 1
 192.53.40.0/23 Router 1
 default Router 2
-For each of the following IP addresses, what does the router do if a packet
-with that address arrives?
-(a) 135.46.63.10
-(b) 135.46.57.14
-(c) 135.46.52.2
-(d) 192.53.40.7
-(e) 192.53.56.7
+
+For each of the following IP addresses, the router passes to the next hop when a packet
+with that address arrives.
+(a) 135.46.63.10 -> interface 1 (as 135.46.60.0/22 covers 63.10)
+(b) 135.46.57.14 -> interface 0 (135.46.60.0/22 covers 57.14)
+(c) 135.46.52.2 -> router 2 (not covered by any of the ones in the routing table so go to the defualt one)
+(d) 192.53.40.7 -> router 1 (Coveredd by 192.53.40.0/23)
+(e) 192.53.56.7 -> router 2 (not covered by any of the ones in the routing table so go to the defualt one)
 
 
-List one motivation for a host to send an IP packet with the wrong source
-IP address. List two ways that this can adversely affect the legitimate
-owner of that IP address.
-(Note that there are some niche legitimate reasons to spoof addresses:
-http://www.cs.northwestern.edu/~yzh734/papers/LEND-Sigcomm06.
-pdf.)
-A host launching a denial-of-service attack may send packets with a spoofed
-source address that corresponds to another host, in order to evade detection. The legitimate owner may be blamed for the attack (and perhaps also
-blocked from sending legitimate traffic to the victim destination), and may
+A host to send an IP packet with the wrong source IP address 
+-> A host launching a denial-of-service attack may send packets with a spoofed
+source address that corresponds to another host, in order to evade beig tracked out. -> to fake identity for denial
+of service attack (DoS attack).
+
+
+Two ways that this can adversely affect the legitimate
+owner of that IP address are:
+
+The legitimate owner may be blamed for the attack (exploited by the malicious entity.
+blocked from sending legitimate traffic to the victim destination (get blacklisted)), and may
 also receive unwanted return traffic (e.g., SYN-ACK or RST packets).
+
 
 Consider a network with the following link costs. Find the shortest path
 from A to B using Dijkstra’s algorithm.
@@ -300,16 +305,21 @@ C 1 – 0 3 2
 D 2 10 3 0 5
 E 4 4 2 5 0
 
-The shortest path is B-E-C-A, since each node has stored the next hop on
-its shortest path to A
+From A to B, so look at A first. As dijkstra follows the most optimal local path each turn, it first goes to
+C. From C, E is the closest unvisited node so goes to E, and then B.
+*it doesn't go to the same node again.
+
+The shortest path is B-E-C-A.
 
 The IP packet header includes a time-to-live field that is decremented by
-each router along the path. Why is the time-to-live field necessary?
-A packet may get stuck in a forwarding loop (e.g., due to a router configuration mistake, or the transients of a routing algorithm). By decrementing
-the TTL field at each hop, and discarding the packet when the TTL reaches 0, the network prevents the packet from cycling in a loop indefinitely. Otherwise, the packet would consume excessive resources, or even escape the
-loop eventually and reach the destination much later (running the risk that
-the packet is mistakenly viewed as part of a more recent transmission with
-the same IP addresses and TCP/UDP port numbers).
+each router along the path. (each turn it gets decremented)
+
+-> The time-to-live field is necessary because a packet might get stuck in forwarding loop (e.g., due to a router configuration mistake, 
+or the transients of a routing algorithm). By decrementing
+the TTL (time to live) field at each hop, and discarding the packet when the TTL reaches 0, 
+the network prevents the packet from being in an inifinate loop. 
+Otherwise, it would consume excessive resources, or even escape the
+loop eventually and reach the destination much later.
 
 Suppose an ISP owns the block of addresses of the form 101.101.128.0/17.
 Suppose it wants to create four subnets from this block, each block having
