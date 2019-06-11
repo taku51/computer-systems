@@ -256,7 +256,7 @@ B: 2000 addresses require 11 bits, so
 198.16.16.0/21 (-11 bits)
 
 C: 4000 addresses require 12 bits, so (16, 32, 64 are because of the previous ranges already assigned for A and B
-it goes up 16 decimal each time)
+it goes up always a decimal value of 16 each time)
 198.16.32.0 – 198.16.47.255 written as
 198.16.32.0/20
 
@@ -264,5 +264,73 @@ D: 8000 addresses require 13 bits, so
 198.16.64.0 – 198.16.95.255 written as
 198.16.64.0/19
 
+A router has the following (CIDR) entries in its routing table:
+Address/mask Next hop
+135.46.56.0/22 Interface 0
+135.46.60.0/22 Interface 1
+192.53.40.0/23 Router 1
+default Router 2
+For each of the following IP addresses, what does the router do if a packet
+with that address arrives?
+(a) 135.46.63.10
+(b) 135.46.57.14
+(c) 135.46.52.2
+(d) 192.53.40.7
+(e) 192.53.56.7
 
 
+List one motivation for a host to send an IP packet with the wrong source
+IP address. List two ways that this can adversely affect the legitimate
+owner of that IP address.
+(Note that there are some niche legitimate reasons to spoof addresses:
+http://www.cs.northwestern.edu/~yzh734/papers/LEND-Sigcomm06.
+pdf.)
+A host launching a denial-of-service attack may send packets with a spoofed
+source address that corresponds to another host, in order to evade detection. The legitimate owner may be blamed for the attack (and perhaps also
+blocked from sending legitimate traffic to the victim destination), and may
+also receive unwanted return traffic (e.g., SYN-ACK or RST packets).
+
+Consider a network with the following link costs. Find the shortest path
+from A to B using Dijkstra’s algorithm.
+
+\ A B C D E
+A 0 – 1 2 4
+B – 0 – 10 4
+C 1 – 0 3 2
+D 2 10 3 0 5
+E 4 4 2 5 0
+
+The shortest path is B-E-C-A, since each node has stored the next hop on
+its shortest path to A
+
+The IP packet header includes a time-to-live field that is decremented by
+each router along the path. Why is the time-to-live field necessary?
+A packet may get stuck in a forwarding loop (e.g., due to a router configuration mistake, or the transients of a routing algorithm). By decrementing
+the TTL field at each hop, and discarding the packet when the TTL reaches 0, the network prevents the packet from cycling in a loop indefinitely. Otherwise, the packet would consume excessive resources, or even escape the
+loop eventually and reach the destination much later (running the risk that
+the packet is mistakenly viewed as part of a more recent transmission with
+the same IP addresses and TCP/UDP port numbers).
+
+Suppose an ISP owns the block of addresses of the form 101.101.128.0/17.
+Suppose it wants to create four subnets from this block, each block having
+the same number of IP addresses. What are the prefixes (of form a.b.c.d/x)
+for the four subnets?
+101.101.128.0/19
+101.101.160.0/19
+101.101.192.0/19
+101.101.224.0/19
+
+Consider the example of BGP shown in the lectures (also given below)
+(a) What is an Autonomous Sytem? What do A, B and C represent?
+(b) As shown in the figure, a physical path exists between AS2 and AS3,
+as well as between AS3 and AS4. Can a packet sent from C with
+destination A be sent from AS4 to AS3 to AS2? Why or why not?
+(a) An AS is an independent networks that are collections of routers
+under the same administrative control. A good mental model for an
+AS is an ISP network. A, B, and C are customers of the ISPs that
+own the Autonomous Systems AS2, AS3 and AS4 respectively.
+Note that if A, B and C are retail customers, then they are considered part of their provider’s AS from the network point of view, even
+though they may administer their own private network
+
+(b) No. The customer ISP typically only advertises routes for their network to avoid transiting other traffic (in this case, traffic destined to
+A).
