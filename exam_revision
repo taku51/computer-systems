@@ -354,21 +354,25 @@ destination A cannot be sent from AS4 to AS3 to AS2.
 ------------------------------------------------------------------
 week 10:
 
-
 Sending a 1500-byte datagram into a link that has an MTU
-(Maximum Transmission Unit) of 500 bytes. The original datagram is stamped with the identification number 1. Assume that IPv4 is
-used. Hint: The IPv4 header is 20 bytes long.
+Maximum Transmission Unit of 500 bytes, can only send 1500 byte. 
+The original datagram is stamped with the identification number 1. IPv4 is
+used. Hint: The IPv4 header is 20 bytes long always.
 
-Need to chunk into smaller because it's too big.
+Need to chunk into smaller because it's too big as the maximum is 500 bytes.
 
 (a) Where does fragmentation happen? Where are the fragments reassembled?
 
-ROuters with small MTU -> necessity for fragmentation.
-Pkt re-assembled at the end hosts
+Happens in the router preceding the link with the small
+500 bytes MTU. Need to chunk into smaller.
+
+Routers with small MTU -> necessity for fragmentation.
+Pkts/fragments re-assembled (come together) at the end hosts/systems
 
 (b) How many fragments are generated?
 
-500 has 20 header and 480 data.
+Since header always takes 20 bytes, the other 480 can carry the data, and thus 480 * 4 is needed.
+1 is for anything else carrying (identification number).
 480 * 3 + 1
 
 + 1 is for anything else carrying
@@ -379,6 +383,7 @@ Pkt re-assembled at the end hosts
 (c) In addition to the identification number, what are the fields in the
 generated IP datagram(s) that are related to fragmentation?
 
+Flags (DF=Don’t Fragment and MF=More Fragments) and fragmentation offset. Need to set the flags.
 
 (d) What are the values of the fragmentation-related fields in the generated IP datagram(s)?
 
@@ -621,5 +626,83 @@ Principal components of protocols:
 ack and seq:
 
 
+
+1. Which of the OSI layers handles each of the following:
+a) Dividing the transmitted bit stream into frames -> Data Link Layer
+b) Determining which route through the subnet to use -> Network Layer
+
+2. True or false? Consider congestion control in TCP. When the timer expires
+at the sender, the value of ssthresh is set to one half of its previous value.
+
+False, it is set to half of the current value of the congestion window.
+
+
+3. Consider the effect of using slow start on a line with a 10-msec round-trip
+time and no congestion. The receive window is 24 kiB and the segment
+size is 2 kiB. How long does it take before the first full window can be
+sent? (Bonus: what is the difference between ki, Mi, Gi and k, M, G?)
+
+The first bursts contain 2ki, 4ki, 8ki, and 16ki bytes, respectively. The
+window size will grow to accommodate 24ki after 40,msec. The first full
+window will have been sent after 40 ms plus the time to send 24ki bytes
+(= 24ki/bitrate).
+
+
+4. TCP waits until it has received three duplicate ACKs before performing
+a fast retransmit. Why do you think the TCP designers chose not to
+perform a fast retransmit after the first duplicate ACK for a segment is
+received.
+
+Packets can arrive out of order from the IP layer. So whenever an out of
+order packet would be received it would generate a duplicate ACK and if
+we perform retransmission after the first duplicate ACK it would lead the
+sender to introduce too many redundant packets in the network.
+
+
+5. Your friend states that the Transport Layer in routers does not need to
+worry about in-order forwarding of packets when TCP is employed. Do
+you agree with their statement? In in-order delivery, which layer receives
+packets in order?
+
+The friend is exhibiting a lack of understanding of the functions of each
+layer. Ideally, routers are only responsible for network layer functions.
+Transport layer protocols operate on each end host, and therefore any inorder delivery requirements will be satisfied by buffering segments at end
+hosts and delivering them in order to the application layer.
+(Nitty gritty: Real routers are not ideal. Real routers exhibit layering violations by looking into IP payloads to observe transport layer port numbers
+to try to reduce out-of-order delivery of packets within a TCP flow to improve the performance of TCP, even though routers don’t themselves have
+a “transport layer”.)
+
+6. In what way does an encrypted message hash using public-key cryptography provide a better digital signature than an encrypted message?
+
+A signed message digest is better in that one need only encrypt (using
+the private key) a short message digest, rather than the entire message.
+Since public key (asymmetric) encryption with a technique like RSA is
+expensive, it’s more desirable to have to sign (encrypt) a small amount of
+data than a larger amount of data.
+
+7. Consider a subnet with prefix 128.119.40.128/26. Give an example of one
+IP address (of form xxx.xxx.xxx.xxx) that can be assigned to this network.
+Suppose an ISP owns the block of addresses of the form 128.119.40.64/26.
+Suppose it wants to create four subnets from this block, with each block
+having the same number of IP addresses. What are the prefixes (of form
+a.b.c.d/x) for the four subnets?
+
+Any IP address in range 128.119.40.128 to 128.119.40.191.
+(Nitty gritty: Address 128.119.40.128 is reserved as the network address,
+and cannot be used by any host. Address 128.119.40.191 is the broadcast address and cannot be used by any host. Thus answers in the range
+128.119.40.129–128.119.40.190 are better than reserved addresses, depending on how “assigned” is interpreted.)
+Four equal size subnets: 128.119.40.64/28, 128.119.40.80/28, 128.119.40.96/28,
+128.119.40.112/28
+
+8. Consider a router that interconnects three subnets: Subnet 1, Subnet 2,
+and Subnet 3. Suppose all of the interfaces in each of these three subnets
+are required to have the prefix 223.1.17/24. Also suppose that Subnet 1
+is required to support up to 60 interfaces, Subnet 2 is to support up to 95
+interfaces, and Subnet 3 is to support up to 13 interfaces. Provide three
+network addresses (of the form a.b.c.d/x) that satisfy these constraints.
+
+223.1.17.0/26
+223.1.17.128/25
+223.1.17.64/28 is one possible solution
 
 
