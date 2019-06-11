@@ -351,6 +351,275 @@ destination A cannot be sent from AS4 to AS3 to AS2.
 -> The customer ISP typically only advertises routes for their network to avoid transiting other traffic 
 (in this case, traffic destined to A).So cannot transit to other tranffic.
 
+------------------------------------------------------------------
+week 10:
+
+
+Sending a 1500-byte datagram into a link that has an MTU
+(Maximum Transmission Unit) of 500 bytes. The original datagram is stamped with the identification number 1. Assume that IPv4 is
+used. Hint: The IPv4 header is 20 bytes long.
+
+Need to chunk into smaller because it's too big.
+
+(a) Where does fragmentation happen? Where are the fragments reassembled?
+
+ROuters with small MTU -> necessity for fragmentation.
+Pkt re-assembled at the end hosts
+
+(b) How many fragments are generated?
+
+500 has 20 header and 480 data.
+480 * 3 + 1
+
++ 1 is for anything else carrying
+60 left so another one fragment needed.
+
+4 fragments in total 
+
+(c) In addition to the identification number, what are the fields in the
+generated IP datagram(s) that are related to fragmentation?
+
+
+(d) What are the values of the fragmentation-related fields in the generated IP datagram(s)?
+
+DF = 0
+First 3 fragments: MF = 1; 4th MF = 0
+1st FO = 0; 2nd FO = 60; 3rd FO = 120; 4th FO = 180
+
+480 / 8 bytes
+960 / 8 bytes
+...
+
+2. John’s home network consists of his laptop, smart phone and smart speaker.
+(a) Is it likely that each of these devices will each have unique global IP
+address? Explain why or why not.
+
+
+
+(b) The network address of the home network is 192.168.1.0/24. Assign
+addresses to all interfaces in the home network.
+
+Just allocate internal IPs to each of the devices
+192.168.1.1
+
+(c) Describe a widely used solution (as described in the lectures) which
+allows several devices to share the same global IP address.
+
+NAT - Network address transmission
+
+(d) John is a keen computer science student who is writing his own web
+server. Describe the key difficulty he will face when testing his server
+which is related to the solution you described above, and describe a
+workaround for the problem.
+
+Once an external user initiated a connection to the web server -> 404
+Manually set a NAT rule;: mapping internal web server
+
+3. Explain the difference between an application layer proxy and a NAT box.
+
+APP proxy:
+  App -> proxy -> Destination
+  Mapping external IP address to numbers of internal IP addresses
+
+4. Why are acknowledgments used in 802.11 but not in wired Ethernet?
+
+Wireless scenario: more likely losing pkts
+wireless sender may not be capable listening and sending at same time.
+Interference may occur without sender's awareness
+
+5. If the duration of a packet is very much less than the propagation delay
+(round-trip time) from one side of a network to the other, does CSMA
+provide much performance benefit over Aloha? Why or why not?
+
+No.
+CSMA: listen before sending
+While RTT super large when compared to pkt sending/resending:
+Worse case: listening to the other end of network consuming a RTT
+
+6. Which is “better”, Aloha or CSMA? Why?
+
+ALOHA: simpler, but lower TP
+CSMA: better performance, but more complicated implementation
+
+Dependency on e.g. Hardware
+  Only poor performance provided: ALOHA may beat CSMA
+
+7. If CSMA was phased out of ethernet decades ago, why is it still used in
+WiFi?
+
+Wifi: based on broadcasting, manipulates over a shared medium
+Ethernet: point to point connection, no need to severely negotiate with other hosts.
+
+
+
+----------------------------------------------------------
+
+week 11
+
+
+
+
+
+
+
+
+------------------------------------------------------
+
+
+Revision
+
+
+
+-------------------------------------------------------
+
+Mid-semester test
+1. The Internet community (“TCP/IP model”) consider layers 5 and 6 to be “empty”; they do not add any processing, headers or messages. 
+Is it possible for the network layer of a communication system to be empty?
+
+(a) No, the network layer is the only layer of the stack that cannot be empty.
+(b) Yes, a single point-to-point link like a USB cable can be seen as a communication system with no network layer
+(c) Yes, the “network layer” refers to the actual network equipment (wires, routers), not a protocol
+(d) No, without a network layer, data cannot go from one place to another
+
+b ->　physical
+
+2. What layer is DNS?
+(a) Network; DNS concerns the naming of nodes, which is a network layer function
+(b) Transport; DNS uses the network to provides service to the application layer, and so is a transport layer protocol
+(c) Application; DNS is concerned with allowing the final application to use simple names
+(d) Link; DNS provides a link between domain names and IP addresses
+
+c -> ip to names but not link betw' names and IP addresses.
+
+3. Which of the following is NOT a role of sockets in network programming?
+(a) They are the interface between the transport layer and the application layer.
+(b) A pair of sockets provides a connection between two peers at the application layer
+(c) A socket can bypass the physical layer to allow an application to continue working when a cable gets cut.
+(d) A socket can listen for attempts to connect to a particular TCP port.
+
+c ->
+
+4. What is multiplexing/demultiplexing, and how does it relate to the transport layer?
+(a) Multiplexing/demultiplexing refers to sharing one resource between multiple uses; the transport demultiplexes a single network attachment (IP address) between multiple logical data flows
+(b) Multiplexing/demultiplexing refers to being able to do more than one thing at once; the transport layer can send and receive data at the same time, which is a form of multiplexing
+(c) Multiplexing/demultiplexing refers to requiring multiple numbers to identify something; a TCP connection is identified by (source address, source port, destination address, destination port)
+(d) Multiplexing/demultiplexing refers to indexing things by sequence numbers; TCP uses multiplexing/demultiplexing to know which packets to retransmit when loss occurs
+
+a ->
+
+5. In SMTP, how does the receiver know when the header is finished?
+(a) The header starts with a “Length” field saying how many bytes are in the header 
+(b) The header starts with a “Length” field saying how many lines are in the header 
+(c) The header ends with a “Bcc” field; after that is the message body
+(d) The line after the header is the first blank line after the start of the message.
+
+d ->
+
+6. If an authoritative DNS server becomes unavailable, what happens?
+(a) DNS will no longer work because no other DNS servers are authorized
+(b) The hosts for which that server is authoritative will become unreachable, and all connec- tions to them will be broken
+(c) Most things will keep working because the information in the authoritative server is prob- ably cached in other DNS servers, and an ongoing TCP connection does not need DNS
+(d) DNS will stop working for the hosts for which this server is authoritative, but existing connections will continue.
+
+c ->
+
+7, Why are protocol “stacks” made of layers?
+(a) Early designers wanted to break the coding tasks between teams, and the functionality assigned to each team is called a “layer”
+(b) Layering is the only way to implement a network stack, because each module can only interact with two other modules
+(c) Layering allows each protocol to hide some complexity from the higher layers to provide a simpler view of the network, but sometimes layers need to interact with layers they are not adjacent to
+(d) A “layer” is any protocol that lays headers in front of packets; these headers are needed to tell other network entities what to do with the packet
+
+c ->
+
+8, TCP is a “reliable” protocol. That means
+(a) It delivers to the receiver all of the packets that are sent by the sender
+(b) TCP is not vulnerable to network devices that maliciously alter the contents of the data stream
+(c) It doesn’t accidentally disconnect often; some implementations automatically reconnect if needed
+(d) If packets are lost by the lower layers, it will keep retransmitting them until either they get through or the connection is broken
+
+d ->
+
+9. The URL foo://123.45.6.7/abc/def.jpg
+(a) is not a valid URL
+(b) is a valid URL telling a browser to contact host 123.45.6.7 with protocol “foo”
+(c) says that there is a JPEG image file called def.jpg in folder abc at host 123.45.6.7 
+(d) tells the browser to contact host 123.45.5.6 and try to access file abc/def.jpg
+
+b -> 
+If there's an IT address and protocol, can ignore the rest
+
+10. HTTP can use persistent or non-persistent TCP connections.
+(a) A non-persistent connection is a different type of TCP connection that doesn’t persist in retransmitting lost packets; these are better for streaming applications
+(b) ApersistentTCPconnectionisatypeofTCPconnectionthatreconnectsiftheconnection is interrupted, such as by closing and reopening a laptop
+(c) Using persistent connections is always faster than non-persistent connections, because there is less overhead
+(d) Using non-persistent connections can be faster because they allow more parallelism than persistent connections
+
+d ->
+
+1. What are three advantages of UDP over TCP? (1 mark)
+(a) No need for set up
+(b) packets not held up if one is lost (c) No congestion control
+
+
+2. What are three advantages of TCP over UDP? (1 mark)
+(a) Congestion control
+(b) Reliability
+(c) Application doesn’t need to split messages into data chunks
+
+
+3. What are the differences between SMTP and HTTP? (2 marks)
+(i) SMTP is a push protocol, while HTTP is a pull protocol; 
+(ii) SMTP requires all the contents in message to be in 7-bit ASCII format, 
+while HTTP has no such a restriction; (iii) HTTP sends objects in a “one-in-one” manner, 
+namely, each object is sent via a message. However, 
+STMP sends objects in a “all-in-one” manner, i.e., sending all the objects in one message.
+
+
+4. TCP allows the use of “delayed ACKs”. That halves the number of ACK packets 
+sent by sending an ACK only every second packet (or after a short timeout). 
+What impact will delayed ACKs have on slow start? (2 marks)
+
+Slow start increases cwnd once per ACK, and so it would halve the rate of increase on cwnd size
+
+5. Suppose Host A sends three TCP segments back to back to Host B over a TCP connection. 
+The sequence numbers of these three segments are 13, 73 and 123, respectively. 
+Host B also sends three segments to Host A with sequence numbers of 20, 60 and 80, respectively.
+
+(a) How many bytes are there in the data field of the second segment sent by A? (1 mark)
+(b) Suppose that when A’s first segment arrives to B, and B then sends its first segment to A.
+What are the values of seq and ack in B’s first segment? (1 mark)
+(c) Suppose that A’s second segment is lost and A’s third segment arrives to B, and B then sends its second segment to A. What are the values of seq and ack in B’s second segment? (1 mark)
+(d) Upon the arrival of B’s second segment, Host A retransmits its second segment. What are the values of seq and ack in this retransmission? (1 mark)
+
+(a) 50; (b) seq = 20,ack = 73; (c)seq = 60,ack = 73; (asking A to send 73 again) (d) seq = 73,ack = 80. (as the second segment is stil lost, retransmit
+ack=80 because there's still B's 80 left to be transmitted)
+
+
+--------------------------------------------------------------------------------
+Revision
+
+Two types of FTP connections:
+
+Uses two parallel TCP connections to transfer a file.
+
+Control connection -> sending control info betw' the two hosts (client and server)
+-> user info, password, commands to change remote directory
+
+Data connection -> used to send files
+
+Principal components of protocols:
+1, the format of messages
+2, orders of the messages to be communicated
+3, actions taken on the tramsmission of a message
+
+3 things that reliable transfers guarantee:
+1, integrity (no data loss or change)
+2, order
+3, segment delivery (successful delivery)
+
+
+ack and seq:
+
 
 
 
