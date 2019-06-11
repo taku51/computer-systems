@@ -238,12 +238,24 @@ Since it is the same until the third set of 011. It is the most optimal address.
 So it has 19 bits and leave the rest zeros, and thus 57.6.96.0/19.
 
 A large number of consecutive IP addresses are available starting at 198.16.0.0.
-Suppose that four organizations, A, B, C, and D, request 4000, 2000, 4000,
-and 8000 addresses, respectively, and in that order, and that each is allocated the lowest available IP addresses. For each of these, give the first
-IP address assigned, the last IP address assigned, and the mask in the
-w.x.y.z/s notation.
-A: 198.16.0.0 - 198.16.15.255 written as 198.16.0.0/20
-B: 198.16.16.0 - 198.16.23.255 written as 198.16.16.0/21
-C: 198.16.32.0 - 198.16.47.255 written as 198.16.32.0/20
-D: 198.16.64.0 - 198.16.95.255 written as 198.16.64.0/19
+Four organizations, A, B, C, and D, request 4000, 2000, 4000,8000 addresses, 
+respectively, and in that order. Each is allocated the lowest available IP addresses. 
 
+The first IP address assigned, the last IP address assigned, and the mask in the
+w.x.y.z/s notation of these are:
+-> think how many bits it would need to request those numbers of addresses
+
+A: 4000 addresses require 12 bits (2^10 = 1024, 1024 * 2 * 2 = 2^12), so 
+198.16.0.0 – 198.16.15.255 written as 198.16.0.0/20 
+
+B: 2000 addresses require 11 bits, so
+198.16.16.0 – 198.16.23.255 written as
+198.16.16.0/21 
+
+C: 4000 addresses require 12 bits, so
+198.16.32.0 – 198.16.47.255 written as
+198.16.32.0/20
+
+D: 8000 addresses require 13 bits, so
+198.16.64.0 – 198.16.95.255 written as
+198.16.64.0/19
