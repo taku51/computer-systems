@@ -162,4 +162,88 @@ ii. Running the Diffie-Hellman Key Exchange protocol that provides better securi
 (f ) Handshake concludes and both parties share a key that is then used for encrypting/decrypting
 messages
 
+---------------------------------------------------------------
+
 week 9
+
+Routers have IP addresses
+
+-> One address for each router/interface typically. No two interfaces can have the same address, 
+but possible to have multiple addresses or no IP address if it's not connected to the internet.
+
+Two hosts have IP addresses 192.200.20.5 and 192.200.100.5.
+(a) If each is on a /24 network, are they on the same network?
+
+-> No. /24 = 24 bits. Read from the left. 3 decimals are used to represent 8.
+
+(b) If each is on a /20 network, are they on the same network?
+ 
+ -> No. /20 = 20 bits.
+
+(c) If each is on a /17 network, are they on the same network?
+
+-> Yes 17 bits reading from the left. Differ in 20 and 100 part.
+This case break them down into binary from decimal. 20 = 1010 (16 + 4), 100 = 110010  (64 + 32 + 4)
+so the first bit of those are the same, which means exactly 17 bits are the same.
+
+(d) if each is on a /14 network, are they on the same network?
+
+-> Yes reading decimals from the left, it's obviously true.
+
+
+Datagram networks route each packet as a separate unit, independent of
+all others, as the name says datagram (piece of data). 
+
+In virtual-circuit networks, each data packet follows a predetermined route (as circuits are usually defined)
+-> Virtual-circuit networks need the capability to route isolated
+packets from an arbitrary source to an arbitrary destination, in order to
+route connection setup packets from an arbitrary source to an arbitrary
+destination.
+
+A network on the Internet has a subnet mask of 255.255.240.0. 
+
+-> the maximum number of hosts it can handle is 4094.
+
+Use HOST ID to calculate this. NET ID for 20, leave 12 bits for HOST ID (IP address is 32 bits, 4sets of 3 decimals)
+NET ID is always 20. So 12 bits are available.
+
+-> The binary representation of the subnet mask consists of 20 ones followed
+by zeroes. Change the decimal to binary rep.
+11111111_11111111_11110000_00000000
+
+This means that the mask is 20 bits long, so the network part
+is 20 bits. (The total/ip address is 32 bit long) 
+The remaining 12 bits are for the host, so 2^12 = 4096 host addresses exist.
+*It's the maximum num it can allocate.
+
+A router received routes to the following new IP networks: 57.6.96.0/21,
+57.6.104.0/21, 57.6.112.0/21, and 57.6.120.0/21. All of them are routed
+on the same outgoing line. They can be aggregated.
+
+-> They can be aggregated to 57.6.96.0/19 (the network parts of the addresses
+that use the same outgoing line are the same up to 19 bits.)
+
+*A Subnet mask is a 32-bit number that masks an IP address, 
+and divides the IP address into network address and host address. Subnet musk has network and host address. 20 for network and 12 for the host.
+
+Prefix: substring 21 bit system. But one set of decimals/decimal always have 8 bits.
+
+
+57.6.96.0/21 00111001 00000110 01100000 00000000
+57.6.104.0/21 00111001 00000110 01101000 00000000
+57.6.112.0/21 00111001 00000110 01110000 00000000
+57.6.120.0/21 00111001 00000110 01111000 00000000
+
+Since it is the same until the third set of 011. It is the most optimal address.
+So it has 19 bits and leave the rest zeros, and thus 57.6.96.0/19.
+
+A large number of consecutive IP addresses are available starting at 198.16.0.0.
+Suppose that four organizations, A, B, C, and D, request 4000, 2000, 4000,
+and 8000 addresses, respectively, and in that order, and that each is allocated the lowest available IP addresses. For each of these, give the first
+IP address assigned, the last IP address assigned, and the mask in the
+w.x.y.z/s notation.
+A: 198.16.0.0 - 198.16.15.255 written as 198.16.0.0/20
+B: 198.16.16.0 - 198.16.23.255 written as 198.16.16.0/21
+C: 198.16.32.0 - 198.16.47.255 written as 198.16.32.0/20
+D: 198.16.64.0 - 198.16.95.255 written as 198.16.64.0/19
+
