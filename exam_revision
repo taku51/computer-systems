@@ -386,76 +386,121 @@ generated IP datagram(s) that are related to fragmentation?
 Flags (DF=Don’t Fragment and MF=More Fragments) and fragmentation offset. Need to set the flags.
 
 (d) What are the values of the fragmentation-related fields in the generated IP datagram(s)?
+Describe what it has and size.
+Each fragment will have an identical identification number. Each
+fragment except the last one will be of size 500 bytes (including the
+IP header). The last datagram will be of size 80 bytes (including the
+IP header, needs 60 bytes of data).
 
-DF = 0
-First 3 fragments: MF = 1; 4th MF = 0
-1st FO = 0; 2nd FO = 60; 3rd FO = 120; 4th FO = 180
+All fragments will have DF=0. Each of the first 3 fragments will have
+MF=1 (tells whether to send more); the last fragment will have MF=0.
 
-480 / 8 bytes
-960 / 8 bytes
-...
+The offsets of the 4 fragments will be 0, 60, 120, 180. Note: all
+fragments except the last one in a datagram must be a multiple of 8
+bytes (the elementary fragment unit) 60 comes from the last data to be sent. and it doubles each time it's sent.
 
 2. John’s home network consists of his laptop, smart phone and smart speaker.
-(a) Is it likely that each of these devices will each have unique global IP
-address? Explain why or why not.
+(a) It is not likely that each of these devices will each have unique global IP
+address.
 
-
+-> Assigned by single global IP address
+Manage devices in subnet (if they are close, will be in the same subnet) – internal routing (as they are in the same network)
 
 (b) The network address of the home network is 192.168.1.0/24. Assign
 addresses to all interfaces in the home network.
 
-Just allocate internal IPs to each of the devices
-192.168.1.1
+-> Just allocate internal IPs to each of the devices
+192.168.1.1 ~ 102.168.1.x
 
-(c) Describe a widely used solution (as described in the lectures) which
-allows several devices to share the same global IP address.
+It'll cover all devices within the same network(subnet).
 
-NAT - Network address transmission
+(c) A widely used solution (as described in the lectures) which
+allows several devices to share the same global IP address is:
+
+NAT - Network address translation (by tnraslating it is possible.)
 
 (d) John is a keen computer science student who is writing his own web
-server. Describe the key difficulty he will face when testing his server
-which is related to the solution you described above, and describe a
-workaround for the problem.
+server. The key difficulty he will face when testing his server is:
 
-Once an external user initiated a connection to the web server -> 404
-Manually set a NAT rule;: mapping internal web server
+Once an external user initiated a connection to the web server -> 404 (Web Server HTTP)
+Manually set a NAT (network address translation) rule; mapping internal web server
+to external address. -> Need to connect them between internal and external.
 
-3. Explain the difference between an application layer proxy and a NAT box.
+The difference between an application layer proxy and a NAT box are:
 
-APP proxy:
+ALP proxy:
   App -> proxy -> Destination
-  Mapping external IP address to numbers of internal IP addresses
+ 1 to 1 service: single proxy serves single Application.  (only 1 to 1 service)
+  
+Network Address Translation:
+IP pkt level manipulations
+Mapping external IP address to numbers of internal IP addresses
 
-4. Why are acknowledgments used in 802.11 but not in wired Ethernet?
+Acknowledgments used in 802.11 but not in wired Ethernet.
+
+-> An 802.11 network due to the high rate of errors in wireless networks due to signal loss,
+signal to noise ratio, fading, collisions, multi-path propagation and interference. 
+If there were no acknowledgements sent back to the sender the sender 
+would have no way of knowing that the receiver received the data intact and without error.
 
 Wireless scenario: more likely losing pkts
-wireless sender may not be capable listening and sending at same time.
+wireless sender may not be capable of listening and sending at the same time.
 Interference may occur without sender's awareness
 
-5. If the duration of a packet is very much less than the propagation delay
-(round-trip time) from one side of a network to the other, does CSMA
-provide much performance benefit over Aloha? Why or why not?
+5. The duration of a packet is less than the propagation delay
+(round-trip time) from one side of a network to the other, CSMA (Carrier Sense Multiple access, listen before talk
+if the router is not occupied by other devices, send packets)
+does not provide performance benefit over Aloha.
 
-No.
-CSMA: listen before sending
-While RTT super large when compared to pkt sending/resending:
-Worse case: listening to the other end of network consuming a RTT
+ALOHA
+  For end users: just send data no listening
+  if ACKed, then done
+  if collided: resend pkt after an arbitrary timeout
+  Until pkt sent - ACK received
+  
+  Problems: 
+  low throughput ^ avg 18% Network usage
+  timeout mechanism - may have to wait several TO before timeout.
 
-6. Which is “better”, Aloha or CSMA? Why?
+
+-> CSMA: listen before sending
+Problems:
+  More complicated implementation
+  collision still not been fully solved
+    -> 2 devices send pkts to router at the same time.
+    
+Minimise the cost when collided
+CSMA/CA - CSMA with collision Avoidance
+Contention window - Cwin, uniformly set at a random value initially
+Workflow
+  Idle channel -> counting down from Cwin
+  if Cwin == 0 -> send a pkt (reset)
+    if ACKed, done
+    If not, Cwin = Cwin * 2, repeat (if ack is not received, then make the contention window larger, let it process faster and receive more data.)
+
+-> The transmission passes through different locations at different times.
+Knowing that there is a transmission here at the moment tells us very little
+about whether or not there will be a transmission at our intended recipient
+when our signal reaches there.
+
+6. Aloha and Carrier sense multiple access differ in:
 
 ALOHA: simpler, but lower TP
 CSMA: better performance, but more complicated implementation
 
 Dependency on e.g. Hardware
   Only poor performance provided: ALOHA may beat CSMA
+  
+-> CSMA has better perfo.  but aloha is simpler, In general, what is “best” at 
+a given time and for a given application depends
+on the cost/performance trade-off. Over time, more and more complex
+systems become “best” as the cost of hardware decreases.
 
 7. If CSMA was phased out of ethernet decades ago, why is it still used in
 WiFi?
 
-Wifi: based on broadcasting, manipulates over a shared medium
-Ethernet: point to point connection, no need to severely negotiate with other hosts.
-
-
+Wifi: based on broadcasting, manipulates over a shared medium (many people share) -> so no wireless equivalent to switched ethernet.
+Ethernet: point to point connection (cables), no need to severely negotiate with other hosts. as it's point to point connection.
 
 ----------------------------------------------------------
 
@@ -628,13 +673,18 @@ ack and seq:
 
 
 1. Which of the OSI layers handles each of the following:
-a) Dividing the transmitted bit stream into frames -> Data Link Layer
-b) Determining which route through the subnet to use -> Network Layer
+a) Dividing the transmitted bit stream into frames (chunking) -> Data Link Layer (it is after network layer, chunking data)
+b) Determining which route through the subnet to use (whenever sees routing it's network layer) -> Network Layer
+Psysical is internet cables and stuff.
 
 2. True or false? Consider congestion control in TCP. When the timer expires
-at the sender, the value of ssthresh is set to one half of its previous value.
+at the sender, the value of ssthresh (threshold) is set to one half of its previous value.
 
-False, it is set to half of the current value of the congestion window.
+False not it's half of the previous value but half of the current value of the congestion window.
+When Timer expires (not receiving the ack he/she wants for a long time), 
+the ssthresh becomes half of the congestion window because congestion window tells the amount of data to be sent.
+And if timer expires, it'll ask the sender to send his data again, so the speed of data to be sent needs to be slowed down.
+That's why it becomes half of the cwnd size.
 
 
 3. Consider the effect of using slow start on a line with a 10-msec round-trip
