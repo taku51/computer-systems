@@ -506,21 +506,128 @@ Ethernet: point to point connection (cables), no need to severely negotiate with
 
 week 11
 
+Modern ethernet is still “ethernet” from the software point of view, except faster. 
+
+-> It has the same frame format and broadcast address. It still doesn’t require the hosts to consider routing. It is
+still connectionless.
+
+-> It no longer uses a shared medium (“ether”). This has the following consequences. It no
+longer uses CSMA/CD. It is no longer half duplex. It no longer has a limit on segment
+lengths (free lengths and no duplex and no CSMA and NO share medium in the modern system).
+
+Another, less fundamental, change is that many implementations allow ”jumbo frames” of
+around 8000 bytes. So faster.
+
+Rank the following in order of speed, from slowest to fastest.
+(a) A single segment of 100 Mbps CSMA/CD ethernet (“Fast ethernet”)
+(b) Switched 100 Mbps ethernet
+(c) The same number of hosts as above on three “Fast ethernet” segments, connected by
+bridges (Bridged CSMA/CD)
+(d) Switched 10 Mbps ethernet
+
+CSMA/CD is slower than bridged CSMA/CD, which is slower than switched ethernet for a
+given bit rate. 
+
+Switched ethernet -> bridged -> CSMA/CD
+
+It is hard to quantify how much, depends on the load.
+Usually switched 10 Mbps ethernet is slower than 100 Mbps CSMA/CD if there are fewer than
+10 stations. If the load is near 100 Mbps then Fast ethernet will suffer congestion
+collapse and have nearly zero throughput while 10 Mbps switched ethernet will continue to
+give up to 10 Mbps to each station. Give up to 10 Mbps each station for stitwch ethernet.
 
 
+Until about a decade ago, CPU manufacturers used to advertise the clock speed 
+prominently, but they no longer do.
+
+-> Each step of the pipeline takes one clock cycle. If the clock frequency is doubled then the
+length of a clock cycle is halved (as processes faster), and 
+so performance seems to be directly proportional to the clock speed
+
+However, the amount of work done in each clock cycle (how much each cycle can process) 
+is different for different CPUs. 
+Instructions can take more or fewer cycles. More or fewer instructions can be issued per cycle.
+Pipelines can stall more or less. Branches can be correctly predicted more or less often
+
+A CPU takes 0.6 ns to or write read up to 16 bytes from RAM and 0.7 ns
+to interpret an op-code and work out how to execute it. Most instructions take less than
+0.5 ns to execute (excluding fetch, decode and writeback), but one takes 1.3 ns to complete.
+
+(a) The fastest clock speed (in MHz or GHz) that the CPU can operate at is:
+
+-> 0.77 × 109 Hz, or 0.77 GHz or 770 MHz.
+
+-> The maximum time for each of the fetch/decode/execute/writeback stages (one of them) is τ = 1.3 ns(nano seconds),
+which is 1.3 × 10^-9 seconds. If the pipeline moves by one stage per clock cycle (which
+is usual, but not necessary), then the clock period must be at least this value. The clock
+frequency is the reciprocal of the period (simply divide 1). That is f = 1/τ = 0.77 × 109 Hz, or 0.77 GHz
+or 770 MHz.
+
+(b) The slow instruction can be removed from the instruction set. The fastest clock
+speed the CPU can operate at is:
+
+-> Without the slow instruction (without 1.3), the maximum time is 0.7 ns. This gives f = 1/(0.7 ×
+10^−9) = 1.4 × 109 Hz, or 1.4 GHz. (divide 1 by the time)
+
+(c) The slow instruction is vital. Other approaches could be taken to allow the CPU
+to operate at the faster clock speed are:
+
+-> One approach would be to stall (extend time) the remainder of the pipeline while the long instruction
+executes (cannot process at once so 
+reducing the time moving from one pipeline to another), 
+allowing it to take two clock cycles. A similar approach would be to cause the
+CPU to throw out the other instructions later in the pipeline to allow the instruction to
+complete, and then start the pipeline again afterwards. This is slower, but may result
+in simpler hardware.
+
+Identify the micro-ops you think would be required for each instruction in the int i=1;
+example
+pushq %rbp (a) Decrement rsp by 8. (b) save rbp to location pointed to by rsp
+movq %rsp, %rbp Single µop
+movl $1, -4(%rbp) (a) Compute rbp-4, and store it in a micro-architectural register (call
+it R1). (b) Read 4 bytes from location pointed to by R1 into micro-architectural register
+R2. (c) Increment R2 by 1. (d) Store R2 into location pointed to by R1.
+movl $0, %eax Single µop
+popq %rbp (a) Load rbp from location pointed to by rsp. (b) Increment rsp by 8
+ret This is essentially another pop operation. (a) Load PC from location pointed to by rsp.
+(b) Increment rsp by 8.
+
+An ALU (arithmetic logic unit) takes two operands and produces an arithmetic or logical
+output, such as their sum. Other arithmetic or logical operations it could perform are:
+
+subtract add-with-carry subtract-with-carry
+multiply negate increment
+bitwise AND bitwise OR bitwise XOR
+bitwise NOT shift-left-one-bit shift-right-one-bit
+
+-> Add-with-carry adds two numbers and then adds the ”carry” bit (as the least-significant
+bit) from the flags register. It is mainly used for computing quantities too big to fit into one
+register as it's carrying, but also allows ones-complement addition which you have used for calculating
+UDP checksums. Subtract-with-carry subtracts one number from another, and then subtracts the carry bit.
+
+-> Note that multiply is listed but divide is not. Division is more complex, and is often relegated
+to the floating point unit.
+Shift-left is equivalent to multiplication by two, unless the most significant bit was 1. Some
+instructions shift the most significant bit into the carry flag.
+
+Shift-right is equivalent to division by two. There are often two forms: one assuming the
+number is signed and one assuming the number is unsigned.
 
 
+The number of stages in a pipeline is called its depth. 
+The advantages and disadvantages of a deep pipeline are:
 
+-> In a deep pipeline, each stage only needs to do a tiny task. That often allows the clock period
+to be very small (clock frequency to be high, lots of tiny tasks so it lowers the maximum time,
+which means the clock frequency goes up).
+
+-> However, the longer a pipeline is, the more likely it is to be interrupted. For example, it has
+to stall when there is a data dependency (wait when referencing data), 
+or flushed when there is a branch misprediction.
 
 
 ------------------------------------------------------
 
-
-Revision
-
-
-
--------------------------------------------------------
 
 Mid-semester test
 1. The Internet community (“TCP/IP model”) consider layers 5 and 6 to be “empty”; they do not add any processing, headers or messages. 
