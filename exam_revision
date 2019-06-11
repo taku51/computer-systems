@@ -246,16 +246,23 @@ w.x.y.z/s notation of these are:
 -> think how many bits it would need to request those numbers of addresses
 
 A: 4000 addresses require 12 bits (2^10 = 1024, 1024 * 2 * 2 = 2^12), so 
-198.16.0.0 – 198.16.15.255 written as 198.16.0.0/20 
+198.16.0.0 – 198.16.15.255 (11000110.00010000.00001111.11111111, 12 bits extra 00001111 is 15
+, 11111111 becomes 255) written as 198.16.0.0/20 (need 32 - 12 as it's the free part. so it becomes 198.16.0.0/20)
+
+*reading binary (1010)2 can also be written as follows: (1 * 2^3) + (0 * 2^2) + (1 * 2^1) + (0 * 2^0)
 
 B: 2000 addresses require 11 bits, so
-198.16.16.0 – 198.16.23.255 written as
-198.16.16.0/21 
+198.16.16.0 – 198.16.23.255 written as (1024 * 2 = 2048, 11000110.00010000.00000111.11111111)
+198.16.16.0/21 (-11 bits)
 
-C: 4000 addresses require 12 bits, so
+C: 4000 addresses require 12 bits, so (16, 32, 64 are because of the previous ranges already assigned for A and B
+it goes up 16 decimal each time)
 198.16.32.0 – 198.16.47.255 written as
 198.16.32.0/20
 
 D: 8000 addresses require 13 bits, so
 198.16.64.0 – 198.16.95.255 written as
 198.16.64.0/19
+
+
+
